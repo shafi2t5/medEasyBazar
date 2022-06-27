@@ -29,7 +29,7 @@ const breakpoints = {
 };
 
 const CategoryGridListBlock: React.FC<CategoriesProps> = ({
-  className = 'mb-12 lg:mb-14 xl:mb-16 2xl:mb-20',
+  className = 'mb-7 lg:mb-8 xl:mb-9 2xl:mb-10',
 }) => {
   const { width } = useWindowSize();
   const { data, isLoading, error } = useCategoriesQuery({
@@ -42,7 +42,7 @@ const CategoryGridListBlock: React.FC<CategoriesProps> = ({
         <SectionHeader
           sectionHeading="text-choose-categories"
           sectionSubHeading="text-favorite-different-categories"
-          headingPosition="center"
+          headingPosition="left"
         />
 
         <div className="-mt-1.5 md:-mt-2">
@@ -81,7 +81,7 @@ const CategoryGridListBlock: React.FC<CategoriesProps> = ({
                             pathname: ROUTES.SEARCH,
                             query: { category: category.slug },
                           }}
-                          className="rounded-md text-brand-light shadow-category"
+                          className="rounded-md text-brand-light"
                         />
                       </SwiperSlide>
                     ))}
@@ -113,7 +113,7 @@ const CategoryGridListBlock: React.FC<CategoriesProps> = ({
                           pathname: ROUTES.SEARCH,
                           query: { category: category.slug },
                         }}
-                        className="rounded-md text-brand-light shadow-category"
+                        className="rounded-md text-brand-light"
                       />
                     </div>
                   ))}

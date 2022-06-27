@@ -25,22 +25,22 @@ interface ProductsCarouselProps {
 
 const breakpoints = {
   '1921': {
-    slidesPerView: 7,
+    slidesPerView: 5,
   },
   '1780': {
-    slidesPerView: 8,
+    slidesPerView: 5,
   },
   '1536': {
-    slidesPerView: 7,
+    slidesPerView: 5,
   },
   '1280': {
-    slidesPerView: 6,
-  },
-  '1024': {
     slidesPerView: 4,
   },
-  '640': {
+  '1024': {
     slidesPerView: 3,
+  },
+  '640': {
+    slidesPerView: 2,
   },
   '360': {
     slidesPerView: 2,
@@ -67,7 +67,7 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
   return (
     <div
       className={cn(
-        'max-w-[1920px] overflow-hidden 4xl:overflow-visible px-4 md:px-6 lg:px-8 2xl:ltr:pl-10 2xl:rtl:pr-10 2xl:ltr:pr-0 2xl:rtl:pl-0 4xl:ltr:pr-10 4xl:rtl:pl-10 mx-auto relative',
+        'max-w-[1920px] overflow-hidden 4xl:overflow-visible relative',
         className
       )}
     >
@@ -106,7 +106,7 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
                 {products?.map((product: any, idx) => (
                   <SwiperSlide
                     key={`${uniqueKey}-${idx}`}
-                    className="px-1.5 md:px-2 xl:px-2.5 py-4"
+                    className="px-1.5 md:px-2 xl:px-2.5"
                   >
                     <ProductCard product={product} />
                   </SwiperSlide>

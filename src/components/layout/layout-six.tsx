@@ -10,6 +10,7 @@ import { ROUTES } from '@utils/routes';
 import { LIMITS } from '@framework/utils/limits';
 import { useCategoriesQuery } from '@framework/category/get-all-categories';
 import CategoryListCard from '@components/cards/category-list-card';
+import Container from '@components/ui/container';
 
 const Layout: React.FC = ({ children }) => {
   const { t } = useTranslation('common');
@@ -57,25 +58,27 @@ const Layout: React.FC = ({ children }) => {
           WebkitOverflowScrolling: 'touch',
         }}
       >
-        <div className={`xl:flex md:pb-2.5 md:pt-4 container mx-auto`}>
-          <div className="hidden xl:block shrink-0 ltr:pr-8 rtl:pl-8 xl:w-[320px] 2xl:w-[370px] pt-px">
-            <div className="bg-brand-sidebarColor flex flex-col justify-between border rounded-md border-border-base">
-              {data?.categories?.data?.slice(0, 10)?.map((category) => (
-                <CategoryListCard
-                  key={`category--key-${category.id}`}
-                  category={category}
-                  href={{
-                    pathname: ROUTES.SEARCH,
-                    query: { category: category.slug },
-                  }}
-                  className="transition"
-                  variant="small"
-                />
-              ))}
+        <Container className="w-full h-full">
+          <div className={`xl:flex md:pb-2.5 md:pt-4`}>
+            <div className="hidden xl:block shrink-0 ltr:pr-8 rtl:pl-8 xl:w-[320px] 2xl:w-[370px] pt-px">
+              <div className="bg-brand-sidebarColor flex flex-col justify-between border rounded-md border-border-base">
+                {data?.categories?.data?.slice(0, 10)?.map((category) => (
+                  <CategoryListCard
+                    key={`category--key-${category.id}`}
+                    category={category}
+                    href={{
+                      pathname: ROUTES.SEARCH,
+                      query: { category: category.slug },
+                    }}
+                    className="transition"
+                    variant="small"
+                  />
+                ))}
+              </div>
             </div>
+            <div className="w-full trendy-main-content">{children}</div>
           </div>
-          <div className="w-full trendy-main-content">{children}</div>
-        </div>
+        </Container>
       </main>
       <Footer />
       <MobileNavigation />

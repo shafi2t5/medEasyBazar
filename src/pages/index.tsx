@@ -21,6 +21,8 @@ import { fetchCategories } from '@framework/category/get-all-categories';
 import { fetchBestSellerGroceryProducts } from '@framework/product/get-all-best-seller-grocery-products';
 import { fetchPopularProducts } from '@framework/product/get-all-popular-products';
 import { LIMITS } from '@framework/utils/limits';
+import CategoryGridListBlock from '@components/common/category-grid-list-block';
+import BestSellerProductFeed from '@components/product/feeds/best-seller-product-feed';
 
 export default function Home() {
   return (
@@ -31,24 +33,15 @@ export default function Home() {
         path="/"
       />
       <div className="col-span-full">
-        <BannerCard banner={banner} className="py-5" />
-      </div>
-      <BundleGrid className="mb-12 lg:mb-14 xl:mb-16 2xl:mb-20" data={bundle} />
-      {/* <Container>
-        <CategoryGridBlock />
-        <BestSellerGroceryProductFeed />
         <BannerCard
           banner={banner}
-          className="mb-12 lg:mb-14 xl:pb-3"
-          effectActive={false}
+          className="mb-7 lg:mb-8 xl:mb-9 2xl:mb-10"
         />
-        <PopularProductFeed />
-      </Container>
-      <CollectionGrid
-        headingPosition="center"
-        className="pb-1 mb-12 xl:pt-2 2xl:pt-4 3xl:pt-6 lg:pb-0 lg:mb-14 xl:mb-16 2xl:mb-20"
-      /> */}
-      <DownloadApps />
+      </div>
+      <BundleGrid className="mb-7 lg:mb-8 xl:mb-9 2xl:mb-10" data={bundle} />
+      <CategoryGridListBlock />
+      <BestSellerProductFeed />
+      {/* <DownloadApps /> */}
     </>
   );
 }

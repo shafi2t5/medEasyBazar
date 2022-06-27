@@ -29,7 +29,7 @@ const Counter: React.FC<CounterProps> = ({
   return (
     <div
       className={cn(
-        'flex items-center justify-between rounded overflow-hidden shrink-0',
+        'absolute inset-y-0 right-0 w-40 flex items-center justify-between rounded overflow-hidden shrink-0',
         {
           'h-9 md:h-10 bg-brand-light shadow-counter rounded-3xl':
             variant === 'default',

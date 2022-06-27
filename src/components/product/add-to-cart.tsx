@@ -33,7 +33,7 @@ const AddToCart = ({ data, variation, disabled }: Props) => {
   const iconSize = width! > 480 ? '19' : '17';
   return !isInCart(item?.id) ? (
     <button
-      className="flex items-center justify-center w-8 h-8 text-4xl rounded-full bg-brand lg:w-10 lg:h-10 text-brand-light focus:outline-none"
+      className="flex items-center justify-center w-8 h-8 text-4xl rounded-lg bg-brand-navColor lg:w-10 lg:h-10 text-brand-light focus:outline-none"
       aria-label="Count Button"
       onClick={handleAddClick}
       disabled={disabled || outOfStock}

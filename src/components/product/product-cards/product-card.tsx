@@ -31,7 +31,7 @@ function RenderPopupOrAddToCart({ data }: { data: Product }) {
   }
   if (Number(quantity) < 1 || outOfStock) {
     return (
-      <span className="text-[11px] md:text-xs font-bold text-brand-light uppercase inline-block bg-brand-danger rounded-full px-2.5 pt-1 pb-[3px] mx-0.5 sm:mx-1">
+      <span className="text-[11px] md:text-xs font-bold text-brand-light uppercase inline-block bg-brand-danger rounded-lg px-2.5 pt-1 pb-[3px] mx-0.5 sm:mx-1">
         {t('text-out-stock')}
       </span>
     );
@@ -39,7 +39,7 @@ function RenderPopupOrAddToCart({ data }: { data: Product }) {
   if (product_type === 'variable') {
     return (
       <button
-        className="inline-flex items-center justify-center w-8 h-8 text-4xl rounded-full bg-brand lg:w-10 lg:h-10 text-brand-light focus:outline-none focus-visible:outline-none"
+        className="inline-flex items-center justify-center w-8 h-8 text-4xl rounded-lg bg-brand-navColor lg:w-10 lg:h-10 text-brand-light focus:outline-none focus-visible:outline-none"
         aria-label="Count Button"
         onClick={handlePopupView}
       >
@@ -73,50 +73,57 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
   return (
     <article
       className={cn(
-        'flex flex-col group overflow-hidden rounded-md cursor-pointer transition-all duration-300 shadow-card hover:shadow-cardHover relative h-full',
+        'bg-brand-sidebarColor flex flex-col group rounded-md cursor-pointer transition-all duration-300 shadow-card hover:shadow-cardHover relative h-full',
         className
       )}
       onClick={handlePopupView}
       title={name}
     >
       <div className="relative shrink-0">
-        <div className="flex overflow-hidden max-w-[230px] mx-auto transition duration-200 ease-in-out transform group-hover:scale-105 relative">
+        <div className="flex max-w-[260px] mx-auto transition duration-200 ease-in-out transform group-hover:scale-105 relative">
           <Image
             src={image?.thumbnail ?? productPlaceholder}
             alt={name || 'Product Image'}
-            width={230}
+            width={260}
             height={200}
             quality={100}
             className="object-cover bg-fill-thumbnail"
           />
         </div>
-        <div className="w-full h-full absolute top-0 pt-2.5 md:pt-3.5 px-3 md:px-4 lg:px-[18px] z-10 -mx-0.5 sm:-mx-1">
+        <div className="w-full h-full pt-2.5 md:pt-3.5 px-3 md:px-4 lg:px-[18px] z-10 -mx-0.5 sm:-mx-1">
           {discount && (
-            <span className="text-[11px] md:text-xs font-bold text-brand-light uppercase inline-block bg-brand rounded-full px-2.5 pt-1 pb-[3px] mx-0.5 sm:mx-1">
-              {t('text-on-sale')}
+            <span className="absolute top-2 -left-2 text-[11px] md:text-xs font-bold text-brand-light inline-block bg-brand-percent rounded-md px-2.5 pt-1 pb-[3px]">
+              {'10% Off'}
             </span>
           )}
-          <div className="block product-count-button-position">
-            <RenderPopupOrAddToCart data={product} />
-          </div>
         </div>
       </div>
 
-      <div className="flex flex-col px-3 md:px-4 lg:px-[18px] pb-5 lg:pb-6 lg:pt-1.5 h-full">
-        <div className="mb-1 lg:mb-1.5 -mx-1">
-          <span className="inline-block mx-1 text-sm font-semibold sm:text-15px lg:text-base text-brand-dark">
-            {product_type === 'variable' ? `${minPrice} - ${maxPrice}` : price}
-          </span>
-          {basePrice && (
-            <del className="mx-1 text-sm text-brand-dark text-opacity-70">
-              {basePrice}
-            </del>
-          )}
-        </div>
-        <h2 className="text-brand-dark text-13px sm:text-sm lg:text-15px leading-5 sm:leading-6 mb-1.5">
+      <div className="px-3 md:px-4 lg:px-[18px] pb-4 lg:pt-2 h-full">
+        <h2 className="text-brand-dark text-13px sm:text-18px lg:text-18px mb-1.5 font-bold">
           {name}
         </h2>
-        <div className="mt-auto text-13px sm:text-sm">{unit}</div>
+        <div className="leading-5 sm:leading-6 mb-2">
+          <h3 className="text-brand-genericName text-13px sm:text-sm lg:text-15px">
+            {'generic_name'}
+          </h3>
+          <h3 className="text-brand-dark text-13px sm:text-sm lg:text-15px">
+            {'manufacturer_name'}
+          </h3>
+        </div>
+        <div className="flex justify-between relative">
+          <div className="mb-1.5">
+            <div className="block text-13px sm:text-20px lg:text-20px font-bold text-brand-dark">
+              {'$100'}
+            </div>
+            {basePrice && (
+              <del className="text-sm text-brand-dark text-opacity-70">
+                {basePrice}
+              </del>
+            )}
+          </div>
+          <RenderPopupOrAddToCart data={product} />
+        </div>
       </div>
     </article>
   );

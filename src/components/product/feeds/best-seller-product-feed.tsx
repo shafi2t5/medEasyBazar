@@ -9,7 +9,7 @@ export default function BestSellerProductFeed() {
   });
   return (
     <ProductsCarousel
-      sectionHeading="text-best-sellers"
+      sectionHeading="Covid 19 Essentials"
       categorySlug={ROUTES.PRODUCTS}
       products={data}
       loading={isLoading}

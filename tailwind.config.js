@@ -18,6 +18,8 @@ module.exports = {
           info: '#f582a5',
           search: 'rgb(10,227,166)',
           sidebarColor: '#f9f9f9',
+          genericName: '#aacca1',
+          percent: '#ff4d4e',
         },
         yellow: {
           DEFAULT: '#f98f14',
@@ -47,6 +49,10 @@ module.exports = {
         '10px': '.625rem',
         '13px': '13px',
         '15px': '15px',
+        '16px': '16px',
+        '18px': '18px',
+        '20px': '20px',
+        '24px': '24px',
       },
       screens: {
         '3xl': '1780px',
