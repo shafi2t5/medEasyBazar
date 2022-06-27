@@ -14,6 +14,9 @@ module.exports = {
           tree: '#6fb48e',
           'tree-dark': '#0B4635',
           danger: '#dc2626',
+          navColor: '#25a8d6',
+          info: '#f582a5',
+          search: 'rgb(10,227,166)',
         },
         yellow: {
           DEFAULT: '#f98f14',

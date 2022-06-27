@@ -1,4 +1,4 @@
-import Layout from '@components/layout/layout-two';
+import Layout from '@components/layout/layout-six';
 import Container from '@components/ui/container';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import DownloadApps from '@components/common/download-apps';

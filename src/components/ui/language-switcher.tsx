@@ -26,17 +26,17 @@ export default function LanguageSwitcher() {
   return (
     <Listbox value={selectedItem} onChange={handleItemClick}>
       {({ open }) => (
-        <div className="relative z-10 lg:top-[1px]">
+        <div className="relative z-10 mr-6">
           <Listbox.Button className="relative w-full py-2 rounded-lg cursor-pointer text-brand-dark ltr:pl-3 rtl:pr-3 ltr:pr-5 rtl:pl-5 ltr:text-left rtl:text-right focus:outline-none">
-            <span className="flex items-center text-sm truncate lg:text-15px">
+            {/* <span className="flex items-center text-sm truncate lg:text-15px">
               <span className="w-5 h-5 overflow-hidden rounded-full ltr:mr-2 rtl:ml-2 shrink-0">
                 {selectedItem.icon}
               </span>
               <span className="leading-5 pb-0.5">{t(selectedItem.name)}</span>
-            </span>
+            </span> */}
             <span className="absolute inset-y-0 flex items-center pointer-events-none ltr:right-0 rtl:left-0">
               <FaChevronDown
-                className="w-3 h-3.5 text-brand-dark opacity-40"
+                className="w-3 h-3.5 text-brand-light opacity-100"
                 aria-hidden="true"
               />
             </span>

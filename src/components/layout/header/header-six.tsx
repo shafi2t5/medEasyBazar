@@ -41,7 +41,7 @@ const Header: React.FC = () => {
         displayMobileSearch && 'active-mobile-search'
       )}
     >
-      <div className="z-20 w-full h-16 transition duration-200 ease-in-out border-b bg-brand-light innerSticky body-font text-brand-muted lg:h-20 border-border-base">
+      <div className="z-20 w-full h-16 transition duration-200 ease-in-out border-b bg-brand-navColor innerSticky body-font text-brand-muted lg:h-20 border-border-base">
         <Search className="top-bar-search lg:max-w-[600px] absolute z-30 px-4 md:px-6 top-1" />
         {/* End of Mobile search */}
         <Container className="flex items-center justify-between w-full h-full lg:justify-center">
@@ -65,9 +65,17 @@ const Header: React.FC = () => {
               <div className="xl:mx-3.5 mx-2.5">
                 <LanguageSwitcher />
               </div>
-              <CartButton className="hidden lg:flex xl:mx-3.5 mx-2.5" />
+              <CartButton
+                className="hidden lg:flex xl:mx-3.5 mx-2.5"
+                hideLabel={true}
+              />
+              <div className="flex items-center">
+                <div className="h-6 w-0.5 mx-4 bg-brand-light"></div>
+              </div>
               <div className="items-center hidden lg:flex shrink-0 xl:mx-3.5 mx-2.5">
-                <UserIcon className="text-brand-dark text-opacity-40" />
+                <div className="bg-brand-light rounded-xl flex items-center p-2">
+                  <UserIcon className="text-brand-navColor text-opacity-100" />
+                </div>
                 <AuthMenu
                   isAuthorized={isAuthorized}
                   href={ROUTES.ACCOUNT}
