@@ -9,7 +9,7 @@ import BestSellerGroceryProductFeed from '@components/product/feeds/best-seller-
 import PopularProductFeed from '@components/product/feeds/popular-product-feed';
 import CategoryGridBlock from '@components/common/category-grid-block';
 import { homeSixHeroBanner as heroBanner } from '@framework/static/banner';
-import { homeSixBanner as banner } from '@framework/static/banner';
+import { homeTwoBanner as banner } from '@framework/static/banner';
 import BannerCard from '@components/cards/banner-card';
 import { bundleDataTwo as bundle } from '@framework/static/bundle';
 import { GetStaticProps } from 'next';
@@ -30,15 +30,11 @@ export default function Home() {
         description="Fastest E-commerce template built with React, NextJS, TypeScript, React-Query and Tailwind CSS."
         path="/"
       />
-      <HeroBannerCard
-        banner={heroBanner}
-        className="hero-banner-six min-h-[400px] md:min-h-[460px] lg:min-h-[500px] xl:min-h-[650px] py-20 py:pt-24 mb-5 2xl:bg-center"
-      />
-      <Container>
-        <BundleGrid
-          className="mb-12 lg:mb-14 xl:mb-16 2xl:mb-20"
-          data={bundle}
-        />
+      <div className="col-span-full">
+        <BannerCard banner={banner} className="py-5" />
+      </div>
+      <BundleGrid className="mb-12 lg:mb-14 xl:mb-16 2xl:mb-20" data={bundle} />
+      {/* <Container>
         <CategoryGridBlock />
         <BestSellerGroceryProductFeed />
         <BannerCard
@@ -51,7 +47,7 @@ export default function Home() {
       <CollectionGrid
         headingPosition="center"
         className="pb-1 mb-12 xl:pt-2 2xl:pt-4 3xl:pt-6 lg:pb-0 lg:mb-14 xl:mb-16 2xl:mb-20"
-      />
+      /> */}
       <DownloadApps />
     </>
   );

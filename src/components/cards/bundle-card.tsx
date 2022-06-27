@@ -21,10 +21,10 @@ interface Props {
 
 const BundleCard: React.FC<Props> = ({
   bundle,
-  imgWidth = 180,
-  imgHeight = 150,
+  imgWidth = 60,
+  imgHeight = 60,
   className = '',
-  thumbnailClassName = 'w-36 lg:w-32 xl:w-40 2xl:w-36 3xl:w-[180px] ltr:pr-1.5 rtl:pl-1.5 2xl:ltr:pr-2.5 2xl:rtl:pl-2.5',
+  thumbnailClassName = 'ltr:pr-7 rtl:pl-5 2xl:ltr:pr-7 2xl:rtl:pl-5',
   href,
 }) => {
   const { image, title, description, bgColor } = bundle;
@@ -32,10 +32,10 @@ const BundleCard: React.FC<Props> = ({
   return (
     <Link href={href} className={cn('group flex', className)}>
       <div
-        className="relative flex items-center w-full overflow-hidden"
+        className="rounded-[20px] relative flex items-center justify-center w-full overflow-hidden p-6"
         style={{ backgroundColor: bgColor }}
       >
-        <div className={cn('flex shrink-0', thumbnailClassName)}>
+        <div className={cn('', thumbnailClassName)}>
           <Image
             src={image ?? '/assets/placeholder/collection.svg'}
             alt={t(title) || t('text-card-thumbnail')}
@@ -45,12 +45,15 @@ const BundleCard: React.FC<Props> = ({
           />
         </div>
         <div className="py-3 lg:py-5 ltr:pr-4 rtl:pl-4 lg:ltr:pr-3 lg:rtl:pl-3 xl:ltr:pr-4 xl:rtl:pl-4">
-          <Heading variant="title" className="mb-[5px]">
+          <Heading variant="heading" className="mb-[5px] text-brand-light">
             {t(title)}
           </Heading>
-          <p className="text-sm leading-6 lg:text-13px xl:text-sm">
+          <button
+            type="button"
+            className="mt-1 text-sm py-1 px-2 font-semibold rounded-lg bg-brand-light text-brand-navColor ltr:ml-1 rtl:mr-1 sm:text-base hover:no-underline focus:outline-none"
+          >
             {t(`${description}`)}
-          </p>
+          </button>
         </div>
       </div>
     </Link>

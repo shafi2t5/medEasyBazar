@@ -10,8 +10,8 @@ export const homeTwoBanner = {
     },
     desktop: {
       url: '/assets/images/banner/banner-6.png',
-      width: 1460,
-      height: 400,
+      width: 1840,
+      height: 450,
     },
   },
 };

@@ -17,6 +17,7 @@ module.exports = {
           navColor: '#25a8d6',
           info: '#f582a5',
           search: 'rgb(10,227,166)',
+          sidebarColor: '#f9f9f9',
         },
         yellow: {
           DEFAULT: '#f98f14',

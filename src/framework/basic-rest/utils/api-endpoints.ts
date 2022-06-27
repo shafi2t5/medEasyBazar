@@ -3,7 +3,7 @@ export const API_ENDPOINTS = {
   REGISTER: '/register',
   LOGOUT: '/logout',
   FORGET_PASSWORD: '/forget-password',
-  CATEGORIES: '/categories.json',
+  CATEGORIES: 'api/categories.json',
   DIETARY: '/dietary.json',
   BRANDS: '/brands.json',
   PRODUCTS: '/products.json',
