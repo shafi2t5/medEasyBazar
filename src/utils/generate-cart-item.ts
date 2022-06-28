@@ -44,4 +44,5 @@ export function generateCartItem(item: Item, variation: Variation) {
     stock: quantity,
     price: sale_price ? sale_price : price,
   };
+  // return {};
 }

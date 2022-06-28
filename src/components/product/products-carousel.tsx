@@ -66,10 +66,7 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
   const dir = getDirection(locale);
   return (
     <div
-      className={cn(
-        'max-w-[1920px] overflow-hidden 4xl:overflow-visible relative',
-        className
-      )}
+      className={cn('max-w-[1920px] 4xl:overflow-visible relative', className)}
     >
       <div className="flex flex-wrap items-center justify-between mb-5 md:mb-6">
         <SectionHeader sectionHeading={sectionHeading} className="mb-0" />

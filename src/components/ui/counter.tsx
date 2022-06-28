@@ -29,11 +29,11 @@ const Counter: React.FC<CounterProps> = ({
   return (
     <div
       className={cn(
-        'absolute inset-y-0 right-0 w-40 flex items-center justify-between rounded overflow-hidden shrink-0',
+        'flex items-center justify-between rounded overflow-hidden',
         {
-          'h-9 md:h-10 bg-brand-light shadow-counter rounded-3xl':
+          'h-9 md:h-10 bg-[#f3f5f9] shadow-counter rounded-3xl':
             variant === 'default',
-          'h-11 md:h-14 bg-[#f3f5f9]': variant === 'single',
+          'h-11 md:h-14 bg-brand-sidebarColor': variant === 'single',
           'inline-flex': variant === 'cart',
         },
         className

@@ -73,7 +73,7 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
   return (
     <article
       className={cn(
-        'bg-brand-sidebarColor flex flex-col group rounded-md cursor-pointer transition-all duration-300 shadow-card hover:shadow-cardHover relative h-full',
+        'bg-brand-sidebarColor flex flex-col group rounded-md cursor-pointer transition-all duration-300 shadow-card hover:shadow-cardHover relative h-full max-w-xs',
         className
       )}
       onClick={handlePopupView}
@@ -90,16 +90,16 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
             className="object-cover bg-fill-thumbnail"
           />
         </div>
-        <div className="w-full h-full pt-2.5 md:pt-3.5 px-3 md:px-4 lg:px-[18px] z-10 -mx-0.5 sm:-mx-1">
+        <div className="absolute top-3 -left-2">
           {discount && (
-            <span className="absolute top-2 -left-2 text-[11px] md:text-xs font-bold text-brand-light inline-block bg-brand-percent rounded-md px-2.5 pt-1 pb-[3px]">
+            <span className="ribbon text-[11px] md:text-xs font-bold text-brand-light bg-brand-percent">
               {'10% Off'}
             </span>
           )}
         </div>
       </div>
 
-      <div className="px-3 md:px-4 lg:px-[18px] pb-4 lg:pt-2 h-full">
+      <div className="px-3 md:px-4 lg:px-[18px] lg:pt-2">
         <h2 className="text-brand-dark text-13px sm:text-18px lg:text-18px mb-1.5 font-bold">
           {name}
         </h2>
@@ -111,19 +111,19 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
             {'manufacturer_name'}
           </h3>
         </div>
-        <div className="flex justify-between relative">
-          <div className="mb-1.5">
-            <div className="block text-13px sm:text-20px lg:text-20px font-bold text-brand-dark">
-              {'$100'}
-            </div>
-            {basePrice && (
-              <del className="text-sm text-brand-dark text-opacity-70">
-                {basePrice}
-              </del>
-            )}
+      </div>
+      <div className="flex justify-between relative mt-auto px-3 md:px-4 lg:px-[18px] pb-4">
+        <div className="mb-1.5">
+          <div className="block text-13px sm:text-20px lg:text-20px font-bold text-brand-dark">
+            {'$100'}
           </div>
-          <RenderPopupOrAddToCart data={product} />
+          {basePrice ? (
+            <del className="text-sm text-brand-dark ">{basePrice}</del>
+          ) : (
+            <div className="opacity-0">Loading...</div>
+          )}
         </div>
+        <RenderPopupOrAddToCart data={product} />
       </div>
     </article>
   );

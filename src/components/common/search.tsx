@@ -57,7 +57,7 @@ const Search = React.forwardRef<HTMLDivElement, Props>(
       <div
         ref={ref}
         className={cn(
-          'w-full transition-all duration-200 ease-in-out',
+          'w-full transition-all duration-200 ease-in-out rounded-full',
           className
         )}
       >
@@ -74,8 +74,8 @@ const Search = React.forwardRef<HTMLDivElement, Props>(
         />
         {/* End of overlay */}
 
-        <div className="relative z-30 flex flex-col justify-center w-full shrink-0">
-          <div className="flex flex-col w-full mx-auto">
+        <div className="relative z-30 flex flex-col justify-center w-full shrink-0 rounded-full">
+          <div className="flex flex-col w-full mx-auto rounded-full">
             <SearchBox
               searchId={searchId}
               name="search"

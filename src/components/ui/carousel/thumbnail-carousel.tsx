@@ -63,7 +63,7 @@ const ThumbnailCarousel: React.FC<Props> = ({
           {gallery?.map((item: any) => (
             <SwiperSlide
               key={`product-gallery-${item.id}`}
-              className="flex items-center justify-center"
+              className="flex items-center justify-center flex-col"
             >
               <Image
                 src={item?.original ?? productGalleryPlaceholder}
@@ -72,6 +72,9 @@ const ThumbnailCarousel: React.FC<Props> = ({
                 height={590}
                 className="rounded-lg"
               />
+              <div className="p-2 w-14 mb-2 rounded-full bg-brand-sidebarColor text-center -pt-2">
+                01/3
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>

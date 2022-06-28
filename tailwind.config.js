@@ -18,8 +18,14 @@ module.exports = {
           info: '#f582a5',
           search: 'rgb(10,227,166)',
           sidebarColor: '#f9f9f9',
-          genericName: '#aacca1',
+          genericName: '#70cf97',
           percent: '#ff4d4e',
+          manufacure: '#c2c2c2',
+          danger1: '#ffe9ed',
+          green: '#07e537',
+        },
+        borderRadius: {
+          large: '20px',
         },
         yellow: {
           DEFAULT: '#f98f14',

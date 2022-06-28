@@ -454,3 +454,26 @@ input:checked + .slider:before {
 .checkout .save-change-button {
   display: none;
 }
+
+.gradient {
+  background: linear-gradient(
+    247deg,
+    rgba(7, 229, 55, 1) 0%,
+    rgba(37, 168, 214, 1) 57%
+  );
+}
+
+.ribbon {
+  display: inline-block;
+  padding: 8px 15px;
+  position: relative;
+}
+
+.ribbon::before {
+  content: '' !important;
+  position: absolute !important;
+  bottom: -12px !important;
+  left: -12px !important;
+  border: 12px solid !important;
+  border-color: transparent #ff4d4e transparent transparent !important;
+}

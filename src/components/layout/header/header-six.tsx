@@ -56,7 +56,7 @@ const Header: React.FC = () => {
 
           <Search
             searchId="top-bar-search"
-            className="hidden lg:flex lg:max-w-[650px] 2xl:max-w-[700px] ltr:ml-7 rtl:mr-7 ltr:mr-4 rtl:ml-4 xl:ltr:ml-auto xl:rtl:mr-auto"
+            className="hidden lg:flex lg:max-w-[650px] 2xl:max-w-[700px] ltr:ml-7 rtl:mr-7 ltr:mr-4 rtl:ml-4 rounded-full"
             variant="fill"
           />
           {/* End of search */}
@@ -69,7 +69,7 @@ const Header: React.FC = () => {
                 className="hidden lg:flex xl:mx-3.5 mx-2.5"
                 hideLabel={true}
               />
-              <div className="flex items-center">
+              <div className="lg:flex items-center hidden">
                 <div className="h-6 w-0.5 mx-4 bg-brand-light"></div>
               </div>
               <div className="items-center hidden lg:flex shrink-0 xl:mx-3.5 mx-2.5">

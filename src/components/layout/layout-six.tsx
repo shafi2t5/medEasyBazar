@@ -59,7 +59,7 @@ const Layout: React.FC = ({ children }) => {
         }}
       >
         <Container className="w-full h-full">
-          <div className={`xl:flex md:pb-2.5 md:pt-4`}>
+          <div className={`xl:flex md:pb-2.5 pt-4`}>
             <div className="hidden xl:block shrink-0 ltr:pr-8 rtl:pl-8 xl:w-[320px] 2xl:w-[370px] pt-px">
               <div className="bg-brand-sidebarColor flex flex-col justify-between border rounded-md border-border-base">
                 {data?.categories?.data?.slice(0, 10)?.map((category) => (

@@ -1,14 +1,6 @@
 import Layout from '@components/layout/layout-six';
-import Container from '@components/ui/container';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import DownloadApps from '@components/common/download-apps';
 import BundleGrid from '@components/bundle/bundle-grid';
-import CollectionGrid from '@components/common/collection-grid';
-import HeroBannerCard from '@components/hero/hero-banner-card';
-import BestSellerGroceryProductFeed from '@components/product/feeds/best-seller-grocery-product-feed';
-import PopularProductFeed from '@components/product/feeds/popular-product-feed';
-import CategoryGridBlock from '@components/common/category-grid-block';
-import { homeSixHeroBanner as heroBanner } from '@framework/static/banner';
 import { homeTwoBanner as banner } from '@framework/static/banner';
 import BannerCard from '@components/cards/banner-card';
 import { bundleDataTwo as bundle } from '@framework/static/bundle';
