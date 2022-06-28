@@ -1,5 +1,7 @@
 import cn from 'classnames';
 import Image from '@components/ui/image';
+import { useRouter } from 'next/router';
+import { ROUTES } from '@utils/routes';
 import usePrice from '@framework/product/use-price';
 import { Product } from '@framework/types';
 import { useModalAction } from '@components/common/modal/modal.context';
@@ -36,21 +38,22 @@ function RenderPopupOrAddToCart({ data }: { data: Product }) {
       </span>
     );
   }
-  if (product_type === 'variable') {
-    return (
-      <button
-        className="inline-flex items-center justify-center w-8 h-8 text-4xl rounded-lg bg-brand-navColor lg:w-10 lg:h-10 text-brand-light focus:outline-none focus-visible:outline-none"
-        aria-label="Count Button"
-        onClick={handlePopupView}
-      >
-        <PlusIcon width={iconSize} height={iconSize} opacity="1" />
-      </button>
-    );
-  }
+  // if (product_type === 'variable') {
+  //   return (
+  //     <button
+  //       className="inline-flex items-center justify-center w-8 h-8 text-4xl rounded-lg bg-brand-navColor lg:w-10 lg:h-10 text-brand-light focus:outline-none focus-visible:outline-none"
+  //       aria-label="Count Button"
+  //       onClick={handlePopupView}
+  //     >
+  //       <PlusIcon width={iconSize} height={iconSize} opacity="1" />
+  //     </button>
+  //   );
+  // }
   return <AddToCart data={data} />;
 }
 const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
-  const { name, image, unit, product_type } = product ?? {};
+  const { name, image, unit, product_type, slug } = product ?? {};
+  const router = useRouter();
   const { openModal } = useModalAction();
   const { t } = useTranslation('common');
   const { price, basePrice, discount } = usePrice({
@@ -67,8 +70,8 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
     currencyCode: 'USD',
   });
 
-  function handlePopupView() {
-    openModal('PRODUCT_VIEW', product);
+  function navigateToProductPage() {
+    router.push(`${ROUTES.PRODUCT}/${slug}`);
   }
   return (
     <article
@@ -76,7 +79,7 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
         'bg-brand-sidebarColor flex flex-col group rounded-md cursor-pointer transition-all duration-300 shadow-card hover:shadow-cardHover relative h-full max-w-xs',
         className
       )}
-      onClick={handlePopupView}
+      onClick={navigateToProductPage}
       title={name}
     >
       <div className="relative shrink-0">
