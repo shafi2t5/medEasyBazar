@@ -56,7 +56,7 @@ const Header: React.FC = () => {
 
           <Search
             searchId="top-bar-search"
-            className="hidden lg:flex lg:max-w-[650px] 2xl:max-w-[700px] ltr:ml-7 rtl:mr-7 ltr:mr-4 rtl:ml-4 rounded-full"
+            className="hidden lg:flex lg:max-w-[650px] 2xl:max-w-[700px] ltr:ml-7 rtl:mr-7 ltr:mr-4 rtl:ml-4"
             variant="fill"
           />
           {/* End of search */}
