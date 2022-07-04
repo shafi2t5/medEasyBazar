@@ -18,7 +18,7 @@ export const API_ENDPOINTS = {
   CHIPS_PRODUCTS: '/products_chips.json',
   POPCORN_JERKY_PRODUCTS: '/products_popcorn_jerky.json',
   FRESH_VEGETABLES_PRODUCTS: '/products_fresh_vegetables.json',
-  SEARCH: '/search.json',
+  SEARCH: '/patient/search-medicines/',
   ORDERS: '/orders.json',
   ORDER: '/order.json',
   ORDER_STATUS: '/order-status.json',

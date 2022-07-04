@@ -83,8 +83,6 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
   //   currencyCode: 'USD',
   // });
 
-  console.log(product, 'product');
-
   const { afterDiscount } = discountCalculate(
     unit_prices[0]?.price,
     discount_value
@@ -143,14 +141,14 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
       <div className="flex justify-between relative mt-auto px-3 md:px-4 lg:px-[18px] pb-4">
         <div className="mb-1.5">
           <div className="block text-13px sm:text-20px lg:text-20px font-bold text-brand-dark">
-            <span className="mr-1">TK</span>
+            <span className="mr-1">৳</span>
             {is_discountable
               ? afterDiscount.toFixed(2)
               : unit_prices[0].price.toFixed(2)}
           </div>
           {is_discountable ? (
             <del className="text-sm text-brand-dark ">
-              <span className="mr-1">TK</span>
+              <span className="mr-1">৳</span>
               {unit_prices[0].price}
             </del>
           ) : (

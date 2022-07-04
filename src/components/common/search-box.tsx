@@ -57,7 +57,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, SearchProps>(
             {...rest}
           />
         </label>
-        {value ? (
+        {/* {value ? (
           <button
             type="button"
             onClick={onClear}
@@ -66,11 +66,14 @@ const SearchBox = React.forwardRef<HTMLInputElement, SearchProps>(
           >
             <CloseIcon className="w-[17px] h-[17px] text-brand-dark text-opacity-40" />
           </button>
-        ) : (
-          <span className="absolute top-2 bottom-2 right-2 flex items-center justify-center w-12 md:w-14 rtl:left-0 shrink-0 focus:outline-none rounded-xl gradient">
-            <SearchIcon className="w-5 h-5 text-brand-dark text-opacity-40" />
-          </span>
-        )}
+        ) : ( */}
+        <button
+          type="submit"
+          className="absolute top-2 bottom-2 right-2 flex items-center justify-center w-12 md:w-14 rtl:left-0 shrink-0 focus:outline-none rounded-xl gradient"
+        >
+          <SearchIcon className="w-5 h-5 text-brand-dark text-opacity-40" />
+        </button>
+        {/* )} */}
       </form>
     );
   }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import cn from 'classnames';
-import { useSearchQuery } from '@framework/product/use-search';
+import { fetchSearchedProducts } from '@framework/product/use-search';
 import SearchBox from '@components/common/search-box';
 import SearchProduct from '@components/common/search-product';
 import SearchResultLoader from '@components/ui/loaders/search-result-loader';
@@ -28,20 +28,30 @@ const Search = React.forwardRef<HTMLDivElement, Props>(
       closeMobileSearch,
       displaySearch,
       closeSearch,
+      setSearchList,
+      setSearchInput,
     } = useUI();
     const [searchText, setSearchText] = useState('');
     const [inputFocus, setInputFocus] = useState<boolean>(false);
-    const { data, isLoading } = useSearchQuery({
-      text: searchText,
-    });
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     useFreezeBodyScroll(
       inputFocus === true || displaySearch || displayMobileSearch
     );
-    function handleSearch(e: React.SyntheticEvent) {
+    async function handleSearch(e: React.SyntheticEvent) {
       e.preventDefault();
+      const data = await fetchSearchedProducts({
+        text: searchText,
+        setIsLoading,
+      });
+
+      setSearchList(data?.medicines);
     }
     function handleAutoSearch(e: React.FormEvent<HTMLInputElement>) {
       setSearchText(e.currentTarget.value);
+      setSearchInput(e.currentTarget.value);
+      if (e.currentTarget.value === '') {
+        setSearchList([]);
+      }
     }
     function clear() {
       setSearchText('');
@@ -66,8 +76,6 @@ const Search = React.forwardRef<HTMLDivElement, Props>(
             'overlay cursor-pointer invisible w-full h-full opacity-0 flex top-0 ltr:left-0 rtl:right-0 transition-all duration-300 fixed',
             {
               open: displayMobileSearch,
-              'input-focus-overlay-open': inputFocus === true,
-              'open-search-overlay': displaySearch,
             }
           )}
           onClick={() => clear()}
@@ -89,36 +97,20 @@ const Search = React.forwardRef<HTMLDivElement, Props>(
           </div>
           {/* End of searchbox */}
 
-          {searchText && (
+          {/* {isLoading ? (
             <div className="w-full absolute top-[56px] ltr:left-0 rtl:right-0 py-2.5 bg-brand-light rounded-md flex flex-col overflow-hidden shadow-dropDown z-30">
-              <Scrollbar className="os-host-flexbox">
-                <div className="w-full h-[380px]">
-                  {isLoading
-                    ? Array.from({ length: 15 }).map((_, idx) => (
-                        <div
-                          key={`search-result-loader-key-${idx}`}
-                          className="py-2.5 ltr:pl-5 rtl:pr-5 ltr:pr-10 rtl:pl-10 scroll-snap-align-start"
-                        >
-                          <SearchResultLoader
-                            key={idx}
-                            uniqueKey={`top-search-${idx}`}
-                          />
-                        </div>
-                      ))
-                    : data?.map((item, index) => (
-                        <div
-                          key={`search-result-key-${index}`}
-                          className="py-2.5 ltr:pl-5 rtl:pr-5 ltr:pr-10 rtl:pl-10 scroll-snap-align-start transition-colors duration-200 hover:bg-fill-base"
-                          onClick={clear}
-                        >
-                          <SearchProduct item={item} key={index} />
-                        </div>
-                      ))}
+              <div className="w-full h-[380px]">
+                <div
+                  key={`search-result-loader-key-${1}`}
+                  className="py-2.5 ltr:pl-5 rtl:pr-5 ltr:pr-10 rtl:pl-10 scroll-snap-align-start"
+                >
+                  <SearchResultLoader key={1} uniqueKey={`top-search-${1}`} />
                 </div>
-              </Scrollbar>
+              </div>
             </div>
-          )}
-          {/* End of search result */}
+          ) : (
+            <></>
+          )} */}
         </div>
       </div>
     );

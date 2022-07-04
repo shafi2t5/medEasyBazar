@@ -29,7 +29,8 @@ const initialState = {
   toastText: '',
   isStickyheader: false,
   data: null,
-  category_name: '',
+  search_input: '',
+  searchList: [],
 };
 
 type Action =
@@ -101,8 +102,12 @@ type Action =
       type: 'DISABLE_STICKY_HEADER';
     }
   | {
-      type: 'SELECT_CATEGORY';
+      type: 'SEARCH_INPUT';
       payload: string;
+    }
+  | {
+      type: 'SEARCH_LIST';
+      payload: any;
     };
 
 type DRAWER_VIEWS = 'CART_SIDEBAR' | 'MOBILE_MENU' | 'ORDER_DETAILS';
@@ -244,10 +249,16 @@ function uiReducer(state: State, action: Action) {
         isStickyheader: false,
       };
     }
-    case 'SELECT_CATEGORY': {
+    case 'SEARCH_INPUT': {
       return {
         ...state,
-        category_name: action.payload,
+        search_input: action.payload,
+      };
+    }
+    case 'SEARCH_LIST': {
+      return {
+        ...state,
+        searchList: action.payload,
       };
     }
   }
@@ -298,8 +309,11 @@ export const UIProvider: React.FC = (props) => {
     dispatch({ type: 'SET_DRAWER_VIEW', view });
   const enableStickyHeader = () => dispatch({ type: 'ENABLE_STICKY_HEADER' });
   const disableStickyHeader = () => dispatch({ type: 'DISABLE_STICKY_HEADER' });
-  const selectCategory = (payload: string) =>
-    dispatch({ type: 'SELECT_CATEGORY', payload });
+  const setSearchInput = (payload: string) =>
+    dispatch({ type: 'SEARCH_INPUT', payload });
+
+  const setSearchList = (payload: any) =>
+    dispatch({ type: 'SEARCH_LIST', payload });
 
   const value = React.useMemo(
     () => ({
@@ -329,7 +343,8 @@ export const UIProvider: React.FC = (props) => {
       setUserAvatar,
       enableStickyHeader,
       disableStickyHeader,
-      selectCategory,
+      setSearchInput,
+      setSearchList,
     }),
     [state]
   );
