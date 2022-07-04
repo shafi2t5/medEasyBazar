@@ -68,7 +68,7 @@ export function removeItem(items: Item[], id: Item['id']) {
 
 export function inStock(items: Item[], id: Item['id']) {
   const item = getItem(items, id);
-  if (item) return item['quantity']! < item['stock']!;
+  if (item) return item?.is_available;
   return false;
 }
 

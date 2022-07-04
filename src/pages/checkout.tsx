@@ -1,4 +1,4 @@
-import Layout from '@components/layout/layout';
+import Layout from '@components/layout/layout-six';
 import CheckoutCard from '@components/checkout/checkout-card';
 import Container from '@components/ui/container';
 import CheckoutDetails from '@components/checkout/checkout-details';
@@ -14,19 +14,16 @@ export default function CheckoutPage() {
         description="Fastest E-commerce template built with React, NextJS, TypeScript, React-Query and Tailwind CSS."
         path="checkout"
       />
-      <Container className="py-10 border-t 2xl:py-12 border-border-base checkout">
-        <div className="flex flex-col mx-auto xl:max-w-screen-xl">
-          <div className="flex flex-col flex-wrap grid-cols-1 gap-x-7 xl:gap-x-8 lg:grid lg:grid-cols-12">
-            <div className="w-full col-start-1 col-end-9">
-              <CheckoutDetails />
-            </div>
-            <div className="w-full col-start-9 col-end-13 mt-7 lg:mt-0">
-              <CheckoutCard />
-            </div>
+      <div className="flex flex-col xl:max-w-screen-xl">
+        <div className="flex flex-col flex-wrap grid-cols-1 gap-x-7 xl:gap-x-8 lg:grid lg:grid-cols-12">
+          <div className="w-full col-start-1 col-end-9">
+            <CheckoutDetails />
+          </div>
+          <div className="w-full col-start-9 col-end-13 mt-7 lg:mt-0">
+            <CheckoutCard />
           </div>
         </div>
-      </Container>
-      <Divider />
+      </div>
     </>
   );
 }

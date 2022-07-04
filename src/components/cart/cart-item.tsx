@@ -2,7 +2,7 @@ import Link from '@components/ui/link';
 import Image from '@components/ui/image';
 import { IoIosCloseCircle } from 'react-icons/io';
 import { useCart } from '@contexts/cart/cart.context';
-import usePrice from '@framework/product/use-price';
+// import usePrice from '@framework/product/use-price';
 import { ROUTES } from '@utils/routes';
 import Counter from '@components/ui/counter';
 
@@ -13,19 +13,19 @@ type CartItemProps = {
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const { isInStock, addItemToCart, removeItemFromCart, clearItemFromCart } =
     useCart();
-  const { price: totalPrice } = usePrice({
-    amount: item?.itemTotal,
-    currencyCode: 'USD',
-  });
-  const outOfStock = !isInStock(item.id);
+  // const { price: totalPrice } = usePrice({
+  //   amount: item?.itemTotal,
+  //   currencyCode: 'TK',
+  // });
+  const outOfStock = isInStock(item.id);
   return (
     <div
       className={`group w-full h-auto flex justify-start items-center text-brand-light py-4 md:py-7 border-b border-border-one border-opacity-70 relative last:border-b-0`}
-      title={item?.name}
+      title={item?.medicine_name}
     >
       <div className="relative flex rounded overflow-hidden shrink-0 cursor-pointer w-[90px] md:w-[100px] h-[90px] md:h-[100px]">
         <Image
-          src={item?.image ?? '/assets/placeholder/cart-item.svg'}
+          src={item?.image ?? '/assets/images/empty-cart.png'}
           width={100}
           height={100}
           loading="eager"
@@ -47,7 +47,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
             href={`${ROUTES.PRODUCT}/${item?.slug}`}
             className="block leading-5 transition-all text-brand-dark text-13px sm:text-sm lg:text-15px hover:text-brand"
           >
-            {item?.name}
+            {item?.medicine_name}
           </Link>
           <div className="text-13px sm:text-sm text-brand-muted mt-1.5 block mb-2">
             {item.unit} X {item.quantity}
@@ -62,7 +62,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
         </div>
 
         <div className="flex font-semibold text-sm md:text-base text-brand-dark leading-5 shrink-0 min-w-[65px] md:min-w-[80px] justify-end">
-          {totalPrice}
+          ৳ {item?.itemTotal}
         </div>
       </div>
     </div>

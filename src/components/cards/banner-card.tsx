@@ -29,6 +29,7 @@ const BannerCard: React.FC<BannerProps> = ({
   // const { width } = useWindowSize();
   const { type, title, image, body } = banner;
   // const selectedImage = getImageHeight(width!);
+
   return (
     <div className={cn('mx-auto', className)}>
       <Link
@@ -56,7 +57,7 @@ const BannerCard: React.FC<BannerProps> = ({
         )}
         {/* <div className="absolute top-1/4 left-[10%] max-w-xs flex flex-col items-center">
           <div className="text-base md:text-4xl text-brand-dark font-bold mb-2 text-center">
-            {body} 
+            {body}
             Take care of your dental health
           </div>
           <div className="text-brand-bannerText text-xs md:text-base border-2 border-stone-600 font-bold px-1 md:px-3 py-1 text-center inline-block">

@@ -22,9 +22,9 @@ interface ProductProps {
   className?: string;
 }
 function RenderPopupOrAddToCart({ data }: { data: Product }) {
-  // const { t } = useTranslation('common');
-  // const { id, quantity, product_type } = data ?? {};
-  // const { width } = useWindowSize();
+  const { t } = useTranslation('common');
+  const { is_available } = data ?? {};
+  const { width } = useWindowSize();
   // const { openModal } = useModalAction();
   // const { isInCart, isInStock } = useCart();
   // const iconSize = width! > 1024 ? '19' : '17';
@@ -32,13 +32,13 @@ function RenderPopupOrAddToCart({ data }: { data: Product }) {
   // function handlePopupView() {
   //   openModal('PRODUCT_VIEW', data);
   // }
-  // if (Number(quantity) < 1 || outOfStock) {
-  //   return (
-  //     <span className="text-[11px] md:text-xs font-bold text-brand-light uppercase inline-block bg-brand-danger rounded-lg px-2.5 pt-1 pb-[3px] mx-0.5 sm:mx-1">
-  //       {t('text-out-stock')}
-  //     </span>
-  //   );
-  // }
+  if (!is_available) {
+    return (
+      <span className="text-[11px] md:text-xs font-bold text-brand-danger uppercase inline-block rounded-lg px-2.5 pt-1 pb-[3px] mx-0.5 sm:mx-1">
+        {t('text-out-stock')}
+      </span>
+    );
+  }
   // if (product_type === 'variable') {
   //   return (
   //     <button
@@ -53,19 +53,6 @@ function RenderPopupOrAddToCart({ data }: { data: Product }) {
   return <AddToCart data={data} />;
 }
 const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
-  const {
-    id,
-    medicine_image,
-    generic_name,
-    manufacturer_name,
-    is_available,
-    medicine_name,
-    is_discountable,
-    unit_prices,
-    discount_value,
-    strength,
-    category_name,
-  } = product ?? {};
   const router = useRouter();
   const { openModal } = useModalAction();
   const { t } = useTranslation('common');
@@ -84,9 +71,31 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
   // });
 
   const { afterDiscount } = discountCalculate(
-    unit_prices[0]?.price,
-    discount_value
+    product?.unit_prices[0]?.price / product?.unit_prices[0]?.unit_size,
+    product?.discount_value
   );
+
+  let productInfo = {
+    ...product,
+    price: product.is_discountable
+      ? afterDiscount
+      : product?.unit_prices[0]?.price / product?.unit_prices[0]?.unit_size,
+  };
+
+  const {
+    id,
+    medicine_image,
+    generic_name,
+    manufacturer_name,
+    is_available,
+    medicine_name,
+    is_discountable,
+    unit_prices,
+    discount_value,
+    strength,
+    category_name,
+    price,
+  } = productInfo ?? {};
 
   function navigateToProductPage() {
     router.push(
@@ -138,24 +147,24 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
           </h3>
         </div>
       </div>
-      <div className="flex justify-between relative mt-auto px-3 md:px-4 lg:px-[18px] pb-4">
+      <div className="flex flex-col md:flex-row justify-between relative mt-auto px-3 md:px-4 lg:px-[18px] pb-4">
         <div className="mb-1.5">
           <div className="block text-13px sm:text-20px lg:text-20px font-bold text-brand-dark">
             <span className="mr-1">৳</span>
             {is_discountable
-              ? afterDiscount.toFixed(2)
-              : unit_prices[0].price.toFixed(2)}
+              ? price.toFixed(2)
+              : (unit_prices[0]?.price / unit_prices[0]?.unit_size).toFixed(2)}
           </div>
           {is_discountable ? (
             <del className="text-sm text-brand-dark ">
               <span className="mr-1">৳</span>
-              {unit_prices[0].price}
+              {(unit_prices[0]?.price / unit_prices[0]?.unit_size).toFixed(2)}
             </del>
           ) : (
             <div className="opacity-0">Loading...</div>
           )}
         </div>
-        <RenderPopupOrAddToCart data={product} />
+        <RenderPopupOrAddToCart data={productInfo} />
       </div>
     </article>
   );

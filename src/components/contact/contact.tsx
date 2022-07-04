@@ -6,9 +6,7 @@ const ContactPage: React.FC = () => {
   return !isLoading ? (
     <div className="w-full max-w-[1300px] mx-auto">
       <div className="flex flex-wrap">
-        <div className="w-full">
-          <ContactBox items={data} />
-        </div>
+        <div className="w-full">{/* <ContactBox items={data} /> */}</div>
       </div>
     </div>
   ) : (
