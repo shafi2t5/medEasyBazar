@@ -30,8 +30,9 @@ const Search = React.forwardRef<HTMLDivElement, Props>(
       closeSearch,
       setSearchList,
       setSearchInput,
+      search_input,
     } = useUI();
-    const [searchText, setSearchText] = useState('');
+
     const [inputFocus, setInputFocus] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     // useFreezeBodyScroll(
@@ -40,7 +41,7 @@ const Search = React.forwardRef<HTMLDivElement, Props>(
     async function handleSearch(e: React.SyntheticEvent) {
       e.preventDefault();
       const data = await fetchSearchedProducts({
-        text: searchText,
+        text: search_input,
         setIsLoading,
       });
 
@@ -48,13 +49,12 @@ const Search = React.forwardRef<HTMLDivElement, Props>(
     }
 
     async function handleAutoSearch(e: React.FormEvent<HTMLInputElement>) {
-      setSearchText(e.currentTarget.value);
       setSearchInput(e.currentTarget.value);
       if (e.currentTarget.value === '') {
         setSearchList([]);
       } else {
         const data = await fetchSearchedProducts({
-          text: searchText,
+          text: search_input,
           setIsLoading,
         });
 
@@ -62,7 +62,7 @@ const Search = React.forwardRef<HTMLDivElement, Props>(
       }
     }
     function clear() {
-      setSearchText('');
+      setSearchInput('');
       setInputFocus(false);
       closeMobileSearch();
       closeSearch();
@@ -95,7 +95,7 @@ const Search = React.forwardRef<HTMLDivElement, Props>(
             <SearchBox
               searchId={searchId}
               name="search"
-              value={searchText}
+              value={search_input}
               onSubmit={handleSearch}
               onChange={handleAutoSearch}
               onClear={clear}
