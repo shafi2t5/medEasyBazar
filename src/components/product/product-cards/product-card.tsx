@@ -12,6 +12,7 @@ import { useCart } from '@contexts/cart/cart.context';
 import { useTranslation } from 'next-i18next';
 import { productPlaceholder } from '@assets/placeholders';
 import dynamic from 'next/dynamic';
+import { discountCalculate } from '@utils/discount';
 const AddToCart = dynamic(() => import('@components/product/add-to-cart'), {
   ssr: false,
 });
@@ -21,23 +22,23 @@ interface ProductProps {
   className?: string;
 }
 function RenderPopupOrAddToCart({ data }: { data: Product }) {
-  const { t } = useTranslation('common');
-  const { id, quantity, product_type } = data ?? {};
-  const { width } = useWindowSize();
-  const { openModal } = useModalAction();
-  const { isInCart, isInStock } = useCart();
-  const iconSize = width! > 1024 ? '19' : '17';
-  const outOfStock = isInCart(id) && !isInStock(id);
-  function handlePopupView() {
-    openModal('PRODUCT_VIEW', data);
-  }
-  if (Number(quantity) < 1 || outOfStock) {
-    return (
-      <span className="text-[11px] md:text-xs font-bold text-brand-light uppercase inline-block bg-brand-danger rounded-lg px-2.5 pt-1 pb-[3px] mx-0.5 sm:mx-1">
-        {t('text-out-stock')}
-      </span>
-    );
-  }
+  // const { t } = useTranslation('common');
+  // const { id, quantity, product_type } = data ?? {};
+  // const { width } = useWindowSize();
+  // const { openModal } = useModalAction();
+  // const { isInCart, isInStock } = useCart();
+  // const iconSize = width! > 1024 ? '19' : '17';
+  // const outOfStock = isInCart(id) && !isInStock(id);
+  // function handlePopupView() {
+  //   openModal('PRODUCT_VIEW', data);
+  // }
+  // if (Number(quantity) < 1 || outOfStock) {
+  //   return (
+  //     <span className="text-[11px] md:text-xs font-bold text-brand-light uppercase inline-block bg-brand-danger rounded-lg px-2.5 pt-1 pb-[3px] mx-0.5 sm:mx-1">
+  //       {t('text-out-stock')}
+  //     </span>
+  //   );
+  // }
   // if (product_type === 'variable') {
   //   return (
   //     <button
@@ -52,26 +53,47 @@ function RenderPopupOrAddToCart({ data }: { data: Product }) {
   return <AddToCart data={data} />;
 }
 const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
-  const { name, image, unit, product_type, slug } = product ?? {};
+  const {
+    id,
+    medicine_image,
+    generic_name,
+    manufacturer_name,
+    is_available,
+    medicine_name,
+    is_discountable,
+    unit_prices,
+    discount_value,
+    strength,
+    category_name,
+  } = product ?? {};
   const router = useRouter();
   const { openModal } = useModalAction();
   const { t } = useTranslation('common');
-  const { price, basePrice, discount } = usePrice({
-    amount: product?.sale_price ? product?.sale_price : product?.price,
-    baseAmount: product?.price,
-    currencyCode: 'USD',
-  });
-  const { price: minPrice } = usePrice({
-    amount: product?.min_price ?? 0,
-    currencyCode: 'USD',
-  });
-  const { price: maxPrice } = usePrice({
-    amount: product?.max_price ?? 0,
-    currencyCode: 'USD',
-  });
+  // const { price, basePrice, discount } = usePrice({
+  //   amount: product?.sale_price ? product?.sale_price : product?.price,
+  //   baseAmount: product?.price,
+  //   currencyCode: 'USD',
+  // });
+  // const { price: minPrice } = usePrice({
+  //   amount: product?.min_price ?? 0,
+  //   currencyCode: 'USD',
+  // });
+  // const { price: maxPrice } = usePrice({
+  //   amount: product?.max_price ?? 0,
+  //   currencyCode: 'USD',
+  // });
+
+  console.log(product, 'product');
+
+  const { afterDiscount } = discountCalculate(
+    unit_prices[0]?.price,
+    discount_value
+  );
 
   function navigateToProductPage() {
-    router.push(`${ROUTES.PRODUCT}/${slug}`);
+    router.push(
+      `${ROUTES.PRODUCT}/${medicine_name}?generic_name=${generic_name}&category_name=${category_name}&id=${id}&strength=${strength}`
+    );
   }
   return (
     <article
@@ -80,13 +102,16 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
         className
       )}
       onClick={navigateToProductPage}
-      title={name}
+      title={medicine_name}
     >
       <div className="relative shrink-0">
         <div className="flex max-w-[260px] mx-auto transition duration-200 ease-in-out transform group-hover:scale-105 relative">
           <Image
-            src={image?.thumbnail ?? productPlaceholder}
-            alt={name || 'Product Image'}
+            src={
+              //  medicine_image ??
+              '/assets/images/products/p-15.png'
+            }
+            alt={'Product Image'}
             width={260}
             height={200}
             quality={100}
@@ -94,9 +119,9 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
           />
         </div>
         <div className="absolute top-3 -left-2">
-          {discount && (
+          {is_discountable && (
             <span className="ribbon text-[11px] md:text-xs font-bold text-brand-light bg-brand-percent">
-              {'10% Off'}
+              {discount_value}
             </span>
           )}
         </div>
@@ -104,24 +129,30 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
 
       <div className="px-3 md:px-4 lg:px-[18px] lg:pt-2">
         <h2 className="text-brand-dark text-13px sm:text-18px lg:text-18px mb-1.5 font-bold">
-          {name}
+          {medicine_name}
         </h2>
         <div className="leading-5 sm:leading-6 mb-2">
-          <h3 className="text-brand-genericName text-13px sm:text-sm lg:text-15px">
-            {'generic_name'}
+          <h3 className="text-brand-genericName text-13px sm:text-sm lg:text-15px mb-1">
+            {generic_name}
           </h3>
-          <h3 className="text-brand-dark text-13px sm:text-sm lg:text-15px">
-            {'manufacturer_name'}
+          <h3 className="text-brand-manufacure text-13px sm:text-sm lg:text-15px">
+            {manufacturer_name}
           </h3>
         </div>
       </div>
       <div className="flex justify-between relative mt-auto px-3 md:px-4 lg:px-[18px] pb-4">
         <div className="mb-1.5">
           <div className="block text-13px sm:text-20px lg:text-20px font-bold text-brand-dark">
-            {'$100'}
+            <span className="mr-1">TK</span>
+            {is_discountable
+              ? afterDiscount.toFixed(2)
+              : unit_prices[0].price.toFixed(2)}
           </div>
-          {basePrice ? (
-            <del className="text-sm text-brand-dark ">{basePrice}</del>
+          {is_discountable ? (
+            <del className="text-sm text-brand-dark ">
+              <span className="mr-1">TK</span>
+              {unit_prices[0].price}
+            </del>
           ) : (
             <div className="opacity-0">Loading...</div>
           )}

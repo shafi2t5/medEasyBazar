@@ -29,6 +29,7 @@ const initialState = {
   toastText: '',
   isStickyheader: false,
   data: null,
+  category_name: '',
 };
 
 type Action =
@@ -98,6 +99,10 @@ type Action =
     }
   | {
       type: 'DISABLE_STICKY_HEADER';
+    }
+  | {
+      type: 'SELECT_CATEGORY';
+      payload: string;
     };
 
 type DRAWER_VIEWS = 'CART_SIDEBAR' | 'MOBILE_MENU' | 'ORDER_DETAILS';
@@ -239,6 +244,12 @@ function uiReducer(state: State, action: Action) {
         isStickyheader: false,
       };
     }
+    case 'SELECT_CATEGORY': {
+      return {
+        ...state,
+        category_name: action.payload,
+      };
+    }
   }
 }
 
@@ -287,6 +298,8 @@ export const UIProvider: React.FC = (props) => {
     dispatch({ type: 'SET_DRAWER_VIEW', view });
   const enableStickyHeader = () => dispatch({ type: 'ENABLE_STICKY_HEADER' });
   const disableStickyHeader = () => dispatch({ type: 'DISABLE_STICKY_HEADER' });
+  const selectCategory = (payload: string) =>
+    dispatch({ type: 'SELECT_CATEGORY', payload });
 
   const value = React.useMemo(
     () => ({
@@ -316,6 +329,7 @@ export const UIProvider: React.FC = (props) => {
       setUserAvatar,
       enableStickyHeader,
       disableStickyHeader,
+      selectCategory,
     }),
     [state]
   );

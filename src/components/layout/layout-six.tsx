@@ -8,9 +8,10 @@ import { IoChevronForwardCircleOutline } from 'react-icons/io5';
 import { useTranslation } from 'next-i18next';
 import { ROUTES } from '@utils/routes';
 import { LIMITS } from '@framework/utils/limits';
-import { useCategoriesQuery } from '@framework/category/get-all-categories';
+// import { useCategoriesQuery } from '@framework/category/get-all-categories';
 import CategoryListCard from '@components/cards/category-list-card';
 import Container from '@components/ui/container';
+import { useHomeProductsQuery } from '@framework/product/get-all-best-seller-products';
 
 const Layout: React.FC = ({ children }) => {
   const { t } = useTranslation('common');
@@ -19,8 +20,19 @@ const Layout: React.FC = ({ children }) => {
     'false'
   );
 
-  const { data } = useCategoriesQuery({
-    limit: LIMITS.CATEGORIES_LIMITS,
+  // const { data } = useCategoriesQuery({
+  //   limit: LIMITS.CATEGORIES_LIMITS,
+  // });
+
+  const { data } = useHomeProductsQuery();
+
+  const categories = data?.medicine_homepage_products?.map((product, index) => {
+    return {
+      name: product.title,
+      slug: product.title,
+      icon: null,
+      id: index,
+    };
   });
 
   return (
@@ -62,12 +74,12 @@ const Layout: React.FC = ({ children }) => {
           <div className={`xl:flex md:pb-2.5 pt-4`}>
             <div className="hidden xl:block shrink-0 ltr:pr-8 rtl:pl-8 xl:w-[320px] 2xl:w-[370px] pt-px">
               <div className="bg-brand-sidebarColor flex flex-col justify-between border rounded-md border-border-base">
-                {data?.categories?.data?.slice(0, 10)?.map((category) => (
+                {categories?.map((category) => (
                   <CategoryListCard
                     key={`category--key-${category.id}`}
                     category={category}
                     href={{
-                      pathname: ROUTES.SEARCH,
+                      pathname: ROUTES.CATEGORY,
                       query: { category: category.slug },
                     }}
                     className="transition"

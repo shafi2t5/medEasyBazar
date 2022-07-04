@@ -5,9 +5,11 @@ import { Category } from '@framework/types';
 import cn from 'classnames';
 import { useTranslation } from 'next-i18next';
 import { LinkProps } from 'next/link';
+// import { UIContext } from '@contexts/ui.context';
+// import { useContext } from 'react';
 
 interface Props {
-  category: Category;
+  category: any;
   href: LinkProps['href'];
   className?: string;
   variant?: 'default' | 'small';
@@ -21,6 +23,7 @@ const CategoryListCard: React.FC<Props> = ({
 }) => {
   const { name, icon } = category;
   const { t } = useTranslation('common');
+  // const { selectCategory } = useContext(UIContext);
   return (
     <Link href={href}>
       <a
@@ -40,7 +43,7 @@ const CategoryListCard: React.FC<Props> = ({
             })}
           >
             <Image
-              src={icon ?? '/assets/placeholder/category-small.svg'}
+              src={icon ?? '/assets/images/category/cookies-biscuits.png'}
               alt={name || t('text-category-thumbnail')}
               width={40}
               height={40}

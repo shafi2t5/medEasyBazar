@@ -1,21 +1,32 @@
 import ProductsCarousel from '@components/product/products-carousel';
-import { useBestSellerProductsQuery } from '@framework/product/get-all-best-seller-products';
+import { UIContext } from '@contexts/ui.context';
+import { useHomeProductsQuery } from '@framework/product/get-all-best-seller-products';
 import { LIMITS } from '@framework/utils/limits';
 import { ROUTES } from '@utils/routes';
+// import { useContext } from 'react';
 
 export default function BestSellerProductFeed() {
-  const { data, isLoading, error } = useBestSellerProductsQuery({
-    limit: LIMITS.BEST_SELLER_PRODUCTS_LIMITS,
-  });
+  const { data, isLoading, error } = useHomeProductsQuery();
+  // const { category_name } = useContext(UIContext);
+
+  // const filteredData = data?.medicine_homepage_products.filter(
+  //   (data: any) => data.title === (category_name || 'Best Selling Products')
+  // )[0];
+
   return (
-    <ProductsCarousel
-      sectionHeading="Covid 19 Essentials"
-      categorySlug={ROUTES.PRODUCTS}
-      products={data}
-      loading={isLoading}
-      error={error?.message}
-      limit={LIMITS.BEST_SELLER_PRODUCTS_LIMITS}
-      uniqueKey="best-sellers"
-    />
+    <>
+      {data?.medicine_homepage_products?.map((products, index) => (
+        <ProductsCarousel
+          sectionHeading={products?.title}
+          categorySlug={ROUTES.PRODUCTS}
+          products={products?.products}
+          loading={isLoading}
+          error={error?.message}
+          limit={LIMITS.BEST_SELLER_PRODUCTS_LIMITS}
+          uniqueKey="home-products"
+          key={index}
+        />
+      ))}
+    </>
   );
 }

@@ -22,9 +22,6 @@ const AllProductFeed: FC<ProductFeedProps> = ({ element, className = '' }) => {
   const { query } = useRouter();
   const {
     isFetching: isLoading,
-    isFetchingNextPage: loadingMore,
-    fetchNextPage,
-    hasNextPage,
     data,
     error,
   } = useProductsQuery({ limit: LIMITS.PRODUCTS_LIMITS, ...query });
@@ -60,7 +57,7 @@ const AllProductFeed: FC<ProductFeedProps> = ({ element, className = '' }) => {
             ))
           ) : (
             <>
-              {data?.pages?.map((page: any, index) => {
+              {data?.pages?.map((page: any, index: number) => {
                 return (
                   <Fragment key={index}>
                     {page?.data?.slice(0, 18)?.map((product: Product) => (

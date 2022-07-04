@@ -19,7 +19,7 @@ const SectionHeader: React.FC<Props> = ({
   const { t } = useTranslation('common');
   return (
     <div
-      className={cn(`-mt-1.5 ${className}`, {
+      className={cn(`-mt-2 ${className}`, {
         'text-center pb-2 lg:pb-3 xl:pb-4 3xl:pb-7':
           headingPosition === 'center',
       })}

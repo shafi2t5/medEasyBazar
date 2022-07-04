@@ -68,7 +68,7 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
     <div
       className={cn('max-w-[1920px] 4xl:overflow-visible relative', className)}
     >
-      <div className="flex flex-wrap items-center justify-between mb-5 md:mb-6">
+      <div className="flex flex-wrap items-center justify-between mb-6 md:mb-7">
         <SectionHeader sectionHeading={sectionHeading} className="mb-0" />
       </div>
       {error ? (
@@ -89,7 +89,7 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
             prevButtonClassName="ltr:-left-2 rtl:-right-2 md:ltr:-left-1 md:rtl:-right-1.5 lg:ltr:-left-2 rtl:-right-2 xl:ltr:-left-2.5 xl:rtl:-right-2.5 2xl:ltr:left-5 2xl:rtl:right-5 -top-12 3xl:top-auto 3xl:-translate-y-2 4xl:-translate-y-10"
             nextButtonClassName="xl:rtl:-translate-x-2.5 xl:lrt:translate-x-2.5 ltr:-right-2 rtl:-left-2 xl:ltr:right-40 xl:rtl:left-40 -top-12 3xl:top-auto transform 2xl:translate-x-0 3xl:-translate-y-2 4xl:-translate-y-10"
           >
-            {loading && !products?.length ? (
+            {loading || !products?.length ? (
               Array.from({ length: limit! }).map((_, idx) => (
                 <SwiperSlide
                   key={`${uniqueKey}-${idx}`}

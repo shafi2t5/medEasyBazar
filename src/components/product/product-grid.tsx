@@ -1,30 +1,29 @@
 import type { FC } from 'react';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import Alert from '@components/ui/alert';
 import Button from '@components/ui/button';
 import ProductCard from '@components/product/product-cards/product-card';
 import ProductCardLoader from '@components/ui/loaders/product-card-loader';
 import cn from 'classnames';
-import { useProductsQuery } from '@framework/product/get-all-products';
-import { LIMITS } from '@framework/utils/limits';
+// import { useProductsQuery } from '@framework/product/get-all-products';
+// import { LIMITS } from '@framework/utils/limits';
 import { Product } from '@framework/types';
 
 interface ProductGridProps {
   className?: string;
+  data: any;
+  error: any;
+  isLoading: any;
 }
 
-export const ProductGrid: FC<ProductGridProps> = ({ className = '' }) => {
+export const ProductGrid: FC<ProductGridProps> = ({
+  className = '',
+  data,
+  error,
+  isLoading,
+}) => {
   const { t } = useTranslation('common');
-  const { query } = useRouter();
-  const {
-    isFetching: isLoading,
-    isFetchingNextPage: loadingMore,
-    fetchNextPage,
-    hasNextPage,
-    data,
-    error,
-  } = useProductsQuery({ limit: LIMITS.PRODUCTS_LIMITS, ...query });
 
   return (
     <>
@@ -45,19 +44,14 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = '' }) => {
               uniqueKey={`product--key-${idx}`}
             />
           ))
-        ) : (
-          data?.pages?.map((page: any) => {
-            return page?.data?.map((product: Product) => (
-              <ProductCard
-                key={`product--key-${product.id}`}
-                product={product}
-              />
-            ));
-          })
-        )}
+        ) : data.length > 0 ? (
+          data?.map((product: Product) => (
+            <ProductCard key={`product--key-${product.id}`} product={product} />
+          ))
+        ) : null}
         {/* end of error state */}
       </div>
-      {hasNextPage && (
+      {/* {hasNextPage && (
         <div className="text-center pt-8 xl:pt-10">
           <Button
             loading={loadingMore}
@@ -67,7 +61,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = '' }) => {
             {t('button-load-more')}
           </Button>
         </div>
-      )}
+      )} */}
     </>
   );
 };

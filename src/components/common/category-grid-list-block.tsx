@@ -1,6 +1,6 @@
 import SectionHeader from '@components/common/section-header';
 import CategoryListCardLoader from '@components/ui/loaders/category-list-card-loader';
-import { useCategoriesQuery } from '@framework/category/get-all-categories';
+// import { useCategoriesQuery } from '@framework/category/get-all-categories';
 import Alert from '@components/ui/alert';
 import CategoryListCard from '@components/cards/category-list-card';
 import Carousel from '@components/ui/carousel/carousel';
@@ -8,6 +8,7 @@ import { SwiperSlide } from 'swiper/react';
 import useWindowSize from '@utils/use-window-size';
 import cn from 'classnames';
 import { ROUTES } from '@utils/routes';
+import { useHomeProductsQuery } from '@framework/product/get-all-best-seller-products';
 
 interface CategoriesProps {
   className?: string;
@@ -32,13 +33,24 @@ const CategoryGridListBlock: React.FC<CategoriesProps> = ({
   className = 'mb-7 lg:mb-8 xl:mb-9 2xl:mb-10',
 }) => {
   const { width } = useWindowSize();
-  const { data, isLoading, error } = useCategoriesQuery({
-    limit: 16,
+  // const { data, isLoading, error } = useCategoriesQuery({
+  //   limit: 16,
+  // });
+
+  const { data, isLoading, error } = useHomeProductsQuery();
+
+  const categories = data?.medicine_homepage_products?.map((product, index) => {
+    return {
+      name: product.title,
+      slug: product.title,
+      icon: null,
+      id: index,
+    };
   });
 
   return (
     <div className={cn(className)}>
-      <div className="pt-0.5 pb-1.5">
+      <div className="pt-0.5">
         <SectionHeader
           sectionHeading="text-choose-categories"
           sectionSubHeading="text-favorite-different-categories"
@@ -70,7 +82,7 @@ const CategoryGridListBlock: React.FC<CategoriesProps> = ({
                         </SwiperSlide>
                       );
                     })
-                  : data?.categories?.data?.map((category) => (
+                  : categories?.map((category: any) => (
                       <SwiperSlide
                         key={`category--key-${category.id}`}
                         className="p-1.5 md:p-2"
@@ -78,7 +90,7 @@ const CategoryGridListBlock: React.FC<CategoriesProps> = ({
                         <CategoryListCard
                           category={category}
                           href={{
-                            pathname: ROUTES.SEARCH,
+                            pathname: ROUTES.CATEGORY,
                             query: { category: category.slug },
                           }}
                           className="rounded-md text-brand-light"
@@ -102,7 +114,7 @@ const CategoryGridListBlock: React.FC<CategoriesProps> = ({
                       </div>
                     );
                   })
-                : data?.categories?.data?.map((category) => (
+                : categories?.map((category: any) => (
                     <div
                       key={`category--key-${category.id}`}
                       className="w-[25%] 2xl:w-[20%] 3xl:w-[16.666%] shrink-0 p-2"
@@ -110,7 +122,7 @@ const CategoryGridListBlock: React.FC<CategoriesProps> = ({
                       <CategoryListCard
                         category={category}
                         href={{
-                          pathname: ROUTES.SEARCH,
+                          pathname: ROUTES.CATEGORY,
                           query: { category: category.slug },
                         }}
                         className="rounded-md text-brand-light"

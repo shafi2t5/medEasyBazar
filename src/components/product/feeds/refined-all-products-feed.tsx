@@ -20,9 +20,6 @@ const RefinedAllProductFeed: FC<ProductFeedProps> = ({ className = '' }) => {
   const { query } = useRouter();
   const {
     isFetching: isLoading,
-    isFetchingNextPage: loadingMore,
-    fetchNextPage,
-    hasNextPage,
     data,
     error,
   } = useProductsQuery({ limit: LIMITS.REFINED_PRODUCTS_LIMITS, ...query });
@@ -60,7 +57,7 @@ const RefinedAllProductFeed: FC<ProductFeedProps> = ({ className = '' }) => {
             )
           ) : (
             <>
-              {data?.pages?.map((page: any, index) => {
+              {data?.pages?.map((page: any, index: number) => {
                 return (
                   <Fragment key={index}>
                     {page?.data

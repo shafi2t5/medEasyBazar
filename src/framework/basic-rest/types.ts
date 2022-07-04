@@ -77,26 +77,23 @@ export type Tag = {
   slug: string;
 };
 export type Product = {
-  id: number | string;
-  name: string;
-  slug: string;
+  category_name: string;
+  discount_type: string;
+  discount_value: number;
+  generic_name: string;
+  id: number;
+  is_available: boolean;
+  is_discountable: boolean;
+  manufacturer_name: string;
+  medicine_image: string;
+  medicine_name: string;
+  strength: string;
+  unit_prices: unitPrice[];
+};
+export type unitPrice = {
   price: number;
-  quantity: number;
-  sold: number;
   unit: string;
-  sale_price?: number;
-  min_price?: number;
-  max_price?: number;
-  image: Attachment;
-  sku?: string;
-  gallery?: Attachment[];
-  category?: Category;
-  tag?: Tag[];
-  meta?: any[];
-  brand?: Brand;
-  description?: string;
-  variations?: object;
-  [key: string]: unknown;
+  unit_size: number;
 };
 export type OrderItem = {
   id: number | string;
@@ -142,4 +139,13 @@ export type Shop = {
   socialShare: any;
   created_at: string;
   updated_at: string;
+};
+
+export type homeMedicine = {
+  title: string;
+  products: Product[];
+};
+
+export type HomeProduct = {
+  medicine_homepage_products: homeMedicine[];
 };

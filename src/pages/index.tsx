@@ -10,11 +10,10 @@ import { QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
 import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
 import { fetchCategories } from '@framework/category/get-all-categories';
-import { fetchBestSellerGroceryProducts } from '@framework/product/get-all-best-seller-grocery-products';
-import { fetchPopularProducts } from '@framework/product/get-all-popular-products';
 import { LIMITS } from '@framework/utils/limits';
 import CategoryGridListBlock from '@components/common/category-grid-list-block';
 import BestSellerProductFeed from '@components/product/feeds/best-seller-product-feed';
+import { fetchBestSellerProducts } from '@framework/product/get-all-best-seller-products';
 
 export default function Home() {
   return (
@@ -52,12 +51,12 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       API_ENDPOINTS.BEST_SELLER_GROCERY_PRODUCTS,
       { limit: LIMITS.BEST_SELLER_GROCERY_PRODUCTS_LIMITS },
     ],
-    fetchBestSellerGroceryProducts
+    fetchBestSellerProducts
   );
-  await queryClient.prefetchQuery(
-    [API_ENDPOINTS.POPULAR_PRODUCTS, { limit: LIMITS.POPULAR_PRODUCTS_LIMITS }],
-    fetchPopularProducts
-  );
+  // await queryClient.prefetchQuery(
+  //   [API_ENDPOINTS.POPULAR_PRODUCTS, { limit: LIMITS.POPULAR_PRODUCTS_LIMITS }],
+  //   fetchPopularProducts
+  // );
 
   return {
     props: {
