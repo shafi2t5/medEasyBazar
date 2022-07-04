@@ -17,6 +17,7 @@ import { fetchBestSellerProducts } from '@framework/product/get-all-best-seller-
 import { useUI } from '@contexts/ui.context';
 import { ProductGrid } from '@components/product/product-grid';
 import Container from '@components/ui/container';
+import HomeBanner from '@components/cards/home-banner';
 
 export default function Home() {
   const { searchList, search_input } = useUI();
@@ -40,11 +41,8 @@ export default function Home() {
         </Container>
       ) : (
         <>
-          <div className="col-span-full">
-            <BannerCard
-              banner={banner}
-              className="mb-7 lg:mb-8 xl:mb-9 2xl:mb-10"
-            />
+          <div className="col-span-full mb-7 lg:mb-8 xl:mb-9 2xl:mb-10">
+            <HomeBanner />
           </div>
           <BundleGrid
             className="mb-7 lg:mb-8 xl:mb-9 2xl:mb-10"

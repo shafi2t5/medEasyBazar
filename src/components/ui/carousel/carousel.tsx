@@ -94,7 +94,7 @@ const Carousel: React.FunctionComponent<CarouselPropsType> = ({
       </Swiper>
       {Boolean(navigation) && (
         <div
-          className={`flex items-center w-full absolute top-2/4 z-10 ${buttonGroupClassName}`}
+          className={`flex items-center w-full absolute top-1/2 z-10 transform -translate-y-2/4 ${buttonGroupClassName}`}
         >
           {prevActivateId.length > 0 ? (
             <div className={prevButtonClasses} id={prevActivateId}>

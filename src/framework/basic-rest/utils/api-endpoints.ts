@@ -11,6 +11,7 @@ export const API_ENDPOINTS = {
   RELATED_PRODUCTS: '/related_products.json',
   FLASH_SELL_PRODUCTS: '/products_flash_sell.json',
   BEST_SELLER_PRODUCTS: '/patient/medicine-homepage-products/',
+  BANNER_API: '/patient/medicine-page-top-slider/',
   BEST_SELLER_GROCERY_PRODUCTS: '/patient/medicine-homepage-products/',
   POPULAR_PRODUCTS: '/products_popular.json',
   CATEGORY_PRODUCTS: '/patient/category-products/',

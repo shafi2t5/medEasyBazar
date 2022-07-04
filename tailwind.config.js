@@ -23,6 +23,7 @@ module.exports = {
           manufacure: '#c2c2c2',
           danger1: '#ffe9ed',
           green: '#07e537',
+          bannerText: '#816aee',
         },
         borderRadius: {
           large: '20px',
@@ -69,6 +70,7 @@ module.exports = {
         '450px': '450px',
         '500px': '500px',
         '64vh': '64vh',
+        '10%': '10%',
       },
       minHeight: {
         '50px': '50px',
