@@ -4,7 +4,7 @@ import { fetchSearchedProducts } from '@framework/product/use-search';
 import SearchBox from '@components/common/search-box';
 import SearchProduct from '@components/common/search-product';
 import SearchResultLoader from '@components/ui/loaders/search-result-loader';
-import useFreezeBodyScroll from '@utils/use-freeze-body-scroll';
+// import useFreezeBodyScroll from '@utils/use-freeze-body-scroll';
 import Scrollbar from '@components/ui/scrollbar';
 import { useUI } from '@contexts/ui.context';
 
@@ -34,9 +34,9 @@ const Search = React.forwardRef<HTMLDivElement, Props>(
     const [searchText, setSearchText] = useState('');
     const [inputFocus, setInputFocus] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    useFreezeBodyScroll(
-      inputFocus === true || displaySearch || displayMobileSearch
-    );
+    // useFreezeBodyScroll(
+    //   inputFocus === true || displaySearch || displayMobileSearch
+    // );
     async function handleSearch(e: React.SyntheticEvent) {
       e.preventDefault();
       const data = await fetchSearchedProducts({
@@ -46,11 +46,19 @@ const Search = React.forwardRef<HTMLDivElement, Props>(
 
       setSearchList(data?.medicines);
     }
-    function handleAutoSearch(e: React.FormEvent<HTMLInputElement>) {
+
+    async function handleAutoSearch(e: React.FormEvent<HTMLInputElement>) {
       setSearchText(e.currentTarget.value);
       setSearchInput(e.currentTarget.value);
       if (e.currentTarget.value === '') {
         setSearchList([]);
+      } else {
+        const data = await fetchSearchedProducts({
+          text: searchText,
+          setIsLoading,
+        });
+
+        setSearchList(data?.medicines);
       }
     }
     function clear() {
