@@ -16,7 +16,7 @@ interface ProductsCarouselProps {
   categorySlug?: string;
   className?: string;
   products?: Product[];
-  loading: boolean;
+  loading?: boolean;
   error?: string;
   limit?: number;
   uniqueKey?: string;

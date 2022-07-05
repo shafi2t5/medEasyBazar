@@ -8,7 +8,7 @@ import { useProductQuery } from '@framework/product/get-product';
 import { getVariations } from '@framework/utils/get-variations';
 import usePrice from '@framework/product/use-price';
 import { useCart } from '@contexts/cart/cart.context';
-import { generateCartItem } from '@utils/generate-cart-item';
+
 import { toast } from 'react-toastify';
 import ThumbnailCarousel from '@components/ui/carousel/thumbnail-carousel';
 import { useTranslation } from 'next-i18next';
@@ -18,21 +18,48 @@ import CloseIcon from '@components/icons/close-icon';
 import productGalleryPlaceholder from '@assets/placeholders/product-placeholder.png';
 import { useUI } from '@contexts/ui.context';
 import { discountCalculate } from '@utils/discount';
+import {
+  useModalAction,
+  useModalState,
+} from '@components/common/modal/modal.context';
+import RelatedProductFeed from './feeds/related-product-feed';
+
+const breakpoints = {
+  '1536': {
+    slidesPerView: 6,
+  },
+  '1280': {
+    slidesPerView: 5,
+  },
+  '1024': {
+    slidesPerView: 4,
+  },
+  '640': {
+    slidesPerView: 3,
+  },
+  '360': {
+    slidesPerView: 2,
+  },
+  '0': {
+    slidesPerView: 1,
+  },
+};
 
 const ProductSingleDetails: React.FC = () => {
   const { t } = useTranslation('common');
   const router = useRouter();
   const { query } = router;
   const { width } = useWindowSize();
+  const { selectedProduct } = useUI();
   const { data, isLoading, error } = useProductQuery(query as any);
   const { addItemToCart, getItemFromCart } = useCart();
-  const { selectedProduct } = useUI();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [piece, setPiece] = useState<number | null | string>(null);
   const [productPrice, setProductPrice] = useState<any>(null);
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
   const [addToWishlistLoader, setAddToWishlistLoader] =
     useState<boolean>(false);
+  const { closeModal } = useModalAction();
 
   const medPrice =
     selectedProduct?.unit_prices?.filter(
@@ -41,7 +68,6 @@ const ProductSingleDetails: React.FC = () => {
   // const medicineDetails = data?.medicine_details;
   const cartitems = getItemFromCart(selectedProduct.id);
 
-  // console.log(medPrice, 'cartitems');
   useEffect(() => {
     if (cartitems) {
       setSelectedQuantity(cartitems?.quantity || 1);
@@ -67,9 +93,7 @@ const ProductSingleDetails: React.FC = () => {
 
   let cartData = { ...selectedProduct, productPrice };
 
-  // console.log(cartData, 'cartitems');
-
-  if (isLoading) return <p>Loading...</p>;
+  // if (isLoading) return <p>Loading...</p>;
 
   function addToCart() {
     setAddToCartLoader(true);
@@ -89,9 +113,16 @@ const ProductSingleDetails: React.FC = () => {
     });
   }
 
+  function navigateToProductPage() {
+    closeModal();
+    router.push(
+      `${ROUTES.PRODUCT}/${selectedProduct?.medicine_name}?generic_name=${selectedProduct?.generic_name}&category_name=${selectedProduct?.category_name}&id=${selectedProduct?.id}&strength=${selectedProduct?.strength}`
+    );
+  }
+
   return (
     <div className="pt-6 pb-2 md:pt-7 relative ">
-      <div className="grid-cols-10 lg:grid gap-7 2xl:gap-8 ">
+      <div className="grid-cols-10 lg:grid gap-7 2xl:gap-8 mr-10">
         <div className="col-span-5 mb-6 overflow-hidden xl:col-span-6 md:mb-8 lg:mb-0">
           {/* {!!data?.gallery?.length ? (
             <ThumbnailCarousel
@@ -107,8 +138,8 @@ const ProductSingleDetails: React.FC = () => {
                 productGalleryPlaceholder
               }
               alt={data?.medicine_name!}
-              width={900}
-              height={680}
+              width={650}
+              height={390}
             />
           </div>
           {/* )} */}
@@ -117,7 +148,10 @@ const ProductSingleDetails: React.FC = () => {
         <div className="flex flex-col col-span-5 shrink-0 xl:col-span-4 xl:ltr:pl-2 xl:rtl:pr-2">
           <div className="pb-3 lg:pb-5">
             <div className="md:mb-2.5 block -mt-1.5">
-              <h2 className="text-brand-dark text-13px sm:text-18px lg:text-20px mb-1.5 font-bold">
+              <h2
+                onClick={navigateToProductPage}
+                className="text-brand-dark text-13px sm:text-18px cursor-pointer lg:text-20px mb-1.5 font-bold"
+              >
                 {selectedProduct?.medicine_name}
               </h2>
               <div className="leading-5 sm:leading-6 mb-2">
@@ -195,9 +229,13 @@ const ProductSingleDetails: React.FC = () => {
           </div>
         </div>
       </div>
-      {/* <div className="absolute mt-6 top-0 right-0 bg-brand-danger1 p-2 rounded-md">
-        <CloseIcon color="#dc2626" />
-      </div> */}
+      <div className="mt-7">
+        <RelatedProductFeed
+          data={data?.related_medicines}
+          carouselBreakpoint={breakpoints}
+          className="mb-0.5 md:mb-2 lg:mb-3.5 xl:mb-4 2xl:mb-6"
+        />
+      </div>
     </div>
   );
 };

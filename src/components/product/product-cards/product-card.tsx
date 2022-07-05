@@ -14,6 +14,7 @@ import productPlaceholder from '@assets/placeholders/product-placeholder.png';
 import dynamic from 'next/dynamic';
 import { discountCalculate } from '@utils/discount';
 import { useUI } from '@contexts/ui.context';
+import { useModalAction } from '@components/common/modal/modal.context';
 const AddToCart = dynamic(() => import('@components/product/add-to-cart'), {
   ssr: false,
 });
@@ -61,6 +62,8 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
   //   currencyCode: 'USD',
   // });
 
+  const { openModal } = useModalAction();
+
   const { afterDiscount } = discountCalculate(
     product?.unit_prices[0]?.price,
     product?.discount_value
@@ -90,19 +93,18 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
 
   const { setSelectedProduct } = useUI();
 
-  function navigateToProductPage() {
-    router.push(
-      `${ROUTES.PRODUCT}/${medicine_name}?generic_name=${generic_name}&category_name=${category_name}&id=${id}&strength=${strength}`
-    );
+  function handlePopupView() {
+    openModal('PRODUCT_VIEW', productInfo);
     setSelectedProduct(productInfo);
   }
+
   return (
     <article
       className={cn(
         'bg-brand-sidebarColor flex flex-col group rounded-md cursor-pointer transition-all duration-300 shadow-card hover:shadow-cardHover relative h-full max-w-xs',
         className
       )}
-      onClick={navigateToProductPage}
+      onClick={handlePopupView}
       title={medicine_name}
     >
       <div className="relative shrink-0">
