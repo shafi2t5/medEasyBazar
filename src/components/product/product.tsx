@@ -51,7 +51,7 @@ const ProductSingleDetails: React.FC = () => {
   const { query } = router;
   const { width } = useWindowSize();
   const { selectedProduct } = useUI();
-  const { data, isLoading, error } = useProductQuery(query as any);
+  const { data, isLoading, error } = useProductQuery(selectedProduct as any);
   const { addItemToCart, getItemFromCart } = useCart();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [piece, setPiece] = useState<number | null | string>(null);
@@ -122,7 +122,7 @@ const ProductSingleDetails: React.FC = () => {
 
   return (
     <div className="pt-6 pb-2 md:pt-7 relative ">
-      <div className="grid-cols-10 lg:grid gap-7 2xl:gap-8 mr-10">
+      <div className="grid-cols-10 lg:grid gap-7 2xl:gap-8 mr-10 max-w-5xl">
         <div className="col-span-5 mb-6 overflow-hidden xl:col-span-6 md:mb-8 lg:mb-0">
           {/* {!!data?.gallery?.length ? (
             <ThumbnailCarousel
