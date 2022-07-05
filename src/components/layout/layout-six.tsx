@@ -1,13 +1,13 @@
 import { useSessionStorage } from 'react-use';
-import Link from '@components/ui/link';
-import HighlightedBar from '@components/common/highlighted-bar';
+// import Link from '@components/ui/link';
+// import HighlightedBar from '@components/common/highlighted-bar';
 import Header from '@components/layout/header/header-six';
 import Footer from '@components/layout/footer/footer';
 import MobileNavigation from '@components/layout/mobile-navigation/mobile-navigation';
-import { IoChevronForwardCircleOutline } from 'react-icons/io5';
+// import { IoChevronForwardCircleOutline } from 'react-icons/io5';
 import { useTranslation } from 'next-i18next';
 import { ROUTES } from '@utils/routes';
-import { LIMITS } from '@framework/utils/limits';
+// import { LIMITS } from '@framework/utils/limits';
 // import { useCategoriesQuery } from '@framework/category/get-all-categories';
 import CategoryListCard from '@components/cards/category-list-card';
 import Container from '@components/ui/container';
@@ -40,7 +40,7 @@ const Layout: React.FC = ({ children }) => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {highlightedBar !== 'true' && (
+      {/* {highlightedBar !== 'true' && (
         <HighlightedBar
           onClose={() => setHighlightedBar('true')}
           className="text-brand-light]"
@@ -62,7 +62,7 @@ const Layout: React.FC = ({ children }) => {
             </span>
           </div>
         </HighlightedBar>
-      )}
+      )} */}
       {/* End of highlighted bar  */}
 
       <Header />

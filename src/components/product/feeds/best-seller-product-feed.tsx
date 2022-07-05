@@ -3,15 +3,9 @@ import { UIContext } from '@contexts/ui.context';
 import { useHomeProductsQuery } from '@framework/product/get-all-best-seller-products';
 import { LIMITS } from '@framework/utils/limits';
 import { ROUTES } from '@utils/routes';
-// import { useContext } from 'react';
 
 export default function BestSellerProductFeed() {
   const { data, isLoading, error } = useHomeProductsQuery();
-  // const { category_name } = useContext(UIContext);
-
-  // const filteredData = data?.medicine_homepage_products.filter(
-  //   (data: any) => data.title === (category_name || 'Best Selling Products')
-  // )[0];
 
   return (
     <>

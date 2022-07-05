@@ -5,13 +5,21 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Dropdowns() {
+interface dropdown {
+  stateDropdown: any;
+  setStateDropdown?: any;
+}
+
+export default function Dropdowns({
+  stateDropdown,
+  setStateDropdown,
+}: dropdown) {
   return (
     <Menu as="div" className="relative inline-block text-left w-full mt-3">
       <div className="">
         <Menu.Button className="inline-flex justify-center py-4 w-full rounded-md border bg-brand-sidebarColor">
           <span className="flex-1 font-bold text-md text-brand-dark">
-            Piece
+            {stateDropdown ? `${stateDropdown} Ps` : 'Piece'}
           </span>
           <svg
             className="mr-1 ml-2 h-6 w-6 text-right"
@@ -48,6 +56,7 @@ export default function Dropdowns() {
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm'
                   )}
+                  onClick={() => setStateDropdown(10)}
                 >
                   10 ps
                 </a>
@@ -61,6 +70,7 @@ export default function Dropdowns() {
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm'
                   )}
+                  onClick={() => setStateDropdown(12)}
                 >
                   12 ps
                 </a>

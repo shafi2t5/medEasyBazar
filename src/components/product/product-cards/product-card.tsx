@@ -149,8 +149,8 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
       </div>
       <div className="flex flex-col md:flex-row justify-between relative mt-auto px-3 md:px-4 lg:px-[18px] pb-4">
         <div className="mb-1.5">
-          <div className="block text-13px sm:text-20px lg:text-20px font-bold text-brand-dark">
-            <span className="mr-1">৳</span>
+          <div className="block text-13px sm:text-20px lg:text-20px font-extrabold text-brand-dark">
+            <span className="mr-1 font-extrabold">৳</span>
             {is_discountable
               ? price.toFixed(2)
               : (unit_prices[0]?.price / unit_prices[0]?.unit_size).toFixed(2)}
