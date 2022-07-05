@@ -13,10 +13,7 @@ type CartItemProps = {
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const { isInStock, addItemToCart, removeItemFromCart, clearItemFromCart } =
     useCart();
-  // const { price: totalPrice } = usePrice({
-  //   amount: item?.itemTotal,
-  //   currencyCode: 'TK',
-  // });
+
   const outOfStock = isInStock(item.id);
   return (
     <div
@@ -57,7 +54,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
             onIncrement={() => addItemToCart(item, 1)}
             onDecrement={() => removeItemFromCart(item.id)}
             variant="cart"
-            disabled={outOfStock}
+            disabled={!outOfStock}
           />
         </div>
 

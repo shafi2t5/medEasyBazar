@@ -8,18 +8,20 @@ function classNames(...classes: any) {
 interface dropdown {
   stateDropdown: any;
   setStateDropdown?: any;
+  dList: any;
 }
 
 export default function Dropdowns({
   stateDropdown,
   setStateDropdown,
+  dList,
 }: dropdown) {
   return (
     <Menu as="div" className="relative inline-block text-left w-full mt-3">
       <div className="">
         <Menu.Button className="inline-flex justify-center py-4 w-full rounded-md border bg-brand-sidebarColor">
           <span className="flex-1 font-bold text-md text-brand-dark">
-            {stateDropdown ? `${stateDropdown} Ps` : 'Piece'}
+            {stateDropdown ? `${stateDropdown}` : 'Piece'}
           </span>
           <svg
             className="mr-1 ml-2 h-6 w-6 text-right"
@@ -48,34 +50,22 @@ export default function Dropdowns({
       >
         <Menu.Items className="origin-top-right z-50 w-full absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none">
           <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                  onClick={() => setStateDropdown(10)}
-                >
-                  10 ps
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                  onClick={() => setStateDropdown(12)}
-                >
-                  12 ps
-                </a>
-              )}
-            </Menu.Item>
+            {dList?.map((data: any, index: number) => (
+              <Menu.Item key={index}>
+                {({ active }) => (
+                  <a
+                    href="#"
+                    className={classNames(
+                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                      'block px-4 py-2 text-sm'
+                    )}
+                    onClick={() => setStateDropdown(data?.unit)}
+                  >
+                    {data?.unit}
+                  </a>
+                )}
+              </Menu.Item>
+            ))}
           </div>
         </Menu.Items>
       </Transition>

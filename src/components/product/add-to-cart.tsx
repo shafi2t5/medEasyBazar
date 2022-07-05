@@ -46,7 +46,7 @@ const AddToCart = ({ data, variation, disabled }: Props) => {
         value={getItemFromCart(data?.id).quantity}
         onDecrement={handleRemoveClick}
         onIncrement={handleAddClick}
-        disabled={isInStock(data.id)}
+        disabled={!data?.is_available}
         className="w-full"
       />
     </div>

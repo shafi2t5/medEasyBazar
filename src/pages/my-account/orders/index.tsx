@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '@components/layout/layout';
+import Layout from '@components/layout/layout-six';
 import AccountLayout from '@components/my-account/account-layout';
 import OrderTable from '@components/order/order-table';
 import { useOrdersQuery } from '@framework/order/get-all-orders';

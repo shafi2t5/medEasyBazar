@@ -31,6 +31,7 @@ const initialState = {
   data: null,
   search_input: '',
   searchList: [],
+  selectedProduct: {},
 };
 
 type Action =
@@ -107,6 +108,10 @@ type Action =
     }
   | {
       type: 'SEARCH_LIST';
+      payload: any;
+    }
+  | {
+      type: 'SELECT_PRODUCT';
       payload: any;
     };
 
@@ -261,6 +266,12 @@ function uiReducer(state: State, action: Action) {
         searchList: action.payload,
       };
     }
+    case 'SELECT_PRODUCT': {
+      return {
+        ...state,
+        selectedProduct: action.payload,
+      };
+    }
   }
 }
 
@@ -315,6 +326,9 @@ export const UIProvider: React.FC = (props) => {
   const setSearchList = (payload: any) =>
     dispatch({ type: 'SEARCH_LIST', payload });
 
+  const setSelectedProduct = (payload: any) =>
+    dispatch({ type: 'SELECT_PRODUCT', payload });
+
   const value = React.useMemo(
     () => ({
       ...state,
@@ -345,6 +359,7 @@ export const UIProvider: React.FC = (props) => {
       disableStickyHeader,
       setSearchInput,
       setSearchList,
+      setSelectedProduct,
     }),
     [state]
   );

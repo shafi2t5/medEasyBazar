@@ -5,7 +5,11 @@ import { useQuery } from 'react-query';
 
 export const fetchProduct = async (query: any) => {
   const { data } = await http.get(
-    `${API_ENDPOINTS.PRODUCT}?generic_name=${query.generic_name}&category_name=${query.category_name}&id=${query.id}&strength=${query.strength}`
+    `${API_ENDPOINTS.PRODUCT}?generic_name=${
+      query.generic_name
+    }&category_name=${query.category_name}&id=${query.id}&strength=${
+      query.strength
+    }&lang=${'en'}`
   );
   return data;
 };

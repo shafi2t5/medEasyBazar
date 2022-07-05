@@ -23,11 +23,6 @@ const accountMenu = [
     icon: <OrdersIcon className="w-5 md:w-[22px] h-5 md:h-[22px]" />,
   },
   {
-    slug: ROUTES.WISHLIST,
-    name: 'text-wishlist',
-    icon: <WishlistIcon className="w-5 md:w-[22px] h-5 md:h-[22px]" />,
-  },
-  {
     slug: ROUTES.ADDRESS,
     name: 'text-address',
     icon: <MapIcon className="w-5 md:w-[22px] h-5 md:h-[22px]" />,
@@ -38,29 +33,17 @@ const accountMenu = [
     icon: <NotificationIcon className="w-5 md:w-[22px] h-5 md:h-[22px]" />,
   },
   {
-    slug: ROUTES.LEGAL_NOTICE,
-    name: 'text-account-details-notice',
-    icon: <NoticeIcon className="w-5 md:w-[22px] h-5 md:h-[22px]" />,
-  },
-  {
     slug: ROUTES.HELP_CENTER,
     name: 'text-account-details-help',
     icon: <HelpIcon className="w-5 md:w-[22px] h-5 md:h-[22px]" />,
-  },
-  {
-    slug: ROUTES.CHANGE_PASSWORD,
-    name: 'text-change-password',
-    icon: (
-      <IoSettingsOutline className="w-5 md:w-[22px] h-5 md:h-[22px] text-[#8C969F]" />
-    ),
   },
 ];
 
 const AccountLayout: React.FunctionComponent<{}> = ({ children }) => {
   return (
-    <div className="border-t border-b border-border-base">
-      <Container>
-        <div className="pt-10 2xl:pt-12 pb-12 lg:pb-14 xl:pb-16 2xl:pb-20 xl:max-w-screen-xl 2xl:max-w-[1300px] mx-auto">
+    <div className="border-b border-border-base">
+      <Container clean={true}>
+        <div className="pt-2 2xl:pt-3 pb-12 lg:pb-14 xl:pb-16 2xl:pb-20 xl:max-w-screen-xl 2xl:max-w-[1300px]">
           <div className="flex flex-col w-full lg:flex-row">
             <div className="lg:hidden">
               <AccountNavMobile options={accountMenu} />

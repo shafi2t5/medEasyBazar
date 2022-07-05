@@ -2,17 +2,18 @@ import cn from 'classnames';
 import Image from '@components/ui/image';
 import { useRouter } from 'next/router';
 import { ROUTES } from '@utils/routes';
-import usePrice from '@framework/product/use-price';
+// import usePrice from '@framework/product/use-price';
 import { Product } from '@framework/types';
-import { useModalAction } from '@components/common/modal/modal.context';
-import useWindowSize from '@utils/use-window-size';
-import PlusIcon from '@components/icons/plus-icon';
-import { useCart } from '@contexts/cart/cart.context';
+// import { useModalAction } from '@components/common/modal/modal.context';
+// import useWindowSize from '@utils/use-window-size';
+// import PlusIcon from '@components/icons/plus-icon';
+// import { useCart } from '@contexts/cart/cart.context';
 // import { AddToCart } from '@components/product/add-to-cart';
 import { useTranslation } from 'next-i18next';
-import { productPlaceholder } from '@assets/placeholders';
+import productPlaceholder from '@assets/placeholders/product-placeholder.png';
 import dynamic from 'next/dynamic';
 import { discountCalculate } from '@utils/discount';
+import { useUI } from '@contexts/ui.context';
 const AddToCart = dynamic(() => import('@components/product/add-to-cart'), {
   ssr: false,
 });
@@ -23,8 +24,7 @@ interface ProductProps {
 }
 function RenderPopupOrAddToCart({ data }: { data: Product }) {
   const { t } = useTranslation('common');
-  const { is_available } = data ?? {};
-  const { width } = useWindowSize();
+  // const { width } = useWindowSize();
   // const { openModal } = useModalAction();
   // const { isInCart, isInStock } = useCart();
   // const iconSize = width! > 1024 ? '19' : '17';
@@ -32,30 +32,21 @@ function RenderPopupOrAddToCart({ data }: { data: Product }) {
   // function handlePopupView() {
   //   openModal('PRODUCT_VIEW', data);
   // }
-  if (!is_available) {
+
+  if (!data?.is_available) {
     return (
       <span className="text-[11px] md:text-xs font-bold text-brand-danger uppercase inline-block rounded-lg px-2.5 pt-1 pb-[3px] mx-0.5 sm:mx-1">
         {t('text-out-stock')}
       </span>
     );
   }
-  // if (product_type === 'variable') {
-  //   return (
-  //     <button
-  //       className="inline-flex items-center justify-center w-8 h-8 text-4xl rounded-lg bg-brand-navColor lg:w-10 lg:h-10 text-brand-light focus:outline-none focus-visible:outline-none"
-  //       aria-label="Count Button"
-  //       onClick={handlePopupView}
-  //     >
-  //       <PlusIcon width={iconSize} height={iconSize} opacity="1" />
-  //     </button>
-  //   );
-  // }
+
   return <AddToCart data={data} />;
 }
 const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
   const router = useRouter();
-  const { openModal } = useModalAction();
-  const { t } = useTranslation('common');
+  // const { openModal } = useModalAction();
+  // const { t } = useTranslation('common');
   // const { price, basePrice, discount } = usePrice({
   //   amount: product?.sale_price ? product?.sale_price : product?.price,
   //   baseAmount: product?.price,
@@ -71,7 +62,7 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
   // });
 
   const { afterDiscount } = discountCalculate(
-    product?.unit_prices[0]?.price / product?.unit_prices[0]?.unit_size,
+    product?.unit_prices[0]?.price,
     product?.discount_value
   );
 
@@ -79,7 +70,7 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
     ...product,
     price: product.is_discountable
       ? afterDiscount
-      : product?.unit_prices[0]?.price / product?.unit_prices[0]?.unit_size,
+      : product?.unit_prices[0]?.price,
   };
 
   const {
@@ -97,10 +88,13 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
     price,
   } = productInfo ?? {};
 
+  const { setSelectedProduct } = useUI();
+
   function navigateToProductPage() {
     router.push(
       `${ROUTES.PRODUCT}/${medicine_name}?generic_name=${generic_name}&category_name=${category_name}&id=${id}&strength=${strength}`
     );
+    setSelectedProduct(productInfo);
   }
   return (
     <article
@@ -115,8 +109,8 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
         <div className="flex max-w-[260px] mx-auto transition duration-200 ease-in-out transform group-hover:scale-105 relative">
           <Image
             src={
-              //  medicine_image ??
-              '/assets/images/products/p-15.png'
+              `https://medeasy.health:5000${medicine_image}` ??
+              productPlaceholder
             }
             alt={'Product Image'}
             width={260}
@@ -153,12 +147,12 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
             <span className="mr-1 font-extrabold">৳</span>
             {is_discountable
               ? price.toFixed(2)
-              : (unit_prices[0]?.price / unit_prices[0]?.unit_size).toFixed(2)}
+              : (unit_prices[0]?.price).toFixed(2)}
           </div>
           {is_discountable ? (
             <del className="text-sm text-brand-dark ">
               <span className="mr-1">৳</span>
-              {(unit_prices[0]?.price / unit_prices[0]?.unit_size).toFixed(2)}
+              {(unit_prices[0]?.price).toFixed(2)}
             </del>
           ) : (
             <div className="opacity-0">Loading...</div>
