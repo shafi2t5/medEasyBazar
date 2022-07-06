@@ -8,6 +8,19 @@ export interface LoginInputType {
   phone: string;
   otp: string;
 }
+
+// const res = await fetch(
+//   'https://daktarbondhu.com:5001/api/patient/login/',
+//   {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(input),
+//   }
+// );
+// const data = await res.json();
+
 export async function login(input: any) {
   console.log(input);
   try {
@@ -29,7 +42,10 @@ export const useLoginMutation = () => {
   const { closeModal } = useModalAction();
   return useMutation((input: any) => login(input), {
     onSuccess: (data) => {
-      Cookies.set('auth_token', data?.token);
+      Cookies.set(
+        'auth_token',
+        data?.token || process.env.NEXT_PUBLIC_BASE_URL_TOKEN
+      );
       authorize();
       closeModal();
     },

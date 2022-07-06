@@ -6,7 +6,7 @@ import Logo from '@components/ui/logo';
 import { useTranslation } from 'next-i18next';
 import Image from '@components/ui/image';
 import { useModalAction } from '@components/common/modal/modal.context';
-// import Switch from '@components/ui/switch';
+import Switch from '@components/ui/switch';
 import CloseButton from '@components/ui/close-button';
 import { FaFacebook, FaGoogle } from 'react-icons/fa';
 import cn from 'classnames';
@@ -26,8 +26,8 @@ interface LoginFormProps {
 
 const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
   const { t } = useTranslation();
-  const { closeModal, openModal } = useModalAction();
-  // const { mutate: login, isLoading } = useLoginMutation();
+  const { closeModal } = useModalAction();
+  const { mutate: login, isLoading } = useLoginMutation();
   const [error, setError] = useState('');
   const [number, setNumber] = useState('');
   const [flag, setFlag] = useState(false);
@@ -51,7 +51,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
   const verifyOtp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
-    if (otp === '' || otp === null) return;
+    if (otp === '' || otp === null)
+      return setError('Please enter a valid Otp!');
     try {
       const token = await result?.confirm(otp);
       login({ token: token?.user?.accessToken });
@@ -75,7 +76,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
     try {
       const user: any = await googleSignIn();
       login({ token: user?.user?.accessToken });
-      console.log(user, 'fhh');
+      console.log(user?.user?.accessToken, 'fhh');
     } catch (error: any) {
       console.log(error.message);
     }

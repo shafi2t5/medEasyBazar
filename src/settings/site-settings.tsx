@@ -208,40 +208,10 @@ export const siteSettings = {
     ],
     languageMenu: [
       {
-        id: 'ar',
-        name: 'عربى - AR',
-        value: 'ar',
-        icon: <SAFlag />,
-      },
-      {
-        id: 'zh',
-        name: '中国人 - ZH',
-        value: 'zh',
-        icon: <CNFlag />,
-      },
-      {
         id: 'en',
         name: 'English - EN',
         value: 'en',
         icon: <USFlag />,
-      },
-      {
-        id: 'de',
-        name: 'Deutsch - DE',
-        value: 'de',
-        icon: <DEFlag />,
-      },
-      {
-        id: 'he',
-        name: 'rעברית - HE',
-        value: 'he',
-        icon: <ILFlag />,
-      },
-      {
-        id: 'es',
-        name: 'Español - ES',
-        value: 'es',
-        icon: <ESFlag />,
       },
     ],
   },

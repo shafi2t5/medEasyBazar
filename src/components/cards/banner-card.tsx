@@ -41,7 +41,7 @@ const BannerCard: React.FC<BannerProps> = ({
       >
         <Image
           src={
-            //  image
+            `https://medeasy.health:5000/${image}` ??
             '/assets/images/banner/banner-6.png'
           }
           width={1840}
