@@ -1,22 +1,35 @@
 import { useUI } from '@contexts/ui.context';
+import { useModalAction } from '@components/common/modal/modal.context';
+import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useMutation } from 'react-query';
 
 export interface LoginInputType {
-  email: string;
-  password: string;
-  remember_me: boolean;
+  phone: string;
+  otp: string;
 }
-async function login(input: LoginInputType) {
-  return {
-    token: `${input.email}.${input.remember_me}`.split('').reverse().join(''),
-  };
+export async function login(input: any) {
+  console.log(input);
+  try {
+    const { data } = await axios.post(
+      'https://daktarbondhu.com:5001/api/patient/login/',
+      input
+    );
+
+    console.log(data, 'lsfak');
+    return {
+      token: data,
+    };
+  } catch (error) {
+    console.log(error);
+  }
 }
 export const useLoginMutation = () => {
-  const { authorize, closeModal } = useUI();
-  return useMutation((input: LoginInputType) => login(input), {
+  const { authorize } = useUI();
+  const { closeModal } = useModalAction();
+  return useMutation((input: any) => login(input), {
     onSuccess: (data) => {
-      Cookies.set('auth_token', data.token);
+      Cookies.set('auth_token', data?.token);
       authorize();
       closeModal();
     },

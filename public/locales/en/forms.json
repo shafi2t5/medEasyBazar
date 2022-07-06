@@ -13,7 +13,7 @@
   "last-name-required": "Last name is required",
   "label-name-required": "Full Name (required)",
   "label-email-required": "Email Address (required)",
-  "label-contact-phone": "Phone (Optional)",
+  "label-contact-phone": "Phone Number",
   "label-male": "Male",
   "label-female": "Female",
   "label-name": "Name",
