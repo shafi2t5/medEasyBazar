@@ -2,6 +2,7 @@ import { BsThreeDots } from 'react-icons/bs';
 import { Popover, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { useUI } from '@contexts/ui.context';
+import { deleteOrder } from '@framework/order/order-delete';
 
 const ActionsButton: React.FC<{ item?: any }> = ({ item }) => {
   const { openDrawer, setDrawerView } = useUI();
@@ -42,7 +43,10 @@ const ActionsButton: React.FC<{ item?: any }> = ({ item }) => {
                 >
                   Order Details
                 </div>
-                <div className="text-[14px] whitespace-nowrap text-[#F35C5C] py-2 px-5 hover:bg-[#F6F9FC] transition-all cursor-pointer">
+                <div
+                  onClick={() => deleteOrder(item?.id)}
+                  className="text-[14px] whitespace-nowrap text-[#F35C5C] py-2 px-5 hover:bg-[#F6F9FC] transition-all cursor-pointer"
+                >
                   Cancel Order
                 </div>
               </Popover.Panel>

@@ -14,8 +14,9 @@ const AddressGrid: React.FC<{ address?: any }> = ({ address }) => {
   function handlePopupView(item: any) {
     openModal('ADDRESS_VIEW_AND_EDIT', item);
   }
+  address = address.address || [];
 
-  address = address || [];
+  //console.log(address, 'j');
 
   const [selected, setSelected] = useState(address[0]);
   return (
@@ -40,20 +41,21 @@ const AddressGrid: React.FC<{ address?: any }> = ({ address }) => {
                 as="h3"
                 className="mb-2 -mt-1 font-semibold text-brand-dark "
               >
-                {item?.title}
+                {item?.address_name}
               </RadioGroup.Label>
               <RadioGroup.Description
                 as="div"
                 className="leading-6 text-brand-muted"
               >
-                {formatAddress(item?.address)}
+                {item?.address}
+                {/* {formatAddress(item?.address)} */}
               </RadioGroup.Description>
               <div className="absolute z-10 flex transition-all ltr:right-3 rtl:left-3 top-3 lg:opacity-0 address__actions">
                 <button
                   onClick={() => handlePopupView(item)}
                   className="flex items-center justify-center w-6 h-6 text-base rounded-full bg-brand text-brand-light text-opacity-80"
                 >
-                  <span className="sr-only">{t(item?.title)}</span>
+                  <span className="sr-only">{t(item?.address_name)}</span>
                   <TiPencil />
                 </button>
               </div>

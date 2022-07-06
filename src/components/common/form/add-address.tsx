@@ -6,15 +6,16 @@ import { useModalState } from '@components/common/modal/modal.context';
 import { useModalAction } from '@components/common/modal/modal.context';
 import CloseButton from '@components/ui/close-button';
 import Heading from '@components/ui/heading';
-import Map from '@components/ui/map';
 import { useTranslation } from 'next-i18next';
+import {
+  AddApiAddress,
+  updateApiAddress,
+} from '@framework/address/address-add';
 
 interface ContactFormValues {
-  title: string;
-  default: boolean;
-  lat: number;
-  lng: number;
-  formatted_address?: string;
+  address_name: string;
+  phone: string;
+  address?: string;
 }
 
 const AddAddressForm: React.FC = () => {
@@ -24,7 +25,11 @@ const AddAddressForm: React.FC = () => {
   const { closeModal } = useModalAction();
 
   function onSubmit(values: ContactFormValues, e: any) {
-    console.log(values, 'Add Address');
+    if (data) {
+      updateApiAddress(data.id, values, closeModal);
+    } else {
+      AddApiAddress(values, closeModal);
+    }
   }
 
   const {
@@ -34,12 +39,9 @@ const AddAddressForm: React.FC = () => {
     formState: { errors },
   } = useForm<ContactFormValues>({
     defaultValues: {
-      title: data || data?.title ? data?.title : '',
-      default: data || data?.default ? data?.default : '',
-      formatted_address:
-        data || data?.address?.formatted_address
-          ? data?.address?.formatted_address
-          : '',
+      address: data || data?.address ? data?.address : '',
+      address_name: data || data?.address_name ? data?.address_name : '',
+      phone: data || data?.phone ? data?.phone : '',
     },
   });
 
@@ -54,29 +56,27 @@ const AddAddressForm: React.FC = () => {
           <Input
             variant="solid"
             label="Address Title"
-            {...register('title', { required: 'Title Required' })}
-            error={errors.title?.message}
+            {...register('address_name', { required: 'Title Required' })}
+            error={errors.address_name?.message}
           />
         </div>
-        <div className="grid grid-cols-1 mb-6 gap-7">
-          <Map
-            lat={data?.address?.lat || 1.295831}
-            lng={data?.address?.lng || 103.76261}
-            height={'420px'}
-            zoom={15}
-            showInfoWindow={false}
-            mapCurrentPosition={(value: string) =>
-              setValue('formatted_address', value)
-            }
-          />
+        <div className="mb-6">
           <TextArea
             label="Address"
-            {...register('formatted_address', {
+            {...register('address', {
               required: 'forms:address-required',
             })}
-            error={errors.formatted_address?.message}
+            error={errors.address?.message}
             className="text-brand-dark"
             variant="solid"
+          />
+        </div>
+        <div className="mb-6">
+          <Input
+            variant="solid"
+            label="Phone Number"
+            {...register('phone', { required: 'Phone Number Required' })}
+            error={errors.phone?.message}
           />
         </div>
         <div className="flex justify-end w-full">

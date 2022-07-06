@@ -19,7 +19,7 @@ export default function OrdersTablePage() {
       />
       <AccountLayout>
         {!isLoading ? (
-          <OrderTable orders={data?.data} />
+          <OrderTable orders={data?.orders} />
         ) : (
           <div>Loading...</div>
         )}

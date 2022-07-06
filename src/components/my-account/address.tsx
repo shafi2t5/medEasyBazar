@@ -6,11 +6,7 @@ export default function AccountDetailsPage() {
   let { data, isLoading } = useAddressQuery();
   return (
     <div className="pt-4">
-      {!isLoading ? (
-        <AddressGrid address={data?.data} />
-      ) : (
-        <div>Loading...</div>
-      )}
+      {!isLoading ? <AddressGrid address={data} /> : <div>Loading...</div>}
     </div>
   );
 }

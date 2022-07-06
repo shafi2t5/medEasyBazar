@@ -1,8 +1,8 @@
 import { OrderDetailsContent } from './order-details-content';
-import { formatAddress } from '@utils/format-address';
+// import { formatAddress } from '@utils/format-address';
 import Heading from '@components/ui/heading';
 import { IoClose } from 'react-icons/io5';
-import OrderStatus from './order-status';
+// import OrderStatus from './order-status';
 import { useTranslation } from 'next-i18next';
 import {
   DiscountPrice,
@@ -12,11 +12,11 @@ import {
 } from '@components/order/price';
 
 import { useUI } from '@contexts/ui.context';
+import { deleteOrder } from '@framework/order/order-delete';
 
 const OrderDrawer: React.FC = () => {
   const { t } = useTranslation('common');
   const { data, closeDrawer } = useUI();
-  let { shipping_address } = data;
 
   return (
     <>
@@ -41,10 +41,13 @@ const OrderDrawer: React.FC = () => {
               </div>
               <div className="rounded border border-solid min-h-[90px] bg-fill-base p-4 border-border-two text-[12px] md:text-[14px]">
                 <p className="text-brand-dark opacity-70">
-                  {formatAddress(shipping_address)}
+                  {data?.address?.address}
                 </p>
               </div>
-              <OrderStatus status={data?.status?.serial} />
+              <div className="my-3">
+                <div className="text-brand-dark">Order Status :</div>
+                <div className="mt-1 ">{data?.status}</div>
+              </div>
               <div className="grid grid-cols-12 bg-fill-base py-3 rounded-[3px] text-brand-dark/70 text-[12px] md:text-[14px]">
                 <div className="col-span-2"></div>
                 <div className="col-span-5">Items Name</div>
@@ -53,7 +56,7 @@ const OrderDrawer: React.FC = () => {
                 </div>
                 <div className="col-span-2">Price</div>
               </div>
-              {data?.products?.map((item: any, index: string) => (
+              {data?.medicines?.map((item: any, index: string) => (
                 <OrderDetailsContent key={index} item={item} />
               ))}
               <div className="mt-3 ltr:text-right rtl:text-left">
@@ -62,7 +65,7 @@ const OrderDrawer: React.FC = () => {
                     <p className="flex justify-between mb-1">
                       <span className="ltr:mr-8 rtl:ml-8">Sub total: </span>
                       <span className="font-medium">
-                        <SubTotalPrice items={data?.products} />
+                        <SubTotalPrice items={data?.medicines} />
                       </span>
                     </p>
                     {typeof data?.discount === 'number' && (
@@ -73,14 +76,12 @@ const OrderDrawer: React.FC = () => {
                         </span>
                       </p>
                     )}
-                    {typeof data?.delivery_fee === 'number' && (
-                      <p className="flex justify-between mb-2">
-                        <span className="ltr:mr-8 rtl:ml-8">Delivery Fee:</span>
-                        <span className="font-medium">
-                          <DeliveryFee delivery={data?.delivery_fee} />
-                        </span>
-                      </p>
-                    )}
+                    <p className="flex justify-between mb-2">
+                      <span className="ltr:mr-8 rtl:ml-8">Delivery Fee:</span>
+                      <span className="font-medium">
+                        <DeliveryFee delivery={data?.delivery_fee} />
+                      </span>
+                    </p>
                   </div>
                   <p className="flex justify-between mb-2 ltr:pl-20 rtl:pr-20">
                     <span className="ltr:mr-8 rtl:ml-8">Total Cost:</span>
@@ -91,11 +92,16 @@ const OrderDrawer: React.FC = () => {
                 </div>
               </div>
               <div className="mt-12 ltr:text-right rtl:text-left">
-                <span className="py-3 px-5 cursor-pointer inline-block text-[12px] md:text-[14px] text-black font-medium bg-white rounded border border-solid border-[#DEE5EA] ltr:mr-4 rtl:ml-4 hover:bg-[#F35C5C] hover:text-white hover:border-[#F35C5C] transition-all capitalize">
+                {/* <span className="py-3 px-5 cursor-pointer inline-block text-[12px] md:text-[14px] text-black font-medium bg-white rounded border border-solid border-[#DEE5EA] ltr:mr-4 rtl:ml-4 hover:bg-[#F35C5C] hover:text-white hover:border-[#F35C5C] transition-all capitalize">
                   Report order
-                </span>
+                </span> */}
                 <span
-                  onClick={closeDrawer}
+                  onClick={async () => {
+                    const res = await deleteOrder(data?.id);
+                    if (res) {
+                      closeDrawer();
+                    }
+                  }}
                   className="py-3 px-5 cursor-pointer inline-block text-[12px] md:text-[14px] text-white font-medium bg-[#F35C5C] rounded border border-solid border-[#F35C5C]  hover:bg-white hover:text-black hover:border-[#DEE5EA] transition-all capitalize"
                 >
                   Cancel order

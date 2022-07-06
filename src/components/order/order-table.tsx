@@ -24,12 +24,12 @@ export const CreatedAt: React.FC<{ createdAt?: any }> = ({ createdAt }) => {
 
 export const Status: React.FC<{ item?: any }> = ({ item }) => {
   return (
-    <span className={item?.status?.name?.replace(/\s/g, '_').toLowerCase()}>
+    <span className={item?.status}>
       <span
         className="bullet"
-        style={{ backgroundColor: item?.status?.color }}
+        style={{ backgroundColor: 'rgb(2, 178, 144)' }}
       />
-      {item?.status?.name}
+      {item?.status}
     </span>
   );
 };
@@ -37,8 +37,8 @@ export const Status: React.FC<{ item?: any }> = ({ item }) => {
 const columns = [
   {
     title: 'Order Number',
-    dataIndex: 'tracking_number',
-    key: 'tracking_number',
+    dataIndex: 'id',
+    key: 'id',
     className: 'id-cell',
     width: 140,
   },
@@ -59,12 +59,12 @@ const columns = [
       return <Status item={item} />;
     },
   },
-  {
-    title: 'Delivery Time',
-    dataIndex: 'delivery_time',
-    key: 'delivery_time',
-    width: 140,
-  },
+  // {
+  //   title: 'Delivery Time',
+  //   dataIndex: 'delivery_time',
+  //   key: 'delivery_time',
+  //   width: 140,
+  // },
   {
     title: 'Total Price',
     key: 'total',
@@ -97,24 +97,24 @@ const OrderTable: React.FC<{ orders?: any }> = ({ orders }) => {
     setDataValue(orders.slice(from, to));
   };
 
-  const onChangeSearch = (e: any) => {
-    setCurrentPage(1);
-    let filter: any = orders
-      .filter((item: any) =>
-        item.tracking_number
-          .toLowerCase()
-          .includes(e.target.value.toLowerCase())
-      )
-      .slice(0, countPerPage);
-    setValue(e.target.value);
-    if (!e.target.value) {
-      updatePage(1);
-    }
-    setDataValue(filter);
-  };
-  const onSubmitHandle = (e: any) => {
-    e.preventDefault();
-  };
+  // const onChangeSearch = (e: any) => {
+  //   setCurrentPage(1);
+  //   let filter: any = orders
+  //     .filter((item: any) =>
+  //       item.tracking_number
+  //         .toLowerCase()
+  //         .includes(e.target.value.toLowerCase())
+  //     )
+  //     .slice(0, countPerPage);
+  //   setValue(e.target.value);
+  //   if (!e.target.value) {
+  //     updatePage(1);
+  //   }
+  //   setDataValue(filter);
+  // };
+  // const onSubmitHandle = (e: any) => {
+  //   e.preventDefault();
+  // };
 
   return (
     <>
@@ -122,7 +122,7 @@ const OrderTable: React.FC<{ orders?: any }> = ({ orders }) => {
         <h2 className="mb-4 text-sm font-semibold md:text-xl text-brand-dark md:mb-0">
           My order list
         </h2>
-        <form onSubmit={onSubmitHandle} className="relative">
+        {/* <form onSubmit={onSubmitHandle} className="relative">
           <span className="absolute ltr:right-3 rtl:left-3 top-[80%] transform -translate-y-1/2 order-icon-color">
             <BsSearch size={19} />
           </span>
@@ -134,7 +134,7 @@ const OrderTable: React.FC<{ orders?: any }> = ({ orders }) => {
             placeholder="Search Order list"
             inputClassName=" h-[46px] w-full bg-white border border-[#E3E8EC] rounded-md order-search focus:border-2 focus:outline-none focus:border-brand focus:text-brand-muted"
           />
-        </form>
+        </form> */}
       </div>
       <div className="order-list-table-wraper">
         <Table
