@@ -32,6 +32,9 @@ const initialState = {
   search_input: '',
   searchList: [],
   selectedProduct: {},
+  categoryLimit: 0,
+  categoryList: [],
+  categoryName: '',
 };
 
 type Action =
@@ -112,6 +115,18 @@ type Action =
     }
   | {
       type: 'SELECT_PRODUCT';
+      payload: any;
+    }
+  | {
+      type: 'CATEGORY_LIST';
+      payload: any;
+    }
+  | {
+      type: 'CATEGORY_Limit';
+      payload: any;
+    }
+  | {
+      type: 'CATEGORY_NAME';
       payload: any;
     };
 
@@ -272,6 +287,24 @@ function uiReducer(state: State, action: Action) {
         selectedProduct: action.payload,
       };
     }
+    case 'CATEGORY_LIST': {
+      return {
+        ...state,
+        categoryList: action.payload,
+      };
+    }
+    case 'CATEGORY_Limit': {
+      return {
+        ...state,
+        categoryLimit: action.payload,
+      };
+    }
+    case 'CATEGORY_NAME': {
+      return {
+        ...state,
+        categoryName: action.payload,
+      };
+    }
   }
 }
 
@@ -329,6 +362,15 @@ export const UIProvider: React.FC = (props) => {
   const setSelectedProduct = (payload: any) =>
     dispatch({ type: 'SELECT_PRODUCT', payload });
 
+  const setCategoryList = (payload: any) =>
+    dispatch({ type: 'CATEGORY_LIST', payload });
+
+  const setCategoryLimit = (payload: any) =>
+    dispatch({ type: 'CATEGORY_Limit', payload });
+
+  const setCategoryName = (payload: any) =>
+    dispatch({ type: 'CATEGORY_NAME', payload });
+
   const value = React.useMemo(
     () => ({
       ...state,
@@ -360,6 +402,9 @@ export const UIProvider: React.FC = (props) => {
       setSearchInput,
       setSearchList,
       setSelectedProduct,
+      setCategoryList,
+      setCategoryLimit,
+      setCategoryName,
     }),
     [state]
   );

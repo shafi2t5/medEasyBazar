@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import cn from 'classnames';
 import { fetchSearchedProducts } from '@framework/product/use-search';
 import SearchBox from '@components/common/search-box';
-import SearchProduct from '@components/common/search-product';
-import SearchResultLoader from '@components/ui/loaders/search-result-loader';
+// import SearchProduct from '@components/common/search-product';
+// import SearchResultLoader from '@components/ui/loaders/search-result-loader';
 // import useFreezeBodyScroll from '@utils/use-freeze-body-scroll';
-import Scrollbar from '@components/ui/scrollbar';
+// import Scrollbar from '@components/ui/scrollbar';
 import { useUI } from '@contexts/ui.context';
 
 type Props = {
@@ -33,7 +33,7 @@ const Search = React.forwardRef<HTMLDivElement, Props>(
       search_input,
     } = useUI();
 
-    const [inputFocus, setInputFocus] = useState<boolean>(false);
+    // const [inputFocus, setInputFocus] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [limit, setLimit] = useState(10);
     // useFreezeBodyScroll(
@@ -70,13 +70,13 @@ const Search = React.forwardRef<HTMLDivElement, Props>(
     }
     function clear() {
       setSearchInput('');
-      setInputFocus(false);
+      // setInputFocus(false);
       closeMobileSearch();
       closeSearch();
     }
-    function enableInputFocus() {
-      setInputFocus(true);
-    }
+    // function enableInputFocus() {
+    //   setInputFocus(true);
+    // }
 
     return (
       <div

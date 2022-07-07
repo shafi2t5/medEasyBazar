@@ -5,6 +5,8 @@ import { Category } from '@framework/types';
 import cn from 'classnames';
 import { useTranslation } from 'next-i18next';
 import { LinkProps } from 'next/link';
+import { useRouter } from 'next/router';
+import { useUI } from '@contexts/ui.context';
 // import { UIContext } from '@contexts/ui.context';
 // import { useContext } from 'react';
 
@@ -21,14 +23,23 @@ const CategoryListCard: React.FC<Props> = ({
   href,
   variant = 'default',
 }) => {
-  const { name, icon } = category;
+  const { name, icon, slug } = category;
   const { t } = useTranslation('common');
   // const { selectCategory } = useContext(UIContext);
+  const { setCategoryList, setCategoryLimit, setCategoryName } = useUI();
+  const router = useRouter();
   return (
-    <Link href={href}>
+    <div
+      onClick={() => {
+        setCategoryName(slug);
+        setCategoryLimit(0);
+        setCategoryList([]);
+        router.push(href);
+      }}
+    >
       <a
         className={cn(
-          'group flex justify-between items-center px-3.5 2xl:px-4 transition',
+          'group flex justify-between items-center px-3.5 2xl:px-4 transition cursor-pointer',
           {
             'py-3 xl:py-3.5 2xl:py-2.5 3xl:py-3': variant === 'default',
             'py-2 3xl:py-3': variant === 'small',
@@ -57,7 +68,7 @@ const CategoryListCard: React.FC<Props> = ({
           <IoIosArrowForward className="text-base text-brand-dark text-opacity-40" />
         </div>
       </a>
-    </Link>
+    </div>
   );
 };
 
