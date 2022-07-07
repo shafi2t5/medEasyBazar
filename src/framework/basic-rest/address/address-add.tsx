@@ -49,8 +49,9 @@ export const updateApiAddress = async (
       draggable: true,
     });
     closeModal();
-  } catch (error) {
-    toast('Cant add address', {
+  } catch (error: any) {
+    console.log(error.response.data.message);
+    toast(error.response.data.message, {
       progressClassName: 'fancy-progress-bar',
       autoClose: 1500,
       hideProgressBar: false,

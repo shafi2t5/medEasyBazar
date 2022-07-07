@@ -18,6 +18,16 @@ const OrderDrawer: React.FC = () => {
   const { t } = useTranslation('common');
   const { data, closeDrawer } = useUI();
 
+  const removeItem = async (id: any, title: string) => {
+    var result = confirm(`Want to delete? ${title} Order`);
+    if (result) {
+      const res = await deleteOrder(id);
+      if (res) {
+        closeDrawer();
+      }
+    }
+  };
+
   return (
     <>
       {data !== '' && (
@@ -96,12 +106,7 @@ const OrderDrawer: React.FC = () => {
                   Report order
                 </span> */}
                 <span
-                  onClick={async () => {
-                    const res = await deleteOrder(data?.id);
-                    if (res) {
-                      closeDrawer();
-                    }
-                  }}
+                  onClick={() => removeItem(data?.id, data?.id)}
                   className="py-3 px-5 cursor-pointer inline-block text-[12px] md:text-[14px] text-white font-medium bg-[#F35C5C] rounded border border-solid border-[#F35C5C]  hover:bg-white hover:text-black hover:border-[#DEE5EA] transition-all capitalize"
                 >
                   Cancel order

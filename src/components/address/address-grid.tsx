@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { TiPencil } from 'react-icons/ti';
+import { TiDelete, TiPencil } from 'react-icons/ti';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { RadioGroup } from '@headlessui/react';
 import { useModalAction } from '@components/common/modal/modal.context';
-import { formatAddress } from '@utils/format-address';
+// import { formatAddress } from '@utils/format-address';
 import Button from '@components/ui/button';
 import { useTranslation } from 'next-i18next';
+import { deleteAddress } from '@framework/address/address';
 
 const AddressGrid: React.FC<{ address?: any }> = ({ address }) => {
   const { t } = useTranslation('common');
@@ -14,9 +15,21 @@ const AddressGrid: React.FC<{ address?: any }> = ({ address }) => {
   function handlePopupView(item: any) {
     openModal('ADDRESS_VIEW_AND_EDIT', item);
   }
-  address = address.address || [];
 
-  //console.log(address, 'j');
+  const [addressGrid, setAddressGrid] = useState(address.address);
+
+  const removeItem = async (id: any, title: string) => {
+    var result = confirm(`Want to delete? ${title} Address`);
+    if (result) {
+      const dele = await deleteAddress(id);
+      if (dele) {
+        const addressData = addressGrid.filter((data: any) => data?.id !== id);
+        setAddressGrid(addressData);
+      }
+    }
+  };
+
+  // address = address.address || [];
 
   const [selected, setSelected] = useState(address[0]);
   return (
@@ -27,8 +40,8 @@ const AddressGrid: React.FC<{ address?: any }> = ({ address }) => {
         className="space-y-4 md:grid md:grid-cols-2 md:gap-5 auto-rows-auto md:space-y-0"
       >
         <RadioGroup.Label className="sr-only">{t('address')}</RadioGroup.Label>
-        {address?.length > 0 ? (
-          address?.map((item: any, index: any) => (
+        {addressGrid?.length > 0 ? (
+          addressGrid?.map((item: any, index: any) => (
             <RadioGroup.Option
               key={index}
               value={item}
@@ -58,6 +71,13 @@ const AddressGrid: React.FC<{ address?: any }> = ({ address }) => {
                   <span className="sr-only">{t(item?.address_name)}</span>
                   <TiPencil />
                 </button>
+                <button
+                  onClick={() => removeItem(item?.id, item?.address)}
+                  className="flex ml-1 items-center justify-center w-6 h-6 text-base rounded-full bg-brand-danger text-brand-light text-opacity-80"
+                >
+                  <span className="sr-only">{t(item?.address_name)}</span>
+                  <TiDelete />
+                </button>
               </div>
             </RadioGroup.Option>
           ))
@@ -75,9 +95,9 @@ const AddressGrid: React.FC<{ address?: any }> = ({ address }) => {
         </button>
       </RadioGroup>
 
-      <div className="flex mt-5 sm:justify-end md:mt-10 lg:mt-20 save-change-button">
+      {/* <div className="flex mt-5 sm:justify-end md:mt-10 lg:mt-20 save-change-button">
         <Button className="w-full sm:w-auto">{t('button-save-changes')}</Button>
-      </div>
+      </div> */}
     </div>
   );
 };

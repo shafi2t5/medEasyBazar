@@ -2,6 +2,7 @@ import http from '@framework/utils/http';
 import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
 import { useQuery } from 'react-query';
 import { getToken } from '@framework/utils/get-token';
+import { toast } from 'react-toastify';
 
 const fetchAddress = async () => {
   const headers = { Authorization: `Bearer ${getToken()}` };
@@ -18,3 +19,30 @@ const useAddressQuery = () => {
 };
 
 export { useAddressQuery, fetchAddress };
+
+export const deleteAddress = async (id: number) => {
+  try {
+    const headers = { Authorization: `Bearer ${getToken()}` };
+    const { data } = await http.delete(`${API_ENDPOINTS.ADDRESS}${id}/`, {
+      headers,
+    });
+    toast(data?.message, {
+      progressClassName: 'fancy-progress-bar',
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+    return true;
+  } catch (error: any) {
+    toast(error.response.data.message, {
+      progressClassName: 'fancy-progress-bar',
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+  }
+};

@@ -12,6 +12,13 @@ const ActionsButton: React.FC<{ item?: any }> = ({ item }) => {
     return openDrawer(item);
   }
 
+  const removeItem = async (id: any, title: string) => {
+    var result = confirm(`Want to delete? ${title} Order`);
+    if (result) {
+      const dele = await deleteOrder(id);
+    }
+  };
+
   return (
     <>
       <Popover className="relative actions_button_group">
@@ -44,7 +51,7 @@ const ActionsButton: React.FC<{ item?: any }> = ({ item }) => {
                   Order Details
                 </div>
                 <div
-                  onClick={() => deleteOrder(item?.id)}
+                  onClick={() => removeItem(item?.id, item?.id)}
                   className="text-[14px] whitespace-nowrap text-[#F35C5C] py-2 px-5 hover:bg-[#F6F9FC] transition-all cursor-pointer"
                 >
                   Cancel Order
