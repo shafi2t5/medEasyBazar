@@ -26,14 +26,17 @@ const CategoryListCard: React.FC<Props> = ({
   const { name, icon, slug } = category;
   const { t } = useTranslation('common');
   // const { selectCategory } = useContext(UIContext);
-  const { setCategoryList, setCategoryLimit, setCategoryName } = useUI();
+  const { setCategoryList, setCategoryLimit, setCategoryName, categoryName } =
+    useUI();
   const router = useRouter();
   return (
     <div
       onClick={() => {
+        if (slug !== categoryName) {
+          setCategoryLimit(0);
+          setCategoryList([]);
+        }
         setCategoryName(slug);
-        setCategoryLimit(0);
-        setCategoryList([]);
         router.push(href);
       }}
     >
