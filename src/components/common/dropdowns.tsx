@@ -10,6 +10,7 @@ interface dropdown {
   setStateDropdown?: any;
   dList: any;
   name?: string;
+  className?: string;
 }
 
 export default function Dropdowns({
@@ -17,12 +18,13 @@ export default function Dropdowns({
   setStateDropdown,
   dList,
   name = 'Piece',
+  className = 'font-bold',
 }: dropdown) {
   return (
     <Menu as="div" className="relative inline-block text-left w-full mt-3">
       <div className="">
         <Menu.Button className="inline-flex justify-center py-4 w-full rounded-md border bg-brand-sidebarColor">
-          <span className="flex-1 font-bold text-md text-brand-dark">
+          <span className={`flex-1 text-md text-brand-dark ${className}`}>
             {stateDropdown ? `${stateDropdown}` : name}
           </span>
           <svg

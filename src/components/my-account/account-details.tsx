@@ -109,6 +109,7 @@ const AccountDetails: React.FC = () => {
                   stateDropdown={gender}
                   setStateDropdown={setGender}
                   dList={[{ unit: 'Male' }, { unit: 'Female' }]}
+                  className="font-bold"
                 />
               </div>
             </div>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Input from '@components/ui/form/input';
 import Button from '@components/ui/button';
-import { login, useLoginMutation } from '@framework/auth/use-login';
+import { login } from '@framework/auth/use-login';
 import Logo from '@components/ui/logo';
 import { useTranslation } from 'next-i18next';
 import Image from '@components/ui/image';
@@ -27,12 +27,14 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
   const { t } = useTranslation();
   const { closeModal } = useModalAction();
-  const { mutate: login, isLoading } = useLoginMutation();
+  // const { mutate: login, isLoading } = useLoginMutation();
   const [error, setError] = useState('');
   const [number, setNumber] = useState('');
   const [flag, setFlag] = useState(false);
   const [otp, setOtp] = useState('');
   const [result, setResult] = useState<any>('');
+
+  const { openModal } = useModalAction();
 
   const getOtp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,8 +57,14 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
       return setError('Please enter a valid Otp!');
     try {
       const token = await result?.confirm(otp);
-      login({ token: token?.user?.accessToken });
-      console.log(token, 'success');
+      let tokenData = await login({ token: token?.user?.accessToken });
+      console.log(tokenData, 'tokenData');
+      if (tokenData?.isRegi) {
+        closeModal();
+        openModal('SIGN_UP_VIEW', token);
+      } else {
+        closeModal();
+      }
     } catch (err: any) {
       setError(err.message);
     }
