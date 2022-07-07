@@ -9,19 +9,21 @@ interface dropdown {
   stateDropdown: any;
   setStateDropdown?: any;
   dList: any;
+  name?: string;
 }
 
 export default function Dropdowns({
   stateDropdown,
   setStateDropdown,
   dList,
+  name = 'Piece',
 }: dropdown) {
   return (
     <Menu as="div" className="relative inline-block text-left w-full mt-3">
       <div className="">
         <Menu.Button className="inline-flex justify-center py-4 w-full rounded-md border bg-brand-sidebarColor">
           <span className="flex-1 font-bold text-md text-brand-dark">
-            {stateDropdown ? `${stateDropdown}` : 'Piece'}
+            {stateDropdown ? `${stateDropdown}` : name}
           </span>
           <svg
             className="mr-1 ml-2 h-6 w-6 text-right"

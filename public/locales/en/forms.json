@@ -11,7 +11,7 @@
   "address-required": "Address is required",
   "phone-required": "Phone number is required",
   "last-name-required": "Last name is required",
-  "label-name-required": "Full Name (required)",
+  "label-name-required": "Name (required)",
   "label-email-required": "Email Address (required)",
   "label-contact-phone": "Phone Number",
   "label-male": "Male",
@@ -24,7 +24,7 @@
   "label-subject": "Subject",
   "label-message": "Message",
   "label-message-star": "Message *",
-  "label-first-name": "First Name *",
+  "label-first-name": "Name *",
   "label-your-rating": "Your Rating *",
   "label-last-name": "Last Name *",
   "label-name-star": "Name *",
@@ -54,6 +54,8 @@
   "label-contact-title": "Contact Title",
   "contact-title-required": "Contact title is required",
   "default-type-required": "Default type Required",
-  "contact-number-required": "Contact number is required"
+  "contact-number-required": "Contact number is required",
+  "contact-age": "Age",
+  "contact-age-required": "Age is required"
   
 }

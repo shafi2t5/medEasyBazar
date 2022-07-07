@@ -29,4 +29,5 @@ export const API_ENDPOINTS = {
   SHOP: '/shop.json',
   SHOPS: '/shops.json',
   WISHLIST: '/wishlist.json',
+  PROFILE: '/patient/profile/',
 };
