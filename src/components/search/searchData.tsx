@@ -34,10 +34,8 @@ const SearchData = () => {
     }, 2000);
   }
 
-  console.log(isFetching, 'isFetching');
-
   function handleScroll() {
-    const productGrid = document.getElementById('productGrid');
+    const productGrid: any = document.getElementById('productGrid');
     if (
       window.innerHeight + document.documentElement.scrollTop <
       productGrid.offsetHeight
@@ -54,6 +52,9 @@ const SearchData = () => {
       >
         <ProductGrid isLoading={false} error={false} data={searchList || []} />
       </div>
+      {(isLoading || isFetching) && (
+        <div className="mt-4 font-bold text-xl">Fetching more items...</div>
+      )}
     </Container>
   );
 };
