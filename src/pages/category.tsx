@@ -46,7 +46,7 @@ export default function Category({ category }: { category: string }) {
   }
 
   async function fetchCategory() {
-    const data = await fetchCategoryProducts({
+    const data: any = await fetchCategoryProducts({
       category: categoryNames,
       setIsLoading,
       categoryLimit,
