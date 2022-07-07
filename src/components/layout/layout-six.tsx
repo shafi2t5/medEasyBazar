@@ -14,6 +14,7 @@ import Container from '@components/ui/container';
 import { useHomeProductsQuery } from '@framework/product/get-all-best-seller-products';
 import { useUI } from '@contexts/ui.context';
 import { ProductGrid } from '@components/product/product-grid';
+import SearchData from '@components/search/searchData';
 
 const Layout: React.FC = ({ children }) => {
   const { t } = useTranslation('common');
@@ -92,15 +93,7 @@ const Layout: React.FC = ({ children }) => {
               </div>
             </div>
             {search_input && searchList?.length > 0 ? (
-              <Container>
-                <div className="w-full lg:pt-4 lg:ltr:-ml-4 lg:rtl:-mr-2 xl:ltr:-ml-8 xl:rtl:-mr-8 lg:-mt-1">
-                  <ProductGrid
-                    isLoading={false}
-                    error={false}
-                    data={searchList || []}
-                  />
-                </div>
-              </Container>
+              <SearchData />
             ) : (
               <div className="w-full trendy-main-content">{children}</div>
             )}
