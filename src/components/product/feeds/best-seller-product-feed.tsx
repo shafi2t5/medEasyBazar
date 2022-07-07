@@ -12,7 +12,7 @@ export default function BestSellerProductFeed() {
       {data?.medicine_homepage_products?.map((products, index) => (
         <ProductsCarousel
           sectionHeading={products?.title}
-          categorySlug={ROUTES.PRODUCTS}
+          categorySlug={`category?category=${products?.title}`}
           products={products?.products}
           loading={isLoading}
           error={error?.message}

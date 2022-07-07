@@ -1,18 +1,25 @@
 import Image from 'next/image';
-import Link from '@components/ui/link';
 import cn from 'classnames';
 import { siteSettings } from '@settings/site-settings';
+import { useUI } from '@contexts/ui.context';
+import { useRouter } from 'next/router';
 
 const Logo: React.FC<React.AnchorHTMLAttributes<{}>> = ({
   className,
   href = siteSettings.logo.href,
   ...props
 }) => {
+  const { setSearchList, setSearchInput } = useUI();
+  const router = useRouter();
   return (
-    <Link
-      href={href}
-      className={cn('inline-flex focus:outline-none', className)}
+    <div
+      className={cn('inline-flex focus:outline-none cursor-pointer', className)}
       {...props}
+      onClick={() => {
+        setSearchInput('');
+        setSearchList([]);
+        router.push(href);
+      }}
     >
       <Image
         src={siteSettings.logo.url}
@@ -22,7 +29,7 @@ const Logo: React.FC<React.AnchorHTMLAttributes<{}>> = ({
         layout="fixed"
         loading="eager"
       />
-    </Link>
+    </div>
   );
 };
 

@@ -35,7 +35,7 @@ const Search = React.forwardRef<HTMLDivElement, Props>(
 
     // const [inputFocus, setInputFocus] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [limit, setLimit] = useState(10);
+    const [limit, setLimit] = useState(0);
     // useFreezeBodyScroll(
     //   inputFocus === true || displaySearch || displayMobileSearch
     // );
@@ -58,7 +58,7 @@ const Search = React.forwardRef<HTMLDivElement, Props>(
         setSearchList([]);
       } else {
         const data = await fetchSearchedProducts({
-          text: search_input,
+          text: e.currentTarget.value,
           setIsLoading,
           limit,
           setLimit,
@@ -106,7 +106,7 @@ const Search = React.forwardRef<HTMLDivElement, Props>(
               onSubmit={handleSearch}
               onChange={handleAutoSearch}
               onClear={clear}
-              onFocus={() => enableInputFocus()}
+              // onFocus={() => enableInputFocus()}
               variant={variant}
             />
           </div>

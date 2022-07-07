@@ -26,8 +26,14 @@ const CategoryListCard: React.FC<Props> = ({
   const { name, icon, slug } = category;
   const { t } = useTranslation('common');
   // const { selectCategory } = useContext(UIContext);
-  const { setCategoryList, setCategoryLimit, setCategoryName, categoryName } =
-    useUI();
+  const {
+    setCategoryList,
+    setCategoryLimit,
+    setCategoryName,
+    categoryName,
+    setSearchList,
+    setSearchInput,
+  } = useUI();
   const router = useRouter();
   return (
     <div
@@ -36,6 +42,8 @@ const CategoryListCard: React.FC<Props> = ({
           setCategoryLimit(0);
           setCategoryList([]);
         }
+        setSearchInput('');
+        setSearchList([]);
         setCategoryName(slug);
         router.push(href);
       }}

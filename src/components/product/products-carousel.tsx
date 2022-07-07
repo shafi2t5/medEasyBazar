@@ -109,7 +109,7 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
                   </SwiperSlide>
                 ))}
                 <SwiperSlide className="p-2.5 flex items-center justify-center">
-                  <SeeAll href={categorySlug} />
+                  <SeeAll href={categorySlug} slug={sectionHeading} />
                 </SwiperSlide>
                 {width! > 1024 && width! < 1921 && <SwiperSlide />}
               </>

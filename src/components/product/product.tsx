@@ -57,8 +57,8 @@ const ProductSingleDetails: React.FC = () => {
   const [piece, setPiece] = useState<number | null | string>(null);
   const [productPrice, setProductPrice] = useState<any>(null);
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
-  const [addToWishlistLoader, setAddToWishlistLoader] =
-    useState<boolean>(false);
+  // const [addToWishlistLoader, setAddToWishlistLoader] =
+  //   useState<boolean>(false);
   const { closeModal } = useModalAction();
 
   const medPrice =
@@ -122,7 +122,7 @@ const ProductSingleDetails: React.FC = () => {
 
   return (
     <div className="pt-6 pb-2 md:pt-7 relative ">
-      <div className="grid-cols-10 lg:grid gap-7 2xl:gap-8 mr-10 max-w-5xl">
+      <div className="grid-cols-10 lg:grid gap-7 2xl:gap-8 max-w-5xl mx-auto">
         <div className="col-span-5 mb-6 overflow-hidden xl:col-span-6 md:mb-8 lg:mb-0">
           {/* {!!data?.gallery?.length ? (
             <ThumbnailCarousel
@@ -211,7 +211,7 @@ const ProductSingleDetails: React.FC = () => {
                 <Button
                   variant="border"
                   // onClick={addToWishlist}
-                  loading={addToWishlistLoader}
+                  // loading={addToWishlistLoader}
                   className={`group w-full text-brand-ligh`}
                 >
                   {t('Buy Now')}
