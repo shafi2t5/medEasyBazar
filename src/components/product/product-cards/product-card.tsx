@@ -5,7 +5,7 @@ import { ROUTES } from '@utils/routes';
 // import usePrice from '@framework/product/use-price';
 import { Product } from '@framework/types';
 // import { useModalAction } from '@components/common/modal/modal.context';
-// import useWindowSize from '@utils/use-window-size';
+import useWindowSize from '@utils/use-window-size';
 // import PlusIcon from '@components/icons/plus-icon';
 // import { useCart } from '@contexts/cart/cart.context';
 // import { AddToCart } from '@components/product/add-to-cart';
@@ -18,6 +18,7 @@ import { useModalAction } from '@components/common/modal/modal.context';
 const AddToCart = dynamic(() => import('@components/product/add-to-cart'), {
   ssr: false,
 });
+import PlusIcon from '@components/icons/plus-icon';
 
 interface ProductProps {
   product: Product;
@@ -25,7 +26,7 @@ interface ProductProps {
 }
 function RenderPopupOrAddToCart({ data }: { data: Product }) {
   const { t } = useTranslation('common');
-  // const { width } = useWindowSize();
+  const { width } = useWindowSize();
   // const { openModal } = useModalAction();
   // const { isInCart, isInStock } = useCart();
   // const iconSize = width! > 1024 ? '19' : '17';
@@ -33,6 +34,7 @@ function RenderPopupOrAddToCart({ data }: { data: Product }) {
   // function handlePopupView() {
   //   openModal('PRODUCT_VIEW', data);
   // }
+  const iconSize = width! > 480 ? '19' : '17';
 
   if (!data?.is_available) {
     return (
@@ -41,6 +43,17 @@ function RenderPopupOrAddToCart({ data }: { data: Product }) {
       </span>
     );
   }
+
+  return (
+    <button
+      className="flex items-center justify-center w-8 h-8 text-4xl rounded-lg bg-brand-navColor lg:w-10 lg:h-10 text-brand-light focus:outline-none"
+      aria-label="Count Button"
+      // onClick={handleAddClick}
+      // disabled={disabled}
+    >
+      <PlusIcon width={iconSize} height={iconSize} opacity="1" />
+    </button>
+  );
 
   return <AddToCart data={data} />;
 }

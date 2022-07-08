@@ -1,8 +1,8 @@
 import Layout from '@components/layout/layout-six';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import BundleGrid from '@components/bundle/bundle-grid';
-import { homeTwoBanner as banner } from '@framework/static/banner';
-import BannerCard from '@components/cards/banner-card';
+// import { homeTwoBanner as banner } from '@framework/static/banner';
+// import BannerCard from '@components/cards/banner-card';
 import { bundleDataTwo as bundle } from '@framework/static/bundle';
 import { GetStaticProps } from 'next';
 import Seo from '@components/seo/seo';

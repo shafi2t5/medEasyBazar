@@ -2,7 +2,7 @@ import { useOrdersQuery } from '@framework/order/get-all-orders';
 import OrderTable from '@components/order/order-table';
 
 export default function OrderLists() {
-  const { data, isLoading } = useOrdersQuery({});
+  const { data, isLoading } = useOrdersQuery();
   return !isLoading ? (
     <div className="w-full max-w-[1300px] mx-auto">
       <div className="flex flex-wrap">

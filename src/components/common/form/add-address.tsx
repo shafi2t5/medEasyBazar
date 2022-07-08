@@ -8,8 +8,8 @@ import CloseButton from '@components/ui/close-button';
 import Heading from '@components/ui/heading';
 import { useTranslation } from 'next-i18next';
 import {
-  AddApiAddress,
-  updateApiAddress,
+  useAddressMutation,
+  useAddressUpdateMutation,
 } from '@framework/address/address-add';
 
 interface ContactFormValues {
@@ -24,11 +24,15 @@ const AddAddressForm: React.FC = () => {
 
   const { closeModal } = useModalAction();
 
+  const { mutate: AddApiAddress } = useAddressMutation();
+
+  const { mutate: updateApiAddress } = useAddressUpdateMutation();
+
   function onSubmit(values: ContactFormValues, e: any) {
-    if (data) {
-      updateApiAddress(data.id, values, closeModal);
+    if (data.id) {
+      updateApiAddress({ ...values, id: data.id });
     } else {
-      AddApiAddress(values, closeModal);
+      AddApiAddress(values);
     }
   }
 

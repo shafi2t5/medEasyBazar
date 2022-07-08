@@ -18,6 +18,7 @@ const CheckoutCard: React.FC = () => {
   //   amount: total,
   //   currencyCode: 'USD',
   // });
+
   const { mutate: orderPostApi, isLoading, data } = useOrderMutation();
   const { selectedAddress } = useUI();
 
@@ -29,7 +30,7 @@ const CheckoutCard: React.FC = () => {
           id: data?.id,
           name: data?.medicine_name,
           quantity: data?.quantity,
-          unit: data?.unit_prices[0]?.unit,
+          unit: data?.unit,
           price: data?.price,
         };
       }),
@@ -87,7 +88,7 @@ const CheckoutCard: React.FC = () => {
           variant="formButton"
           className={`w-full mt-8 mb-5 bg-brand text-brand-light rounded font-semibold px-4 py-3 transition-all 
           }`}
-          disabled={isEmpty}
+          disabled={items?.length < 1}
           onClick={orderHeader}
         >
           {t('button-order-now')}

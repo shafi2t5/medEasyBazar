@@ -15,34 +15,7 @@ const fetchAddress = async () => {
 };
 
 const useAddressQuery = () => {
-  return useQuery([API_ENDPOINTS.ADDRESS], fetchAddress);
+  return useQuery('address', fetchAddress);
 };
 
 export { useAddressQuery, fetchAddress };
-
-export const deleteAddress = async (id: number) => {
-  try {
-    const headers = { Authorization: `Bearer ${getToken()}` };
-    const { data } = await http.delete(`${API_ENDPOINTS.ADDRESS}${id}/`, {
-      headers,
-    });
-    toast(data?.message, {
-      progressClassName: 'fancy-progress-bar',
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-    });
-    return true;
-  } catch (error: any) {
-    toast(error.response.data.message, {
-      progressClassName: 'fancy-progress-bar',
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-    });
-  }
-};

@@ -91,7 +91,7 @@ const ProductSingleDetails: React.FC = () => {
     }
   }, [medPrice, selectedQuantity]);
 
-  let cartData = { ...selectedProduct, productPrice };
+  let cartData = { ...selectedProduct, productPrice, unit: piece };
 
   // if (isLoading) return <p>Loading...</p>;
 

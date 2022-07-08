@@ -6,12 +6,14 @@ import { useModalAction } from '@components/common/modal/modal.context';
 // import { formatAddress } from '@utils/format-address';
 // import Button from '@components/ui/button';
 import { useTranslation } from 'next-i18next';
-import { deleteAddress } from '@framework/address/address';
+import { useAddressQuery } from '@framework/address/address';
 import { useUI } from '@contexts/ui.context';
+import { useAddressDeleteMutation } from '@framework/address/address-add';
 
-const AddressGrid: React.FC<{ address?: any }> = ({ address }) => {
+const AddressGrid: React.FC = () => {
   const { t } = useTranslation('common');
   const { openModal } = useModalAction();
+  let { data, isLoading } = useAddressQuery();
 
   function handlePopupView(item: any) {
     openModal('ADDRESS_VIEW_AND_EDIT', item);
@@ -19,27 +21,20 @@ const AddressGrid: React.FC<{ address?: any }> = ({ address }) => {
 
   const { setSlectedAddress } = useUI();
 
-  const [addressGrid, setAddressGrid] = useState(address.address);
-  const [selected, setSelected] = useState(address.address[0]);
+  const [selected, setSelected] = useState(data?.data?.address[0]);
+
+  const { mutate: deleteAddress } = useAddressDeleteMutation();
 
   const removeItem = async (id: any, title: string) => {
     var result = confirm(`Want to delete? ${title} Address`);
     if (result) {
-      const dele = await deleteAddress(id);
-      if (dele) {
-        const addressData = addressGrid.filter((data: any) => data?.id !== id);
-        setAddressGrid(addressData);
-      }
+      deleteAddress(id);
     }
   };
-
-  // console.log(selected, 'hhh', selectedAddress, 'ggg');
 
   useEffect(() => {
     setSlectedAddress(selected);
   }, [selected]);
-
-  // address = address.address || [];
 
   return (
     <div className="flex flex-col justify-between h-full -mt-4 text-15px md:mt-0">
@@ -49,8 +44,8 @@ const AddressGrid: React.FC<{ address?: any }> = ({ address }) => {
         className="space-y-4 md:grid md:grid-cols-2 md:gap-5 auto-rows-auto md:space-y-0"
       >
         <RadioGroup.Label className="sr-only">{t('address')}</RadioGroup.Label>
-        {addressGrid?.length > 0 ? (
-          addressGrid?.map((item: any, index: any) => (
+        {data?.data?.address?.length > 0 ? (
+          data?.data?.address?.map((item: any, index: any) => (
             <RadioGroup.Option
               key={index}
               value={item}
