@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Input from '@components/ui/form/input';
 import Button from '@components/ui/button';
-import { login } from '@framework/auth/use-login';
 import Logo from '@components/ui/logo';
 import { useTranslation } from 'next-i18next';
 import Image from '@components/ui/image';
@@ -18,6 +17,7 @@ import {
   FacebookAuthProvider,
 } from 'firebase/auth';
 import { auth } from '../../utils/firebase';
+import { useLoginMutation } from '@framework/auth/use-login';
 
 interface LoginFormProps {
   isPopup?: boolean;
@@ -27,7 +27,7 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
   const { t } = useTranslation();
   const { closeModal } = useModalAction();
-  // const { mutate: login, isLoading } = useLoginMutation();
+  const { mutate: login, isLoading, data } = useLoginMutation();
   const [error, setError] = useState('');
   const [number, setNumber] = useState('');
   const [flag, setFlag] = useState(false);
@@ -50,6 +50,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
     }
   };
 
+  console.log(data);
+
   const verifyOtp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
@@ -57,9 +59,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
       return setError('Please enter a valid Otp!');
     try {
       const token = await result?.confirm(otp);
-      let tokenData = await login({ token: token?.user?.accessToken });
-      console.log(tokenData, 'tokenData');
-      if (tokenData?.isRegi) {
+      login({ token: token?.user?.accessToken });
+      console.log(data, 'tokenData');
+      if (data?.isRegi) {
         closeModal();
         openModal('SIGN_UP_VIEW', token);
       } else {

@@ -147,7 +147,7 @@
   "text-close": "Close",
   "text-cart": "Cart",
   "text-product": "Product",
-  "text-shipping": "Shipping",
+  "text-shipping": "Delivery Charge", 
   "text-checkout-heading": "Checkout",
   "text-plus": "Plus",
   "text-minus": "Minus",
@@ -228,5 +228,6 @@
   "text-shop-page": "Shop Page",
   "text-all-shops": "All Shops",
   "text-more-info": "More Info",
-  "text-details": "Details"
+  "text-details": "Details",
+  "text-discount": "Discount"
 }

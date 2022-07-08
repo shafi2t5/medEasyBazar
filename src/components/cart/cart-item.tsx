@@ -15,6 +15,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
     useCart();
 
   const outOfStock = isInStock(item.id);
+
   return (
     <div
       className={`group w-full h-auto flex justify-start items-center text-brand-light py-4 md:py-7 border-b border-border-one border-opacity-70 relative last:border-b-0`}
@@ -22,7 +23,10 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
     >
       <div className="relative flex rounded overflow-hidden shrink-0 cursor-pointer w-[90px] md:w-[100px] h-[90px] md:h-[100px]">
         <Image
-          src={item?.image ?? '/assets/images/empty-cart.png'}
+          src={
+            `${process.env.NEXT_PUBLIC_ASSETS_API_ENDPOINT}${item?.medicine_image}` ??
+            '/assets/images/empty-cart.png'
+          }
           width={100}
           height={100}
           loading="eager"

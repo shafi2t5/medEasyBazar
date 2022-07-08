@@ -1,18 +1,22 @@
 import { Item } from '@contexts/cart/cart.utils';
 import Image from '@components/ui/image';
 import { generateCartItemName } from '@utils/generate-cart-item-name';
-import usePrice from '@framework/product/use-price';
+// import usePrice from '@framework/product/use-price';
+import PriceTag from '@components/common/PriceTag';
 
 export const CheckoutItem: React.FC<{ item: Item }> = ({ item }) => {
-  const { price } = usePrice({
-    amount: item.itemTotal,
-    currencyCode: 'USD',
-  });
+  // const { price } = usePrice({
+  //   amount: item.itemTotal,
+  //   currencyCode: 'USD',
+  // });
   return (
     <div className="flex items-center py-4 border-b border-border-base ">
       <div className="flex w-16 h-16 border rounded-md border-border-base shrink-0">
         <Image
-          src={item.image ?? '/assets/placeholder/order-product.svg'}
+          src={
+            `${process.env.NEXT_PUBLIC_ASSETS_API_ENDPOINT}${item?.medicine_image}` ??
+            '/assets/placeholder/order-product.svg'
+          }
           alt={'item image'}
           className="rounded-md ltr:mr-5 rtl:ml-5"
           width={64}
@@ -23,7 +27,7 @@ export const CheckoutItem: React.FC<{ item: Item }> = ({ item }) => {
         {generateCartItemName(item.name, item.attributes)}
       </h6>
       <div className="flex font-normal ltr:ml-auto rtl:mr-auto text-15px text-brand-dark ltr:pl-2 rtl:pr-2 shrink-0">
-        {price}
+        <PriceTag /> {item?.itemTotal}
       </div>
     </div>
   );

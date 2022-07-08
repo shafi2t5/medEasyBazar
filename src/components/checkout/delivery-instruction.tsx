@@ -1,7 +1,8 @@
 import TextArea from '@components/ui/form/text-area';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'next-i18next';
-import Text from '@components/ui/text';
+// import { useTranslation } from 'next-i18next';
+// import Text from '@components/ui/text';
+import { useUI } from '@contexts/ui.context';
 
 interface ContactFormValues {
   instructionNote: string;
@@ -9,10 +10,10 @@ interface ContactFormValues {
 }
 
 const DeliveryInstructions: React.FC<{ data?: any }> = ({ data }) => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const {
-    register,
-    handleSubmit,
+    // register,
+    // handleSubmit,
     formState: { errors },
   } = useForm<ContactFormValues>({
     defaultValues: {
@@ -20,24 +21,27 @@ const DeliveryInstructions: React.FC<{ data?: any }> = ({ data }) => {
       default: data || false,
     },
   });
+  const { instruction, setSlectedInstruction } = useUI();
 
-  function onSubmit(values: ContactFormValues) {
-    console.log(values, 'Delivery Note');
-  }
+  // function onSubmit(values: ContactFormValues) {
+  //   console.log(values, 'Delivery Note');
+  // }
 
   return (
     <div className="w-full">
       <div className="w-full mx-auto">
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <form onSubmit={() => {}} noValidate>
           <div className="mb-6">
             <TextArea
               variant="normal"
+              name="text"
+              value={instruction}
               inputClassName="focus:border-2 focus:outline-none focus:border-brand"
               label="forms:label-delivery-instructions-note"
-              {...register('instructionNote')}
+              onChange={(e) => setSlectedInstruction(e.target.value)}
             />
           </div>
-          <div className="mb-6">
+          {/* <div className="mb-6">
             <input
               id="default-type"
               type="checkbox"
@@ -53,7 +57,7 @@ const DeliveryInstructions: React.FC<{ data?: any }> = ({ data }) => {
             <Text className="ltr:ml-8 rtl:mr-8 pt-2.5" variant="small">
               {t('common:text-selecting-this-option')}
             </Text>
-          </div>
+          </div> */}
         </form>
       </div>
     </div>

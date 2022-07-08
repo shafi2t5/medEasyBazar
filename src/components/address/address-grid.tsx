@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TiDelete, TiPencil } from 'react-icons/ti';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { RadioGroup } from '@headlessui/react';
 import { useModalAction } from '@components/common/modal/modal.context';
 // import { formatAddress } from '@utils/format-address';
-import Button from '@components/ui/button';
+// import Button from '@components/ui/button';
 import { useTranslation } from 'next-i18next';
 import { deleteAddress } from '@framework/address/address';
+import { useUI } from '@contexts/ui.context';
 
 const AddressGrid: React.FC<{ address?: any }> = ({ address }) => {
   const { t } = useTranslation('common');
@@ -16,7 +17,10 @@ const AddressGrid: React.FC<{ address?: any }> = ({ address }) => {
     openModal('ADDRESS_VIEW_AND_EDIT', item);
   }
 
+  const { setSlectedAddress } = useUI();
+
   const [addressGrid, setAddressGrid] = useState(address.address);
+  const [selected, setSelected] = useState(address.address[0]);
 
   const removeItem = async (id: any, title: string) => {
     var result = confirm(`Want to delete? ${title} Address`);
@@ -29,9 +33,14 @@ const AddressGrid: React.FC<{ address?: any }> = ({ address }) => {
     }
   };
 
+  // console.log(selected, 'hhh', selectedAddress, 'ggg');
+
+  useEffect(() => {
+    setSlectedAddress(selected);
+  }, [selected]);
+
   // address = address.address || [];
 
-  const [selected, setSelected] = useState(address[0]);
   return (
     <div className="flex flex-col justify-between h-full -mt-4 text-15px md:mt-0">
       <RadioGroup

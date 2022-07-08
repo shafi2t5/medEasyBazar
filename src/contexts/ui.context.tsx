@@ -35,6 +35,8 @@ const initialState = {
   categoryLimit: 0,
   categoryList: [],
   categoryName: '',
+  selectedAddress: '',
+  instruction: '',
 };
 
 type Action =
@@ -127,6 +129,14 @@ type Action =
     }
   | {
       type: 'CATEGORY_NAME';
+      payload: any;
+    }
+  | {
+      type: 'SELECTED_ADDRESS';
+      payload: any;
+    }
+  | {
+      type: 'SELECTED_INSTRUCTION';
       payload: any;
     };
 
@@ -305,6 +315,18 @@ function uiReducer(state: State, action: Action) {
         categoryName: action.payload,
       };
     }
+    case 'SELECTED_ADDRESS': {
+      return {
+        ...state,
+        selectedAddress: action.payload,
+      };
+    }
+    case 'SELECTED_INSTRUCTION': {
+      return {
+        ...state,
+        instruction: action.payload,
+      };
+    }
   }
 }
 
@@ -371,6 +393,12 @@ export const UIProvider: React.FC = (props) => {
   const setCategoryName = (payload: any) =>
     dispatch({ type: 'CATEGORY_NAME', payload });
 
+  const setSlectedAddress = (payload: any) =>
+    dispatch({ type: 'SELECTED_ADDRESS', payload });
+
+  const setSlectedInstruction = (payload: any) =>
+    dispatch({ type: 'SELECTED_INSTRUCTION', payload });
+
   const value = React.useMemo(
     () => ({
       ...state,
@@ -405,6 +433,8 @@ export const UIProvider: React.FC = (props) => {
       setCategoryList,
       setCategoryLimit,
       setCategoryName,
+      setSlectedAddress,
+      setSlectedInstruction,
     }),
     [state]
   );
