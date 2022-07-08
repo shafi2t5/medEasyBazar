@@ -4,8 +4,7 @@ import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
 import { useQuery } from 'react-query';
 import { getToken } from '../../basic-rest/utils/get-token';
 
-const fetchOrders = async ({ queryKey }: any) => {
-  const [_key, _params] = queryKey;
+const fetchOrders = async () => {
   const headers = { Authorization: `Bearer ${getToken()}` };
   const { data } = await http.get(API_ENDPOINTS.ORDERS, {
     headers,
@@ -13,8 +12,8 @@ const fetchOrders = async ({ queryKey }: any) => {
   return data;
 };
 
-const useOrdersQuery = (options: QueryOptionsType) => {
-  return useQuery([API_ENDPOINTS.ORDERS, options], fetchOrders);
+const useOrdersQuery = () => {
+  return useQuery('orders', fetchOrders);
 };
 
 export { useOrdersQuery, fetchOrders };

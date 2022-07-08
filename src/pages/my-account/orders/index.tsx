@@ -9,7 +9,8 @@ import Seo from '@components/seo/seo';
 // props change to orders.
 
 export default function OrdersTablePage() {
-  const { data, isLoading } = useOrdersQuery({});
+  const { data, isLoading } = useOrdersQuery();
+
   return (
     <>
       <Seo

@@ -3,7 +3,7 @@ import PriceTag from '@components/common/PriceTag';
 type FooterItemProps = {
   id: string;
   name: string;
-  price: string;
+  price: number;
 };
 export const CheckoutCardFooterItem: React.FC<{ item: FooterItemProps }> = ({
   item,
@@ -13,7 +13,7 @@ export const CheckoutCardFooterItem: React.FC<{ item: FooterItemProps }> = ({
       {item.name}
       <span className="font-normal ltr:ml-auto rtl:mr-auto shrink-0 text-15px text-brand-dark">
         <PriceTag />
-        {item.price}
+        {item.price.toFixed(2)}
       </span>
     </div>
   );

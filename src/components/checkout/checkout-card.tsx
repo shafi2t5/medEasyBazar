@@ -6,7 +6,7 @@ import Button from '@components/ui/button';
 import { CheckoutItem } from '@components/checkout/checkout-card-item';
 import { CheckoutCardFooterItem } from './checkout-card-footer-item';
 import { useTranslation } from 'next-i18next';
-import Router from 'next/router';
+// import Router from 'next/router';
 import { ROUTES } from '@utils/routes';
 import { useOrderMutation } from '@framework/order/post-order';
 import { useUI } from '@contexts/ui.context';
@@ -87,6 +87,7 @@ const CheckoutCard: React.FC = () => {
           variant="formButton"
           className={`w-full mt-8 mb-5 bg-brand text-brand-light rounded font-semibold px-4 py-3 transition-all 
           }`}
+          disabled={isEmpty}
           onClick={orderHeader}
         >
           {t('button-order-now')}

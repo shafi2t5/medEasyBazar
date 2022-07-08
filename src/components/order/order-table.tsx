@@ -9,7 +9,7 @@ import utc from 'dayjs/plugin/utc';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import timezone from 'dayjs/plugin/timezone';
 import { GrNext, GrPrevious } from 'react-icons/gr';
-import { BsSearch } from 'react-icons/bs';
+// import { BsSearch } from 'react-icons/bs';
 
 export const CreatedAt: React.FC<{ createdAt?: any }> = ({ createdAt }) => {
   dayjs.extend(relativeTime);
@@ -40,13 +40,11 @@ const columns = [
     dataIndex: 'id',
     key: 'id',
     className: 'id-cell',
-    width: 140,
   },
   {
     title: 'Order Date',
     dataIndex: 'created_at',
     key: 'created_at',
-    width: 140,
     render: function createdAt(items: any) {
       return <CreatedAt createdAt={items} />;
     },
@@ -54,7 +52,6 @@ const columns = [
   {
     title: 'Status',
     key: 'status',
-    width: 145,
     render: function status(item: any) {
       return <Status item={item} />;
     },
@@ -68,7 +65,6 @@ const columns = [
   {
     title: 'Total Price',
     key: 'total',
-    width: 130,
     render: function totalPrice(items: any) {
       return <TotalPrice items={items} />;
     },
@@ -76,7 +72,6 @@ const columns = [
   {
     dataIndex: '',
     key: 'operations',
-    width: 80,
     render: function actionsButton(item: any) {
       return <ActionsButton item={item} />;
     },
@@ -142,7 +137,7 @@ const OrderTable: React.FC<{ orders?: any }> = ({ orders }) => {
           columns={columns}
           data={filterData}
           rowKey="id"
-          scroll={{ x: 750 }}
+          tableLayout={'auto'}
         />
       </div>
       {!value.trim() && (

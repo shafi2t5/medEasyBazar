@@ -68,7 +68,7 @@ export default function Cart() {
             </Text>
           </div>
           <div className="shrink-0 font-semibold text-base md:text-lg text-brand-dark -mt-0.5 min-w-[80px] ltr:text-right rtl:text-left">
-            ৳ {total}
+            ৳ {total.toFixed(2)}
           </div>
         </div>
         <div className="flex flex-col" onClick={closeDrawer}>

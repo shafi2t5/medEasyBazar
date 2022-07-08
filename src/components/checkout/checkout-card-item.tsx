@@ -27,7 +27,7 @@ export const CheckoutItem: React.FC<{ item: Item }> = ({ item }) => {
         {generateCartItemName(item.name, item.attributes)}
       </h6>
       <div className="flex font-normal ltr:ml-auto rtl:mr-auto text-15px text-brand-dark ltr:pl-2 rtl:pr-2 shrink-0">
-        <PriceTag /> {item?.itemTotal}
+        <PriceTag /> {item?.itemTotal.toFixed(2)}
       </div>
     </div>
   );

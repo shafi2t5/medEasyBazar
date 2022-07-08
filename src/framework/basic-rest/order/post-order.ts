@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { getToken } from '@framework/utils/get-token';
 import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
 import http from '@framework/utils/http';
@@ -17,8 +17,10 @@ async function orderApi(input: any) {
   });
 }
 export const useOrderMutation = () => {
+  const queryClient = useQueryClient();
   return useMutation((input: any) => orderApi(input), {
     onSuccess: (data: any) => {
+      queryClient.invalidateQueries('orders');
       Router.push(`${ROUTES.ORDER}?orderId=${data?.data?.order_id}`);
       toast(data?.data.message, {
         progressClassName: 'fancy-progress-bar',

@@ -1,22 +1,42 @@
 import { IoCheckmarkCircle } from 'react-icons/io5';
-import OrderDetails from '@components/order/order-details';
-import { useOrderQuery } from '@framework/order/get-order';
+// import OrderDetails from '@components/order/order-details';
+// import { useOrderQuery } from '@framework/order/get-order';
 import { useRouter } from 'next/router';
-import usePrice from '@framework/product/use-price';
+// import usePrice from '@framework/product/use-price';
 import { useTranslation } from 'next-i18next';
+import { useOrdersQuery } from '@framework/order/get-all-orders';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import timezone from 'dayjs/plugin/timezone';
 
 export default function OrderInformation() {
   const {
-    query: { id },
+    query: { orderId },
   } = useRouter();
   const { t } = useTranslation('common');
-  const { data, isLoading } = useOrderQuery(id?.toString()!);
-  const { price: total } = usePrice(
-    data && {
-      amount: data.shipping_fee ? data.total + data.shipping_fee : data.total,
-      currencyCode: 'USD',
-    }
+  dayjs.extend(relativeTime);
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
+  // const { data, isLoading } = useOrderQuery(orderId?.toString()!);
+  // const { price: total } = usePrice(
+  //   data && {
+  //     amount: data.shipping_fee ? data.total + data.shipping_fee : data.total,
+  //     currencyCode: 'USD',
+  //   }
+  // );
+
+  const { data, isLoading } = useOrdersQuery();
+
+  let completedOrder = data?.orders?.find(
+    (order: any) => order.id === +orderId
   );
+  let totalPrice =
+    completedOrder?.medicines?.reduce(
+      (total: number, item: any) => total + item.price,
+      0
+    ) + completedOrder?.delivery_fee;
+  console.log(completedOrder, 'dd');
   if (isLoading) return <p>Loading...</p>;
   return (
     <div className="py-16 xl:px-32 2xl:px-44 3xl:px-56 lg:py-20">
@@ -32,31 +52,27 @@ export default function OrderInformation() {
           <span className="block text-xs font-normal leading-5 uppercase text-brand-muted">
             {t('text-order-number')}:
           </span>
-          {data?.tracking_number}
+          {completedOrder?.id}
         </li>
         <li className="px-4 py-4 text-base font-semibold border-b border-gray-300 border-dashed text-brand-dark lg:text-lg md:border-b-0 md:border-r lg:px-6 xl:px-8 md:py-5 lg:py-6 last:border-0">
           <span className="uppercase text-[11px] block text-brand-muted font-normal leading-5">
             {t('text-date')}:
           </span>
-          April 22, 2021
-        </li>
-        <li className="px-4 py-4 text-base font-semibold border-b border-gray-300 border-dashed text-brand-dark lg:text-lg md:border-b-0 md:border-r lg:px-6 xl:px-8 md:py-5 lg:py-6 last:border-0">
-          <span className="uppercase text-[11px] block text-brand-muted font-normal leading-5">
-            {t('text-email')}:
-          </span>
-          {data?.customer.email}
+          {dayjs.utc(completedOrder?.createdAt).tz(dayjs.tz.guess()).date()}/
+          {dayjs.utc(completedOrder?.createdAt).tz(dayjs.tz.guess()).month()}/
+          {dayjs.utc(completedOrder?.createdAt).tz(dayjs.tz.guess()).year()}
         </li>
         <li className="px-4 py-4 text-base font-semibold border-b border-gray-300 border-dashed text-brand-dark lg:text-lg md:border-b-0 md:border-r lg:px-6 xl:px-8 md:py-5 lg:py-6 last:border-0">
           <span className="uppercase text-[11px] block text-brand-muted font-normal leading-5">
             {t('text-total')}:
           </span>
-          {total}
+          {totalPrice}
         </li>
         <li className="px-4 py-4 text-base font-semibold border-b border-gray-300 border-dashed text-brand-dark lg:text-lg md:border-b-0 md:border-r lg:px-6 xl:px-8 md:py-5 lg:py-6 last:border-0">
           <span className="uppercase text-[11px] block text-brand-muted font-normal leading-5">
             {t('text-payment-method')}:
           </span>
-          {data?.payment_gateway}
+          {completedOrder?.payment_method}
         </li>
       </ul>
 
@@ -64,7 +80,7 @@ export default function OrderInformation() {
         {t('text-pay-cash')}
       </p>
 
-      <OrderDetails />
+      {/* <OrderDetails /> */}
     </div>
   );
 }

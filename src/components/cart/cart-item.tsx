@@ -63,7 +63,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
         </div>
 
         <div className="flex font-semibold text-sm md:text-base text-brand-dark leading-5 shrink-0 min-w-[65px] md:min-w-[80px] justify-end">
-          ৳ {item?.itemTotal}
+          ৳ {item?.itemTotal.toFixed(2)}
         </div>
       </div>
     </div>

@@ -321,13 +321,13 @@ input:checked + .slider:before {
 }
 .order-list-table.rc-table th,
 .order-list-table.rc-table td {
-  padding: 9px 18px;
+  padding: 6px 9px;
   color: rgba(0, 0, 0, 1);
   font-size: 14px;
 }
 .order-list-table.rc-table thead th {
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 .order-list-table.rc-table td {
   border-bottom: 1px solid #e7ecf0;

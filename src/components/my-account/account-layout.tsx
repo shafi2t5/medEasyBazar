@@ -52,7 +52,7 @@ const AccountLayout: React.FunctionComponent<{}> = ({ children }) => {
               <AccountNav options={accountMenu} />
             </div>
 
-            <div className="w-full p-4 mt-4 border rounded-md lg:mt-0 border-border-base sm:p-5 lg:py-8 2xl:py-10 lg:px-7 2xl:px-12">
+            <div className="w-full p-3 mt-4 border rounded-md lg:mt-0 border-border-base sm:p-3 lg:py-8 2xl:py-10 lg:px-5 2xl:px-5">
               {children}
             </div>
           </div>
