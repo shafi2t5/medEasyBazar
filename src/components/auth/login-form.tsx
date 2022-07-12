@@ -29,7 +29,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
   const { closeModal } = useModalAction();
   const { mutate: login, isLoading, data } = useLoginMutation();
   const [error, setError] = useState('');
-  const [number, setNumber] = useState('');
+  const [number, setNumber] = useState('+88');
   const [flag, setFlag] = useState(false);
   const [otp, setOtp] = useState('');
   const [result, setResult] = useState<any>('');
@@ -42,7 +42,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
     if (number === '' || number === undefined)
       return setError('Please enter a valid phone number!');
     try {
-      const response: any = await setUpRecaptha(`+880${number}}`);
+      const response: any = await setUpRecaptha(number);
       setResult(response);
       setFlag(true);
     } catch (err: any) {
@@ -149,6 +149,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
                 type="text"
                 variant="solid"
                 name="phone"
+                value={number}
                 onChange={(e) => setNumber(e.target.value)}
                 placeholder={t('forms:label-contact-phone')}
                 error={error}

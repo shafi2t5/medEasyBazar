@@ -54,11 +54,11 @@ const CheckoutCard: React.FC = () => {
       name: t('text-shipping'),
       price: 30,
     },
-    {
-      id: 3,
-      name: t('text-discount'),
-      price: discount,
-    },
+    // {
+    //   id: 3,
+    //   name: t('text-discount'),
+    //   price: discount,
+    // },
     {
       id: 4,
       name: t('text-total'),

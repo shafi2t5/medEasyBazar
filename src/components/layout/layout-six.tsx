@@ -5,7 +5,7 @@ import Header from '@components/layout/header/header-six';
 import Footer from '@components/layout/footer/footer';
 import MobileNavigation from '@components/layout/mobile-navigation/mobile-navigation';
 // import { IoChevronForwardCircleOutline } from 'react-icons/io5';
-import { useTranslation } from 'next-i18next';
+// import { useTranslation } from 'next-i18next';
 import { ROUTES } from '@utils/routes';
 // import { LIMITS } from '@framework/utils/limits';
 // import { useCategoriesQuery } from '@framework/category/get-all-categories';

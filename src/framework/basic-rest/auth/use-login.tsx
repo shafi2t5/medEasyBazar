@@ -74,7 +74,7 @@ export const useLoginMutation = () => {
       closeModal();
       //this
       toast(data.response.data.message, {
-        progressClassName: 'fancy-progress-bar',
+        progressClassName: 'danger-progress-bar',
         autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,

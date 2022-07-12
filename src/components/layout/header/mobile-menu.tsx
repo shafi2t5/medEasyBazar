@@ -6,7 +6,7 @@ import { IoIosArrowDown } from 'react-icons/io';
 import Logo from '@components/ui/logo';
 import { useUI } from '@contexts/ui.context';
 import { useTranslation } from 'next-i18next';
-import cn from 'classnames';
+// import cn from 'classnames';
 
 import {
   IoLogoInstagram,
@@ -15,6 +15,9 @@ import {
   IoLogoYoutube,
   IoClose,
 } from 'react-icons/io5';
+import { useHomeProductsQuery } from '@framework/product/get-all-best-seller-products';
+import { ROUTES } from '@utils/routes';
+import { useRouter } from 'next/router';
 
 const social = [
   {
@@ -48,43 +51,74 @@ const social = [
 ];
 
 export default function MobileMenu() {
-  const [activeMenus, setActiveMenus] = useState<any>([]);
+  // const [activeMenus, setActiveMenus] = useState<any>([]);
   const { site_header } = siteSettings;
   const { closeSidebar } = useUI();
   const { t } = useTranslation('menu');
-  const handleArrowClick = (menuName: string) => {
-    let newActiveMenus = [...activeMenus];
-    if (newActiveMenus.includes(menuName)) {
-      var index = newActiveMenus.indexOf(menuName);
-      if (index > -1) {
-        newActiveMenus.splice(index, 1);
-      }
-    } else {
-      newActiveMenus.push(menuName);
-    }
-    setActiveMenus(newActiveMenus);
-  };
+  // const handleArrowClick = (menuName: string) => {
+  //   let newActiveMenus = [...activeMenus];
+  //   if (newActiveMenus.includes(menuName)) {
+  //     var index = newActiveMenus.indexOf(menuName);
+  //     if (index > -1) {
+  //       newActiveMenus.splice(index, 1);
+  //     }
+  //   } else {
+  //     newActiveMenus.push(menuName);
+  //   }
+  //   setActiveMenus(newActiveMenus);
+  // };
+
+  const { data } = useHomeProductsQuery();
+
+  const categories = data?.medicine_homepage_products?.map((product, index) => {
+    return {
+      name: product.title,
+      slug: product.title,
+      icon: null,
+      id: index,
+    };
+  });
+
+  const {
+    setCategoryList,
+    setCategoryLimit,
+    setCategoryName,
+    categoryName,
+    setSearchList,
+    setSearchInput,
+  } = useUI();
+  const router = useRouter();
 
   const ListMenu = ({
-    dept,
+    // dept,
     data,
-    hasSubMenu,
-    menuName,
-    menuIndex,
+    // hasSubMenu,
+    // menuName,
+    // menuIndex,
     className = '',
+    href,
   }: any) =>
-    data.label && (
+    data.name && (
       <li className={`transition-colors duration-200 ${className}`}>
         <div className="relative flex items-center justify-between">
-          <Link
-            href={data.path}
-            className="relative w-full py-4 transition duration-300 ease-in-out menu-item ltr:pl-5 rtl:pr-5 md:ltr:pl-7 md:rtl:pr-7 ltr:pr-4 rtl:pl-4 text-brand-dark"
+          <div
+            onClick={() => {
+              if (data?.slug !== categoryName) {
+                setCategoryLimit(0);
+                setCategoryList([]);
+              }
+              setSearchInput('');
+              setSearchList([]);
+              setCategoryName(data?.slug);
+              router.push(href);
+            }}
+            className="cursor-pointer relative w-full py-4 transition duration-300 ease-in-out menu-item ltr:pl-5 rtl:pr-5 md:ltr:pl-7 md:rtl:pr-7 ltr:pr-4 rtl:pl-4 text-brand-dark"
           >
             <span className="block w-full" onClick={closeSidebar}>
-              {t(`${data.label}`)}
+              {t(`${data.name}`)}
             </span>
-          </Link>
-          {hasSubMenu && (
+          </div>
+          {/* {hasSubMenu && (
             <div
               className="cursor-pointer w-full h-8 text-[17px] px-5 shrink-0 flex items-center justify-end text-brand-dark text-opacity-80 absolute ltr:right-0 rtl:left-0 top-1/2 transform -translate-y-1/2"
               onClick={() => handleArrowClick(menuName)}
@@ -95,49 +129,49 @@ export default function MobileMenu() {
                 }`}
               />
             </div>
-          )}
+          )} */}
         </div>
-        {hasSubMenu && (
+        {/* {hasSubMenu && (
           <SubMenu
             dept={dept}
             data={data.subMenu}
             toggle={activeMenus.includes(menuName)}
             menuIndex={menuIndex}
           />
-        )}
+        )} */}
       </li>
     );
 
-  const SubMenu = ({ dept, data, toggle, menuIndex }: any) => {
-    if (!toggle) {
-      return null;
-    }
+  // const SubMenu = ({ dept, data, toggle, menuIndex }: any) => {
+  //   if (!toggle) {
+  //     return null;
+  //   }
 
-    dept = dept + 1;
+  //   dept = dept + 1;
 
-    return (
-      <ul className={cn('mobile-sub-menu', dept > 2 && 'ltr:-ml-4 rtl:-mr-4')}>
-        {data?.map((menu: any, index: number) => {
-          const menuName: string = `sidebar-submenu-${dept}-${menuIndex}-${index}`;
+  //   return (
+  //     <ul className={cn('mobile-sub-menu', dept > 2 && 'ltr:-ml-4 rtl:-mr-4')}>
+  //       {data?.map((menu: any, index: number) => {
+  //         const menuName: string = `sidebar-submenu-${dept}-${menuIndex}-${index}`;
 
-          return (
-            <ListMenu
-              dept={dept}
-              data={menu}
-              hasSubMenu={menu.subMenu}
-              menuName={menuName}
-              key={menuName}
-              menuIndex={index}
-              className={cn(
-                dept > 1 && 'ltr:pl-4 rtl:pr-4',
-                dept > 2 && 'ltr:pl-8 rtl:pr-8'
-              )}
-            />
-          );
-        })}
-      </ul>
-    );
-  };
+  //         return (
+  //           <ListMenu
+  //             dept={dept}
+  //             data={menu}
+  //             hasSubMenu={menu.subMenu}
+  //             menuName={menuName}
+  //             key={menuName}
+  //             menuIndex={index}
+  //             className={cn(
+  //               dept > 1 && 'ltr:pl-4 rtl:pr-4',
+  //               dept > 2 && 'ltr:pl-8 rtl:pr-8'
+  //             )}
+  //           />
+  //         );
+  //       })}
+  //     </ul>
+  //   );
+  // };
 
   return (
     <>
@@ -159,7 +193,7 @@ export default function MobileMenu() {
         <Scrollbar className="flex-grow mb-auto menu-scrollbar">
           <div className="flex flex-col px-0 py-6 text-brand-dark ">
             <ul className="mobile-menu">
-              {site_header.menu.map((menu, index) => {
+              {categories?.map((menu, index) => {
                 const dept: number = 1;
                 const menuName: string = `sidebar-menu-${dept}-${index}`;
 
@@ -167,10 +201,14 @@ export default function MobileMenu() {
                   <ListMenu
                     dept={dept}
                     data={menu}
-                    hasSubMenu={menu.subMenu}
+                    hasSubMenu={false}
                     menuName={menuName}
                     key={menuName}
                     menuIndex={index}
+                    href={{
+                      pathname: ROUTES.CATEGORY,
+                      query: { category: menu.slug },
+                    }}
                   />
                 );
               })}
