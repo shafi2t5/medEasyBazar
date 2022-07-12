@@ -27,7 +27,18 @@ export const Status: React.FC<{ item?: any }> = ({ item }) => {
     <span className={item?.status}>
       <span
         className="bullet"
-        style={{ backgroundColor: 'rgb(2, 178, 144)' }}
+        style={{
+          backgroundColor:
+            item?.status === 'Delivered'
+              ? '#02B290'
+              : item?.status === 'Confirmed'
+              ? '#FED030'
+              : item?.status === 'Cancelled'
+              ? 'red'
+              : item?.status === 'Pending'
+              ? '#25a8d6'
+              : 'yellow',
+        }}
       />
       {item?.status}
     </span>
