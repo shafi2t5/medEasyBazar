@@ -15,7 +15,7 @@ import { useEffect, useMemo, useState } from 'react';
 const defaultValues = {};
 
 const AccountDetails: React.FC = () => {
-  const { mutate: createUser, isLoading } = useUpdateUserMutation();
+  const { mutate: createUser, isLoading, data } = useUpdateUserMutation();
   const [gender, setGender] = useState('');
   const [user, setUser] = useState({
     name: '',
@@ -28,8 +28,13 @@ const AccountDetails: React.FC = () => {
   });
 
   useEffect(() => {
-    fetchProfile(setUser);
-  }, []);
+    async function getUserProfile() {
+      const user = await fetchProfile();
+      setUser(user);
+    }
+
+    getUserProfile();
+  }, [data]);
 
   const { t } = useTranslation();
   const {
@@ -51,7 +56,6 @@ const AccountDetails: React.FC = () => {
 
   function onSubmit(input: UpdateUserType) {
     createUser({ ...input, gender: gender, phone: `+88${input.phone}` });
-    fetchProfile(setUser);
   }
   return (
     <div className="flex flex-col w-full">
@@ -103,7 +107,7 @@ const AccountDetails: React.FC = () => {
                 error={errors.age?.message}
               />
 
-              <div className="w-1/2 ml-3">
+              <div className="w-full px-1.5 md:w-1/2 md:ml-3">
                 <Dropdowns
                   name="Gender"
                   stateDropdown={gender}

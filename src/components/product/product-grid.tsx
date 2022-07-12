@@ -2,7 +2,7 @@ import type { FC } from 'react';
 // import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import Alert from '@components/ui/alert';
-import Button from '@components/ui/button';
+// import Button from '@components/ui/button';
 import ProductCard from '@components/product/product-cards/product-card';
 import ProductCardLoader from '@components/ui/loaders/product-card-loader';
 import cn from 'classnames';
@@ -45,8 +45,11 @@ export const ProductGrid: FC<ProductGridProps> = ({
             />
           ))
         ) : data.length > 0 ? (
-          data?.map((product: Product) => (
-            <ProductCard key={`product--key-${product.id}`} product={product} />
+          data?.map((product: Product, index: number) => (
+            <ProductCard
+              key={`product--key-${product.id}-${index}`}
+              product={product}
+            />
           ))
         ) : null}
         {/* end of error state */}

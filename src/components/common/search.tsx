@@ -88,7 +88,7 @@ const Search = React.forwardRef<HTMLDivElement, Props>(
       >
         <div
           className={cn(
-            'overlay cursor-pointer invisible w-full h-full opacity-0 flex top-0 ltr:left-0 rtl:right-0 transition-all duration-300 fixed',
+            'cursor-pointer invisible w-full h-full opacity-0 flex top-0 ltr:left-0 rtl:right-0 transition-all duration-300 fixed',
             {
               open: displayMobileSearch,
             }

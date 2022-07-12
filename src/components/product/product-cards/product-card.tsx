@@ -143,7 +143,7 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
         </div>
       </div>
 
-      <div className="px-3 md:px-4 lg:px-[18px] lg:pt-2">
+      <div className="px-3 md:px-4 lg:px-[18px] pt-2">
         <h2 className="text-brand-dark text-13px sm:text-18px lg:text-18px mb-1.5 font-bold">
           {medicine_name}
         </h2>
@@ -156,7 +156,7 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
           </h3>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row justify-between relative mt-auto px-3 md:px-4 lg:px-[18px] pb-4">
+      <div className="flex flex-row justify-between relative mt-auto px-3 md:px-4 lg:px-[18px] pb-4">
         <div className="mb-1.5">
           <div className="block text-13px sm:text-20px lg:text-20px font-extrabold text-brand-dark">
             <span className="mr-1 font-extrabold">৳</span>
@@ -170,7 +170,9 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
               {(unit_prices[0]?.price).toFixed(2)}
             </del>
           ) : (
-            <div className="opacity-0">Loading...</div>
+            <div className="opacity-0" style={{ width: '0', height: '0' }}>
+              Loading...
+            </div>
           )}
         </div>
         <RenderPopupOrAddToCart data={productInfo} />

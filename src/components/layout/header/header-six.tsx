@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useTranslation } from 'next-i18next';
 import { ROUTES } from '@utils/routes';
@@ -12,6 +12,9 @@ import LanguageSwitcher from '@components/ui/language-switcher';
 import { useModalAction } from '@components/common/modal/modal.context';
 import cn from 'classnames';
 import Search from '@components/common/search';
+import { fetchProfile } from '@framework/customer/use-update-customer';
+import productPlaceholder from '@assets/placeholders/product-placeholder.png';
+import Image from '@components/ui/image';
 const AuthMenu = dynamic(() => import('./auth-menu'), { ssr: false });
 const CartButton = dynamic(() => import('@components/cart/cart-button'), {
   ssr: false,
@@ -24,6 +27,16 @@ const Header: React.FC = () => {
   const { openModal } = useModalAction();
   const { t } = useTranslation('common');
   const siteHeaderRef = useRef() as DivElementRef;
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    age: '',
+    gender: '',
+    address: '',
+    avatar: '',
+    phone: '',
+  });
+
   addActiveScroll(siteHeaderRef);
   function handleLogin() {
     openModal('LOGIN_VIEW');
@@ -31,6 +44,17 @@ const Header: React.FC = () => {
   function handleMobileMenu() {
     return openSidebar();
   }
+
+  async function getUserProfile() {
+    const user = await fetchProfile();
+    setUser(user);
+  }
+
+  useEffect(() => {
+    if (isAuthorized) {
+      getUserProfile();
+    }
+  }, [isAuthorized]);
 
   return (
     <header
@@ -73,8 +97,26 @@ const Header: React.FC = () => {
                 <div className="h-6 w-0.5 mx-4 bg-brand-light"></div>
               </div>
               <div className="items-center hidden lg:flex shrink-0 xl:mx-3.5 mx-2.5">
-                <div className="bg-brand-light rounded-xl flex items-center p-2">
-                  <UserIcon className="text-brand-navColor text-opacity-100" />
+                <div
+                  className={`bg-brand-light rounded-xl flex items-center ${
+                    isAuthorized && user?.avatar ? 'p-1' : 'p-2'
+                  }`}
+                >
+                  {isAuthorized && user?.avatar ? (
+                    <Image
+                      src={
+                        `https://medeasy.health:5001${user?.avatar}` ??
+                        productPlaceholder
+                      }
+                      alt={'Product Image'}
+                      width={30}
+                      height={30}
+                      quality={100}
+                      className="object-cover bg-fill-thumbnail text-brand-navColor text-opacity-100"
+                    />
+                  ) : (
+                    <UserIcon className="text-brand-navColor text-opacity-100" />
+                  )}{' '}
                 </div>
                 <AuthMenu
                   isAuthorized={isAuthorized}
@@ -84,7 +126,7 @@ const Header: React.FC = () => {
                     onClick: handleLogin,
                   }}
                 >
-                  {t('text-account')}
+                  {user.name && isAuthorized ? user.name : t('text-account')}
                 </AuthMenu>
               </div>
             </div>

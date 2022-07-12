@@ -35,7 +35,7 @@ const CartButton: React.FC<CartButtonProps> = ({
       onClick={handleCartOpen}
       aria-label="cart-button"
     >
-      <div className="relative flex items-center p-2">
+      <div className="relative flex items-center p-1 md:p-2">
         <CartIcon className={cn(iconClassName)} width={22} height={22} />
         <span className="min-w-[20px] min-h-[20px] p-0.5 rounded-[20px] flex items-center justify-center bg-brand-info text-brand-light absolute -top-2.5 right-0 text-10px font-bold">
           {totalItems}

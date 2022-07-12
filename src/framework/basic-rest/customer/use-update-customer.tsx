@@ -61,7 +61,7 @@ export const useUpdateUserMutation = () => {
   });
 };
 
-export const fetchProfile = async (setUser: any) => {
+export const fetchProfile = async () => {
   try {
     const headers = {
       Authorization: `Bearer ${getToken()}`,
@@ -70,7 +70,7 @@ export const fetchProfile = async (setUser: any) => {
     const { data } = await http.get(API_ENDPOINTS.PROFILE, {
       headers,
     });
-    setUser({ ...data?.patients, phone: data?.patients?.phone.slice(3) });
+    return { ...data?.patients, phone: data?.patients?.phone.slice(3) };
   } catch (error: any) {
     console.log(error.response.data.message);
   }

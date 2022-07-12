@@ -32,7 +32,7 @@ const BundleCard: React.FC<Props> = ({
   return (
     <Link href={href} className={cn('group flex', className)}>
       <div
-        className="rounded-[20px] relative flex items-center justify-center w-full overflow-hidden p-2 md:p-6"
+        className="rounded-[20px] relative flex items-center justify-center w-full overflow-hidden p-2 md:p-4 4xl:p-6"
         style={{ backgroundColor: bgColor }}
       >
         <div className={cn('', thumbnailClassName)}>
