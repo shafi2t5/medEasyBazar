@@ -16,11 +16,7 @@ export default function AccountDetailsPage() {
         path="my-account/address"
       />
       <AccountLayout>
-        {!isLoading ? (
-          <AddressGrid address={data?.data} />
-        ) : (
-          <div>Loading...</div>
-        )}
+        {!isLoading ? <AddressGrid /> : <div>Loading...</div>}
       </AccountLayout>
     </>
   );

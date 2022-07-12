@@ -9,7 +9,7 @@ import Seo from '@components/seo/seo';
 import { QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
 import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
-import { fetchCategories } from '@framework/category/get-all-categories';
+// import { fetchCategories } from '@framework/category/get-all-categories';
 import { LIMITS } from '@framework/utils/limits';
 import CategoryGridListBlock from '@components/common/category-grid-list-block';
 import BestSellerProductFeed from '@components/product/feeds/best-seller-product-feed';
@@ -40,10 +40,10 @@ Home.Layout = Layout;
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(
-    [API_ENDPOINTS.CATEGORIES, { limit: LIMITS.CATEGORIES_LIMITS }],
-    fetchCategories
-  );
+  // await queryClient.prefetchQuery(
+  //   [API_ENDPOINTS.CATEGORIES, { limit: LIMITS.CATEGORIES_LIMITS }],
+  //   fetchCategories
+  // );
   await queryClient.prefetchQuery(
     [
       API_ENDPOINTS.BEST_SELLER_GROCERY_PRODUCTS,
@@ -51,10 +51,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     ],
     fetchBestSellerProducts
   );
-  // await queryClient.prefetchQuery(
-  //   [API_ENDPOINTS.POPULAR_PRODUCTS, { limit: LIMITS.POPULAR_PRODUCTS_LIMITS }],
-  //   fetchPopularProducts
-  // );
 
   return {
     props: {
