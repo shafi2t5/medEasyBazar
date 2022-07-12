@@ -27,11 +27,17 @@ export const DiscountPrice = (discount: any) => {
 };
 
 export const DeliveryFee = (delivery: any) => {
-  const { price } = usePrice({
-    amount: delivery?.delivery,
-    currencyCode: 'USD',
-  });
-  return <>{price}</>;
+  // const { price } = usePrice({
+  //   amount: delivery?.delivery,
+  //   currencyCode: 'USD',
+  // });
+
+  return (
+    <>
+      <span className="mr-1 font-bold">৳</span>
+      {delivery?.delivery}
+    </>
+  );
 };
 
 export const SubTotalPrice: React.FC<{ items?: any }> = ({ items }) => {

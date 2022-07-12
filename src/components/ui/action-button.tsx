@@ -2,20 +2,24 @@ import { BsThreeDots } from 'react-icons/bs';
 import { Popover, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { useUI } from '@contexts/ui.context';
-import { deleteOrder } from '@framework/order/order-delete';
+import { useDeleteOrderMutation } from '@framework/order/order-delete';
+import { useRouter } from 'next/router';
 
 const ActionsButton: React.FC<{ item?: any }> = ({ item }) => {
   const { openDrawer, setDrawerView } = useUI();
+  const { mutate: deleteOrder, data: order } = useDeleteOrderMutation();
 
   function handleCartOpen(item: any) {
     setDrawerView('ORDER_DETAILS');
     return openDrawer(item);
   }
 
+  const router = useRouter();
+
   const removeItem = async (id: any, title: string) => {
     var result = confirm(`Want to delete? ${title} Order`);
     if (result) {
-      const dele = await deleteOrder(id);
+      await deleteOrder(id);
     }
   };
 

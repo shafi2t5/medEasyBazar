@@ -120,7 +120,7 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
       onClick={handlePopupView}
       title={medicine_name}
     >
-      <div className="relative shrink-0">
+      <div className="relative shrink-0 overflow-hidden">
         <div className="flex max-w-[260px] mx-auto transition duration-200 ease-in-out transform group-hover:scale-105 relative">
           <Image
             src={

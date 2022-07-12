@@ -1,6 +1,6 @@
 import { Table } from '@components/ui/table';
 import Input from '@components/ui/form/input';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Pagination from '@components/ui/pagination';
 import ActionsButton from '@components/ui/action-button';
 import { TotalPrice } from '@components/order/price';
@@ -83,7 +83,7 @@ const OrderTable: React.FC<{ orders?: any }> = ({ orders }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [value, setValue] = useState('');
   const countPerPage = 5;
-  let [filterData, setDataValue] = useState(orders.slice(0, countPerPage));
+  let [filterData, setDataValue] = useState([]);
 
   const updatePage = (p: any) => {
     setCurrentPage(p);
@@ -91,6 +91,10 @@ const OrderTable: React.FC<{ orders?: any }> = ({ orders }) => {
     const from = to - countPerPage;
     setDataValue(orders.slice(from, to));
   };
+
+  useEffect(() => {
+    setDataValue(orders.slice(0, countPerPage));
+  }, [orders]);
 
   // const onChangeSearch = (e: any) => {
   //   setCurrentPage(1);

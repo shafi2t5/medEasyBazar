@@ -10,21 +10,21 @@ import {
   TotalPrice,
   SubTotalPrice,
 } from '@components/order/price';
-
+import { useRouter } from 'next/router';
 import { useUI } from '@contexts/ui.context';
-import { deleteOrder } from '@framework/order/order-delete';
+import { useDeleteOrderMutation } from '@framework/order/order-delete';
 
 const OrderDrawer: React.FC = () => {
   const { t } = useTranslation('common');
   const { data, closeDrawer } = useUI();
+  const router = useRouter();
+
+  const { mutate: deleteOrder, data: order } = useDeleteOrderMutation();
 
   const removeItem = async (id: any, title: string) => {
     var result = confirm(`Want to delete? ${title} Order`);
     if (result) {
-      const res = await deleteOrder(id);
-      if (res) {
-        closeDrawer();
-      }
+      await deleteOrder(id);
     }
   };
 
