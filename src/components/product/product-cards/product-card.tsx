@@ -137,7 +137,7 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
         <div className="absolute top-3 -left-2">
           {is_discountable && (
             <span className="ribbon text-[11px] md:text-xs font-bold text-brand-light bg-brand-percent">
-              {discount_value}
+              {discount_value} % Off
             </span>
           )}
         </div>

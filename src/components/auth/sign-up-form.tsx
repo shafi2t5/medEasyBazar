@@ -40,6 +40,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
   async function onSubmit(values: SignUpInputType) {
     if (gender === '') {
       setGenderError('Gender is required');
+      return;
     }
     const response = await signUp({
       ...values,

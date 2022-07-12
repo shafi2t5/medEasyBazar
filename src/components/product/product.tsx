@@ -82,16 +82,21 @@ const ProductSingleDetails: React.FC = () => {
         medPrice?.price,
         selectedProduct?.discount_value
       );
-      setProductPrice({ ...medPrice, price: afterDiscount * selectedQuantity });
+      setProductPrice({
+        ...medPrice,
+        discountValue: medPrice?.price - afterDiscount,
+        price: afterDiscount * selectedQuantity,
+      });
     } else {
       setProductPrice({
         ...medPrice,
+        discountValue: 0,
         price: medPrice?.price * selectedQuantity,
       });
     }
   }, [medPrice, selectedQuantity]);
 
-  let cartData = { ...selectedProduct, productPrice, unit: piece };
+  let cartData = { ...selectedProduct, ...productPrice, unit: piece };
 
   // if (isLoading) return <p>Loading...</p>;
 

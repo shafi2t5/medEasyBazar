@@ -12,15 +12,30 @@ import { useTranslation } from 'next-i18next';
 import Heading from '@components/ui/heading';
 import Text from '@components/ui/text';
 import DeleteIcon from '@components/icons/delete-icon';
+import { useRouter } from 'next/router';
+import { useModalAction } from '@components/common/modal/modal.context';
 
 export default function Cart() {
   const { t } = useTranslation('common');
-  const { closeDrawer } = useUI();
+  const { closeDrawer, isAuthorized } = useUI();
   const { items, total, isEmpty, resetCart } = useCart();
+  const { openModal } = useModalAction();
   // const { price: cartTotal } = usePrice({
   //   amount: total,
   //   currencyCode: 'USD',
   // });
+
+  const history = useRouter();
+
+  const procedeToCheckout = () => {
+    closeDrawer();
+    if (isAuthorized) {
+      history.push(ROUTES.CHECKOUT);
+    } else {
+      openModal('LOGIN_VIEW');
+    }
+  };
+
   return (
     <div className="flex flex-col justify-between w-full h-full">
       <div className="relative flex items-center justify-between w-full border-b ltr:pl-5 rtl:pr-5 md:ltr:pl-7 md:rtl:pr-7 border-border-base">
@@ -71,11 +86,12 @@ export default function Cart() {
             ৳ {total.toFixed(2)}
           </div>
         </div>
-        <div className="flex flex-col" onClick={closeDrawer}>
-          <Link
-            href={isEmpty === false ? ROUTES.CHECKOUT : '/'}
+        <div className="flex flex-col" onClick={procedeToCheckout}>
+          <div
+            // href={isEmpty === false ? ROUTES.CHECKOUT : '/'}
+            // onCanPlay={() => procedeToCheckout()}
             className={cn(
-              'w-full px-5 py-3 md:py-4 flex items-center justify-center bg-heading rounded font-semibold text-sm sm:text-15px text-brand-light bg-brand focus:outline-none transition duration-300 hover:bg-opacity-90',
+              'w-full px-5 cursor-pointer py-3 md:py-4 flex items-center justify-center bg-heading rounded font-semibold text-sm sm:text-15px text-brand-light bg-brand focus:outline-none transition duration-300 hover:bg-opacity-90',
               {
                 'cursor-not-allowed !text-brand-dark !text-opacity-25 bg-fill-four hover:bg-fill-four':
                   isEmpty,
@@ -83,7 +99,7 @@ export default function Cart() {
             )}
           >
             <span className="py-0.5">{t('text-proceed-to-checkout')}</span>
-          </Link>
+          </div>
         </div>
       </div>
     </div>
