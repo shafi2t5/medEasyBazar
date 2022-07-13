@@ -107,13 +107,14 @@ const AccountDetails: React.FC = () => {
                 error={errors.age?.message}
               />
 
-              <div className="w-full px-1.5 md:w-1/2 md:ml-3">
+              <div className="w-full md:w-1/2 px-1.5 md:px-2.5">
+                <div className="text-sm">Gender</div>
                 <Dropdowns
                   name="Gender"
                   stateDropdown={gender}
                   setStateDropdown={setGender}
                   dList={[{ unit: 'Male' }, { unit: 'Female' }]}
-                  className="font-bold "
+                  className="font-normal py-2"
                 />
               </div>
             </div>

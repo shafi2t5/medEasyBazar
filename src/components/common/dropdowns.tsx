@@ -18,13 +18,15 @@ export default function Dropdowns({
   setStateDropdown,
   dList,
   name = 'Piece',
-  className = 'font-bold',
+  className = 'font-bold py-4',
 }: dropdown) {
   return (
     <Menu as="div" className="relative inline-block text-left w-full mt-3">
       <div className="">
-        <Menu.Button className="inline-flex justify-center py-4 w-full rounded-md border bg-brand-sidebarColor">
-          <span className={`flex-1 text-md text-brand-dark ${className}`}>
+        <Menu.Button
+          className={`inline-flex justify-center w-full rounded-md border bg-brand-sidebarColor ${className}`}
+        >
+          <span className={`flex-1 text-md text-brand-dark`}>
             {stateDropdown ? `${stateDropdown}` : name}
           </span>
           <svg
