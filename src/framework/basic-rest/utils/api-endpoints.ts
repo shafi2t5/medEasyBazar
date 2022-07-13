@@ -31,4 +31,6 @@ export const API_ENDPOINTS = {
   WISHLIST: '/wishlist.json',
   PROFILE: '/patient/profile/',
   CONTACTUS: '/website/contact-us/',
+  DEPARTMENT: '/patient/department/',
+  DOCTOR: 'patient/department/',
 };

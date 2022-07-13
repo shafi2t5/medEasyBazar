@@ -37,6 +37,8 @@ const initialState = {
   categoryName: '',
   selectedAddress: '',
   instruction: '',
+  doctor_input: '',
+  doctorList: [],
 };
 
 type Action =
@@ -137,6 +139,14 @@ type Action =
     }
   | {
       type: 'SELECTED_INSTRUCTION';
+      payload: any;
+    }
+  | {
+      type: 'DOCTOR_LIST';
+      payload: any;
+    }
+  | {
+      type: 'DOCTOR_INPUT';
       payload: any;
     };
 
@@ -327,6 +337,18 @@ function uiReducer(state: State, action: Action) {
         instruction: action.payload,
       };
     }
+    case 'DOCTOR_INPUT': {
+      return {
+        ...state,
+        doctor_input: action.payload,
+      };
+    }
+    case 'DOCTOR_LIST': {
+      return {
+        ...state,
+        doctorList: action.payload,
+      };
+    }
   }
 }
 
@@ -399,6 +421,12 @@ export const UIProvider: React.FC = (props) => {
   const setSlectedInstruction = (payload: any) =>
     dispatch({ type: 'SELECTED_INSTRUCTION', payload });
 
+  const setDoctorInput = (payload: string) =>
+    dispatch({ type: 'DOCTOR_INPUT', payload });
+
+  const setDoctorList = (payload: any) =>
+    dispatch({ type: 'DOCTOR_LIST', payload });
+
   const value = React.useMemo(
     () => ({
       ...state,
@@ -435,6 +463,8 @@ export const UIProvider: React.FC = (props) => {
       setCategoryName,
       setSlectedAddress,
       setSlectedInstruction,
+      setDoctorList,
+      setDoctorInput,
     }),
     [state]
   );
