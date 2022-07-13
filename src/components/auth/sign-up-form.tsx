@@ -93,7 +93,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
                   stateDropdown={gender}
                   setStateDropdown={setGender}
                   dList={[{ unit: 'Male' }, { unit: 'Female' }]}
-                  className=""
+                  className="py-3 font-bold"
                 />
                 {genderError && (
                   <div className="text-brand-danger mt-1">

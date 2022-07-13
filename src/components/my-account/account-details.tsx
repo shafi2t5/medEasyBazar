@@ -1,5 +1,4 @@
 import Input from '@components/ui/form/input';
-import PasswordInput from '@components/ui/form/password-input';
 import Button from '@components/ui/button';
 import Heading from '@components/ui/heading';
 import { useForm } from 'react-hook-form';
@@ -11,8 +10,7 @@ import {
 import { useTranslation } from 'next-i18next';
 import Dropdowns from '@components/common/dropdowns';
 import { useEffect, useMemo, useState } from 'react';
-
-const defaultValues = {};
+import { useUI } from '@contexts/ui.context';
 
 const AccountDetails: React.FC = () => {
   const { mutate: createUser, isLoading, data } = useUpdateUserMutation();
@@ -26,17 +24,17 @@ const AccountDetails: React.FC = () => {
     avatar: '',
     phone: '',
   });
+  const { isProfileSubmit, setProfileInput } = useUI();
 
   useEffect(() => {
-    async function getUserProfile() {
-      const user = await fetchProfile();
-      setUser(user);
-    }
-
+    setProfileInput(!isProfileSubmit);
     getUserProfile();
   }, [data]);
 
-  console.log(data);
+  async function getUserProfile() {
+    const user = await fetchProfile();
+    setUser(user);
+  }
 
   const { t } = useTranslation();
   const {
@@ -115,7 +113,7 @@ const AccountDetails: React.FC = () => {
                   stateDropdown={gender}
                   setStateDropdown={setGender}
                   dList={[{ unit: 'Male' }, { unit: 'Female' }]}
-                  className="font-bold"
+                  className="font-bold "
                 />
               </div>
             </div>

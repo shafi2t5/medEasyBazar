@@ -23,7 +23,8 @@ const CartButton = dynamic(() => import('@components/cart/cart-button'), {
 type DivElementRef = React.MutableRefObject<HTMLDivElement>;
 
 const Header: React.FC = () => {
-  const { openSidebar, isAuthorized, displayMobileSearch } = useUI();
+  const { openSidebar, isAuthorized, displayMobileSearch, isProfileSubmit } =
+    useUI();
   const { openModal } = useModalAction();
   const { t } = useTranslation('common');
   const siteHeaderRef = useRef() as DivElementRef;
@@ -54,7 +55,9 @@ const Header: React.FC = () => {
     if (isAuthorized) {
       getUserProfile();
     }
-  }, [isAuthorized]);
+  }, [isAuthorized, isProfileSubmit]);
+
+  console.log(isProfileSubmit, 'gk');
 
   return (
     <header

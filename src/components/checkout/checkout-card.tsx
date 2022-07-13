@@ -22,7 +22,7 @@ const CheckoutCard: React.FC = () => {
   const { mutate: orderPostApi, isLoading, data } = useOrderMutation();
   const { selectedAddress, isAuthorized } = useUI();
 
-  const discount = items.reduce((total, data) => total + data.discountValue, 0);
+  //const discount = items.reduce((total, data) => total + data.discountValue, 0);
 
   function orderHeader() {
     // !isEmpty && Router.push(ROUTES.ORDER);
@@ -90,7 +90,7 @@ const CheckoutCard: React.FC = () => {
           variant="formButton"
           className={`w-full mt-8 mb-5 bg-brand text-brand-light rounded font-semibold px-4 py-3 transition-all 
           }`}
-          disabled={items?.length < 1 || !isAuthorized}
+          disabled={items?.length < 1 || !isAuthorized || !selectedAddress?.id}
           onClick={orderHeader}
         >
           {t('button-order-now')}

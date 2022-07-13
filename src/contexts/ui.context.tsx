@@ -39,6 +39,7 @@ const initialState = {
   instruction: '',
   doctor_input: '',
   doctorList: [],
+  isProfileSubmit: false,
 };
 
 type Action =
@@ -147,6 +148,10 @@ type Action =
     }
   | {
       type: 'DOCTOR_INPUT';
+      payload: any;
+    }
+  | {
+      type: 'PROFILE_INPUT';
       payload: any;
     };
 
@@ -349,6 +354,12 @@ function uiReducer(state: State, action: Action) {
         doctorList: action.payload,
       };
     }
+    case 'PROFILE_INPUT': {
+      return {
+        ...state,
+        isProfileSubmit: action.payload,
+      };
+    }
   }
 }
 
@@ -427,6 +438,9 @@ export const UIProvider: React.FC = (props) => {
   const setDoctorList = (payload: any) =>
     dispatch({ type: 'DOCTOR_LIST', payload });
 
+  const setProfileInput = (payload: any) =>
+    dispatch({ type: 'PROFILE_INPUT', payload });
+
   const value = React.useMemo(
     () => ({
       ...state,
@@ -465,6 +479,7 @@ export const UIProvider: React.FC = (props) => {
       setSlectedInstruction,
       setDoctorList,
       setDoctorInput,
+      setProfileInput,
     }),
     [state]
   );

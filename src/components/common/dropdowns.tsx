@@ -56,7 +56,7 @@ export default function Dropdowns({
           <div className="py-1">
             {dList?.map((data: any, index: number) => (
               <Menu.Item key={index}>
-                {({ active }) => (
+                {({ active }: any) => (
                   <a
                     href="#"
                     className={classNames(
