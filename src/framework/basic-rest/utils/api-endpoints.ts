@@ -30,4 +30,5 @@ export const API_ENDPOINTS = {
   SHOPS: '/shops.json',
   WISHLIST: '/wishlist.json',
   PROFILE: '/patient/profile/',
+  CONTACTUS: '/website/contact-us/',
 };

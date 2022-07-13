@@ -1,4 +1,4 @@
-import Layout from '@components/layout/layout';
+import Layout from '@components/layout/layout-six';
 import Container from '@components/ui/container';
 import Heading from '@components/ui/heading';
 import PageHeroSection from '@components/ui/page-hero-section';
@@ -24,8 +24,8 @@ export default function PrivacyPage() {
         path="privacy"
       />
       <PageHeroSection heroTitle="text-page-privacy-policy" />
-      <div className="py-12 lg:py-16 2xl:py-20 xl:px-16 2xl:px-24 3xl:px-36">
-        <Container>
+      <div className="py-12 lg:py-16 2xl:py-20">
+        <Container clean={true}>
           <div className="flex flex-col md:flex-row">
             <nav className="hidden mb-8 sm:block md:w-72 xl:w-3/12 2xl:mb-0 lg:-mt-2">
               <ol className="sticky z-10 md:top-16 lg:top-20">
@@ -72,7 +72,7 @@ export default function PrivacyPage() {
           </div>
         </Container>
       </div>
-      <DownloadApps />
+      {/* <DownloadApps /> */}
     </>
   );
 }

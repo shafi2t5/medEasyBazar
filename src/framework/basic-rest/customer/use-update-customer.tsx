@@ -70,8 +70,8 @@ export const fetchProfile = async () => {
     const { data } = await http.get(API_ENDPOINTS.PROFILE, {
       headers,
     });
-    return { ...data?.patients, phone: data?.patients?.phone.slice(3) };
+    return { ...data?.patients, phone: data?.patients?.phone?.slice(3) };
   } catch (error: any) {
-    console.log(error.response.data.message);
+    console.log(error?.response?.data?.message);
   }
 };

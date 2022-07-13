@@ -126,7 +126,7 @@ const Header: React.FC = () => {
                     onClick: handleLogin,
                   }}
                 >
-                  {user.name && isAuthorized ? user.name : t('text-account')}
+                  {user?.name && isAuthorized ? user?.name : t('text-account')}
                 </AuthMenu>
               </div>
             </div>

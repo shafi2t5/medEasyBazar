@@ -44,7 +44,7 @@ const ContactSupport: FC<Props> = () => {
         {t('contact-form-info-title')}
       </Heading>
       <Text className="xl:leading-8">{t('contact-form-info-content')}</Text>
-      <div className="flex mt-5 -mx-1">
+      {/* <div className="flex mt-5 -mx-1">
         {supportData.map((item, idx) => (
           <Link
             href={item.slug}
@@ -59,7 +59,7 @@ const ContactSupport: FC<Props> = () => {
             />
           </Link>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

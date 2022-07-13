@@ -14,16 +14,6 @@ export const footer = {
           title: 'link-contact-us',
           path: '/contact-us',
         },
-        {
-          id: 3,
-          title: 'link-about-team',
-          path: '/about-us',
-        },
-        {
-          id: 4,
-          title: 'link-customer-support',
-          path: '/contact-us',
-        },
       ],
     },
     {
@@ -43,41 +33,36 @@ export const footer = {
         {
           id: 3,
           title: 'link-return-policy',
-          path: '/privacy',
-        },
-        {
-          id: 4,
-          title: 'link-site-map',
-          path: '/',
+          path: '/return',
         },
       ],
     },
-    {
-      id: 3,
-      widgetTitle: 'widget-title-community',
-      lists: [
-        {
-          id: 1,
-          title: 'link-announcements',
-          path: '/',
-        },
-        {
-          id: 2,
-          title: 'link-answer-center',
-          path: '/',
-        },
-        {
-          id: 3,
-          title: 'link-discussion-boards',
-          path: '/',
-        },
-        {
-          id: 4,
-          title: 'link-giving-works',
-          path: '/',
-        },
-      ],
-    },
+    // {
+    //   id: 3,
+    //   widgetTitle: 'widget-title-community',
+    //   lists: [
+    //     {
+    //       id: 1,
+    //       title: 'link-announcements',
+    //       path: '/',
+    //     },
+    //     {
+    //       id: 2,
+    //       title: 'link-answer-center',
+    //       path: '/',
+    //     },
+    //     {
+    //       id: 3,
+    //       title: 'link-discussion-boards',
+    //       path: '/',
+    //     },
+    //     {
+    //       id: 4,
+    //       title: 'link-giving-works',
+    //       path: '/',
+    //     },
+    //   ],
+    // },
   ],
   payment: [
     {

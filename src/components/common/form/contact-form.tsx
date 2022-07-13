@@ -3,11 +3,12 @@ import Button from '@components/ui/button';
 import TextArea from '@components/ui/form/text-area';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useContactUsMutation } from '@framework/static/use-contactus';
 
 interface ContactFormValues {
   name: string;
   email: string;
-  phone: string;
+  subject: string;
   message: string;
 }
 
@@ -16,10 +17,17 @@ const ContactForm: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<ContactFormValues>();
 
+  const { mutate: contactusPost, data } = useContactUsMutation();
+
   function onSubmit(values: ContactFormValues) {
-    console.log(values, 'Contact');
+    contactusPost(values);
+  }
+
+  if (data) {
+    reset();
   }
 
   const { t } = useTranslation();
@@ -51,9 +59,9 @@ const ContactForm: React.FC = () => {
       <Input
         variant="solid"
         type="text"
-        label="forms:label-contact-phone"
-        placeholder="forms:placeholder-phone"
-        {...register('phone')}
+        label="forms:label-subject"
+        placeholder="forms:placeholder-subject"
+        {...register('subject')}
       />
       <TextArea
         variant="solid"

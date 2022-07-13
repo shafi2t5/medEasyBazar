@@ -5,22 +5,22 @@ import { useRouter } from 'next/router';
 import { ROUTES } from '@utils/routes';
 import useWindowSize from '@utils/use-window-size';
 import { useProductQuery } from '@framework/product/get-product';
-import { getVariations } from '@framework/utils/get-variations';
-import usePrice from '@framework/product/use-price';
+// import { getVariations } from '@framework/utils/get-variations';
+// import usePrice from '@framework/product/use-price';
 import { useCart } from '@contexts/cart/cart.context';
 
 import { toast } from 'react-toastify';
-import ThumbnailCarousel from '@components/ui/carousel/thumbnail-carousel';
+// import ThumbnailCarousel from '@components/ui/carousel/thumbnail-carousel';
 import { useTranslation } from 'next-i18next';
 import Image from '@components/ui/image';
 import Dropdowns from '@components/common/dropdowns';
-import CloseIcon from '@components/icons/close-icon';
+// import CloseIcon from '@components/icons/close-icon';
 import productGalleryPlaceholder from '@assets/placeholders/product-placeholder.png';
 import { useUI } from '@contexts/ui.context';
 import { discountCalculate } from '@utils/discount';
 import {
   useModalAction,
-  useModalState,
+  // useModalState,
 } from '@components/common/modal/modal.context';
 import RelatedProductFeed from './feeds/related-product-feed';
 
@@ -64,7 +64,7 @@ const ProductSingleDetails: React.FC = () => {
   const medPrice =
     selectedProduct?.unit_prices?.filter(
       (data: any) => data.unit === piece
-    )[0] || selectedProduct?.unit_prices[0];
+    )[0] || selectedProduct?.unit_prices?.[0];
   // const medicineDetails = data?.medicine_details;
   const cartitems = getItemFromCart(selectedProduct.id);
 
@@ -139,8 +139,9 @@ const ProductSingleDetails: React.FC = () => {
           <div className="flex items-center justify-center w-auto">
             <Image
               src={
-                `https://medeasy.health:5000${selectedProduct?.medicine_image}` ??
-                productGalleryPlaceholder
+                selectedProduct?.medicine_image
+                  ? `https://medeasy.health:5000${selectedProduct?.medicine_image}`
+                  : productGalleryPlaceholder
               }
               alt={data?.medicine_name!}
               width={650}
@@ -174,10 +175,10 @@ const ProductSingleDetails: React.FC = () => {
               <>
                 <div className="flex flex-warp">
                   <del className="mr-2 text-md text-brand-manufacure ">
-                    MRP ৳ {productPrice?.price}
+                    MRP ৳ {productPrice?.price || ''}
                   </del>
                   <div className="text-brand-navColor text-sm">
-                    {selectedProduct?.discount_value}% Off
+                    {selectedProduct?.discount_value || ''}% Off
                   </div>
                 </div>
               </>
@@ -186,7 +187,7 @@ const ProductSingleDetails: React.FC = () => {
               <div className="mr-2 text-sm text-brand-dark font-bold">
                 Best Price
                 <span className="mr-2 text-lg font-bold">
-                  Tk {productPrice?.price}
+                  Tk {productPrice?.price || ''}
                 </span>
               </div>
               <div className="text-brand-manufacure text-sm mt-1">/{piece}</div>

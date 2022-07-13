@@ -5,6 +5,4 @@ export const aboutSetting = {
   descriptionOne: 'about-one-content',
   descriptionTwo: 'about-two-content',
   descriptionThree: 'about-three-content',
-  descriptionFour: 'about-four-content',
-  descriptionFive: 'about-five-content',
 };

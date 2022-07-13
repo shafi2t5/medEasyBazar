@@ -7,9 +7,11 @@ export const TotalPrice: React.FC<{ items?: any }> = ({ items }) => {
   //   currencyCode: 'USD',
   // });
 
-  const price = Math.round(
-    calculateTotal(items?.medicines) + items?.delivery_fee
-  );
+  // const price = Math.round(
+  //   calculateTotal(items?.medicines) + items?.delivery_fee
+  // );
+  const price = calculateTotal(items?.medicines) + items?.delivery_fee;
+
   return (
     <span className="total_price">
       <span className="mr-1 font-bold">৳</span>
