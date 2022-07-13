@@ -2,13 +2,14 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBDmvX2dsSkGVobsaaX5OnAJxgnJwR_EEg',
-  authDomain: 'phone-number-validation-94959.firebaseapp.com',
-  projectId: 'phone-number-validation-94959',
-  storageBucket: 'phone-number-validation-94959.appspot.com',
-  messagingSenderId: '922736946567',
-  appId: '1:922736946567:web:21b65c48e0676fac9df722',
-  measurementId: 'G-HMD983T7FJ',
+  apiKey: 'AIzaSyAfVtPb0xRVcwUvk6vkyUZ4YZRqoS65bi8',
+  authDomain: 'api-project-70997319889.firebaseapp.com',
+  databaseURL: 'https://api-project-70997319889.firebaseio.com',
+  projectId: 'api-project-70997319889',
+  storageBucket: 'api-project-70997319889.appspot.com',
+  messagingSenderId: '70997319889',
+  appId: '1:70997319889:web:4694c9be2f2c4f087225f0',
+  measurementId: 'G-8RSQ31HHLQ',
 };
 
 // Initialize Firebase

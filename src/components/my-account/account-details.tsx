@@ -36,6 +36,8 @@ const AccountDetails: React.FC = () => {
     getUserProfile();
   }, [data]);
 
+  console.log(data);
+
   const { t } = useTranslation();
   const {
     register,

@@ -3,7 +3,7 @@ import Input from '@components/ui/form/input';
 import Button from '@components/ui/button';
 import { useForm } from 'react-hook-form';
 import Logo from '@components/ui/logo';
-import { SignUpInputType, signUp } from '@framework/auth/use-signup';
+import { SignUpInputType, useSignUpMutation } from '@framework/auth/use-signup';
 import { useTranslation } from 'next-i18next';
 import Image from '@components/ui/image';
 import {
@@ -13,7 +13,6 @@ import {
 import CloseButton from '@components/ui/close-button';
 import cn from 'classnames';
 import Dropdowns from '@components/common/dropdowns';
-import { useUI } from '@contexts/ui.context';
 
 interface SignUpFormProps {
   isPopup?: boolean;
@@ -25,9 +24,8 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
   className,
 }) => {
   const { t } = useTranslation();
-  // const { mutate: signUp, isLoading } = useSignUpMutation();
+  const { mutate: signUp, isLoading } = useSignUpMutation();
   const { closeModal, openModal } = useModalAction();
-  const { authorize } = useUI();
   const { data } = useModalState();
   const [gender, setGender] = useState('');
   const [genderError, setGenderError] = useState('');
@@ -42,16 +40,12 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
       setGenderError('Gender is required');
       return;
     }
-    const response = await signUp({
+    signUp({
       ...values,
       gender,
-      token: data?.user?.accessToken,
-      phone: data?.user?.phoneNumber,
+      token: data?.token,
+      phone: data?.phoneNumber,
     });
-    if (response) {
-      closeModal();
-      authorize();
-    }
   }
   return (
     <div

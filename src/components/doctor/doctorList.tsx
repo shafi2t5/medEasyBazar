@@ -23,6 +23,9 @@ const DoctorList = () => {
 
   return (
     <Container>
+      <div className="mb-2 md:mb-5 text-xl font-bold lg:ltr:-ml-4 xl:ltr:-ml-8 text-brand-dark">
+        {doctor_input} Doctors
+      </div>
       <div
         id="productGrid"
         className="w-full lg:pt-4 lg:ltr:-ml-4 lg:rtl:-mr-2 xl:ltr:-ml-8 xl:rtl:-mr-8 lg:-mt-1"

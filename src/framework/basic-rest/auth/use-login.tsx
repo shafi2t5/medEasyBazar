@@ -18,13 +18,10 @@ export async function login(input: any) {
 }
 export const useLoginMutation = () => {
   const { authorize } = useUI();
-  const { closeModal } = useModalAction();
+  const { closeModal, openModal } = useModalAction();
   return useMutation((input: any) => login(input), {
     onSuccess: (data: any) => {
-      Cookies.set(
-        'auth_token',
-        data?.token || process.env.NEXT_PUBLIC_BASE_URL_TOKEN
-      );
+      Cookies.set('auth_token', data?.data?.token);
       authorize();
       closeModal();
       toast(data?.data?.message, {
@@ -36,16 +33,9 @@ export const useLoginMutation = () => {
         draggable: true,
       });
     },
-    onError: (data: any) => {
+    onError: (data: any, input) => {
       console.log(data?.data?.response.data.message, 'login error response');
-      // need to delete this
-      // Cookies.set(
-      //   'auth_token',
-      //   data?.token || process.env.NEXT_PUBLIC_BASE_URL_TOKEN
-      // );
-      // authorize();
-      // closeModal();
-      //this
+      openModal('SIGN_UP_VIEW', input);
       toast(data.response.data.message, {
         progressClassName: 'danger-progress-bar',
         autoClose: 1500,

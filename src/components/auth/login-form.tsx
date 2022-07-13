@@ -34,8 +34,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
   const [otp, setOtp] = useState('');
   const [result, setResult] = useState<any>('');
 
-  const { openModal } = useModalAction();
-
   const getOtp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
@@ -50,8 +48,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
     }
   };
 
-  console.log(data);
-
   const verifyOtp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
@@ -59,14 +55,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
       return setError('Please enter a valid Otp!');
     try {
       const token = await result?.confirm(otp);
-      login({ token: token?.user?.accessToken });
-      console.log(data, 'tokenData');
-      if (data?.isRegi) {
-        closeModal();
-        openModal('SIGN_UP_VIEW', token);
-      } else {
-        closeModal();
-      }
+      login({
+        token: token?.user?.accessToken,
+        phoneNumber: token?.user?.phoneNumber,
+      });
     } catch (err: any) {
       setError(err.message);
     }
