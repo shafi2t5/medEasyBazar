@@ -5,5 +5,4 @@ export const getToken = () => {
     return null;
   }
   return Cookies.get('auth_token');
-  // return process.env.NEXT_PUBLIC_BASE_URL_TOKEN;
 };

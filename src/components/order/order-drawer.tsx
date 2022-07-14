@@ -13,6 +13,7 @@ import {
 import { useRouter } from 'next/router';
 import { useUI } from '@contexts/ui.context';
 import { useDeleteOrderMutation } from '@framework/order/order-delete';
+import OrderStatus from './order-status';
 
 const OrderDrawer: React.FC = () => {
   const { t } = useTranslation('common');
@@ -54,10 +55,22 @@ const OrderDrawer: React.FC = () => {
                   {data?.address?.address}
                 </p>
               </div>
-              <div className="my-3">
-                <div className="text-brand-dark">Order Status :</div>
-                <div className="mt-1 ">{data?.status}</div>
-              </div>
+              {data?.status === 'Cancelled' ? (
+                <div className="my-3">
+                  <div className="text-brand-dark">Order Status :</div>
+                  <div className="mt-1 text-brand-danger">{data?.status}</div>
+                </div>
+              ) : (
+                <OrderStatus
+                  status={
+                    data?.status === 'Pending'
+                      ? 1
+                      : data?.status === 'Delivering'
+                      ? 2
+                      : 3
+                  }
+                />
+              )}
               <div className="grid grid-cols-12 bg-fill-base py-3 rounded-[3px] text-brand-dark/70 text-[12px] md:text-[14px]">
                 <div className="col-span-2"></div>
                 <div className="col-span-5">Items Name</div>
@@ -101,17 +114,21 @@ const OrderDrawer: React.FC = () => {
                   </p>
                 </div>
               </div>
-              <div className="mt-12 ltr:text-right rtl:text-left">
-                {/* <span className="py-3 px-5 cursor-pointer inline-block text-[12px] md:text-[14px] text-black font-medium bg-white rounded border border-solid border-[#DEE5EA] ltr:mr-4 rtl:ml-4 hover:bg-[#F35C5C] hover:text-white hover:border-[#F35C5C] transition-all capitalize">
-                  Report order
-                </span> */}
-                <span
-                  onClick={() => removeItem(data?.id, data?.id)}
-                  className="py-3 px-5 cursor-pointer inline-block text-[12px] md:text-[14px] text-white font-medium bg-[#F35C5C] rounded border border-solid border-[#F35C5C]  hover:bg-white hover:text-black hover:border-[#DEE5EA] transition-all capitalize"
-                >
-                  Cancel order
-                </span>
-              </div>
+              {data?.status !== 'Cancelled' && (
+                <div className="mt-12 ltr:text-right rtl:text-left">
+                  {data?.status === 'Delivering' && (
+                    <span className="py-3 px-5 cursor-pointer inline-block text-[12px] md:text-[14px] text-black font-medium bg-white rounded border border-solid border-[#DEE5EA] ltr:mr-4 rtl:ml-4 hover:bg-[#F35C5C] hover:text-white hover:border-[#F35C5C] transition-all capitalize">
+                      Online Payment
+                    </span>
+                  )}
+                  <span
+                    onClick={() => removeItem(data?.id, data?.id)}
+                    className="py-3 px-5 cursor-pointer inline-block text-[12px] md:text-[14px] text-white font-medium bg-[#F35C5C] rounded border border-solid border-[#F35C5C]  hover:bg-white hover:text-black hover:border-[#DEE5EA] transition-all capitalize"
+                  >
+                    Cancel order
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </>

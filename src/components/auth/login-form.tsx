@@ -78,7 +78,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
   const handleGoogleSignIn = async () => {
     try {
       const user: any = await googleSignIn();
-      console.log(user, 'ggg');
       login({
         token: user?.user?.accessToken,
         user: user?.user,

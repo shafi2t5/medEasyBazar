@@ -17,7 +17,7 @@ const ProgressBox: React.FC<ProgressProps> = ({ status, data }) => {
       }}
     >
       <div className="flex flex-row flex-wrap w-full pt-8 pb-10">
-        {data?.data?.map((item: any, index: number) => (
+        {data?.map((item: any, index: number) => (
           <div className="block w-3/12" key={index}>
             {status >= item?.serial ? (
               <div className="text-center">
@@ -31,7 +31,7 @@ const ProgressBox: React.FC<ProgressProps> = ({ status, data }) => {
                         ? 'w-1/2 ltr:right-0 rtl:left-0'
                         : 'w-full ltr:left-0 rtl:right-0'
                     } ${
-                      data?.data?.length - 1 === index &&
+                      data?.length - 1 === index &&
                       'w-1/2 ltr:left-0 rtl:right-0'
                     } top-1/2 transform-[1/2] h-[5px] bg-brand`}
                   ></div>
@@ -52,7 +52,7 @@ const ProgressBox: React.FC<ProgressProps> = ({ status, data }) => {
                         ? 'w-1/2 ltr:right-0 rtl:left-0'
                         : 'w-full ltr:left-0 rtl:right-0'
                     } ${
-                      data?.data?.length - 1 === index &&
+                      data?.length - 1 === index &&
                       'w-1/2 ltr:left-0 rtl:right-0'
                     } top-1/2 transform-[1/2] h-[5px] bg-[#E2E7EC]`}
                   ></div>
