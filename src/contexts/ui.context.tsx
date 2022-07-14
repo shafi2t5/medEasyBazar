@@ -40,6 +40,7 @@ const initialState = {
   doctor_input: '',
   doctorList: [],
   isProfileSubmit: false,
+  cartList: false,
 };
 
 type Action =
@@ -152,6 +153,10 @@ type Action =
     }
   | {
       type: 'PROFILE_INPUT';
+      payload: any;
+    }
+  | {
+      type: 'CART_LIST';
       payload: any;
     };
 
@@ -360,6 +365,12 @@ function uiReducer(state: State, action: Action) {
         isProfileSubmit: action.payload,
       };
     }
+    case 'CART_LIST': {
+      return {
+        ...state,
+        cartList: action.payload,
+      };
+    }
   }
 }
 
@@ -441,6 +452,9 @@ export const UIProvider: React.FC = (props) => {
   const setProfileInput = (payload: any) =>
     dispatch({ type: 'PROFILE_INPUT', payload });
 
+  const setCartList = (payload: any) =>
+    dispatch({ type: 'CART_LIST', payload });
+
   const value = React.useMemo(
     () => ({
       ...state,
@@ -480,6 +494,7 @@ export const UIProvider: React.FC = (props) => {
       setDoctorList,
       setDoctorInput,
       setProfileInput,
+      setCartList,
     }),
     [state]
   );

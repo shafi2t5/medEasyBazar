@@ -14,12 +14,14 @@ import Text from '@components/ui/text';
 import DeleteIcon from '@components/icons/delete-icon';
 import { useRouter } from 'next/router';
 import { useModalAction } from '@components/common/modal/modal.context';
+import { useCartMutation } from '@framework/cart/cart-add';
 
 export default function Cart() {
   const { t } = useTranslation('common');
   const { closeDrawer, isAuthorized } = useUI();
   const { items, total, isEmpty, resetCart } = useCart();
   const { openModal } = useModalAction();
+  const { mutate: addtoCartData } = useCartMutation();
   // const { price: cartTotal } = usePrice({
   //   amount: total,
   //   currencyCode: 'USD',
@@ -31,6 +33,11 @@ export default function Cart() {
     closeDrawer();
     if (isAuthorized) {
       history.push(ROUTES.CHECKOUT);
+      let cartIds = items.map((item) => item.id);
+      let input = {
+        medicine_ids: cartIds,
+      };
+      addtoCartData(input);
     } else {
       openModal('LOGIN_VIEW');
     }

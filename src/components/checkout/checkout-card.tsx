@@ -10,6 +10,7 @@ import { useTranslation } from 'next-i18next';
 import { ROUTES } from '@utils/routes';
 import { useOrderMutation } from '@framework/order/post-order';
 import { useUI } from '@contexts/ui.context';
+import { toast } from 'react-toastify';
 
 const CheckoutCard: React.FC = () => {
   const { t } = useTranslation('common');
@@ -20,12 +21,23 @@ const CheckoutCard: React.FC = () => {
   // });
 
   const { mutate: orderPostApi, isLoading, data } = useOrderMutation();
-  const { selectedAddress, isAuthorized } = useUI();
+  const { selectedAddress, isAuthorized, cartList } = useUI();
 
   //const discount = items.reduce((total, data) => total + data.discountValue, 0);
 
+  const deliveryAmount = cartList?.charge_free_order_amount
+    ? cartList?.charge_free_order_amount > total
+      ? cartList?.delivery_fee
+      : 0
+    : total < 1000
+    ? 30
+    : 0;
+
   function orderHeader() {
     // !isEmpty && Router.push(ROUTES.ORDER);
+    if (total < cartList?.minimum_order) {
+      return toast(`Minimum order amount ${cartList?.minimum_order}`);
+    }
     let orderData = {
       medicines: items.map((data) => {
         return {
@@ -52,7 +64,7 @@ const CheckoutCard: React.FC = () => {
     {
       id: 2,
       name: t('text-shipping'),
-      price: 30,
+      price: deliveryAmount,
     },
     // {
     //   id: 3,
@@ -62,7 +74,7 @@ const CheckoutCard: React.FC = () => {
     {
       id: 4,
       name: t('text-total'),
-      price: total + 30,
+      price: total + deliveryAmount,
     },
   ];
   return (

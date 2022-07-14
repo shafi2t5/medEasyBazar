@@ -32,5 +32,6 @@ export const API_ENDPOINTS = {
   PROFILE: '/patient/profile/',
   CONTACTUS: '/website/contact-us/',
   DEPARTMENT: '/patient/department/',
-  DOCTOR: 'patient/department/',
+  DOCTOR: '/patient/department/',
+  CART: '/web/patient/medicine-cart-details/',
 };
