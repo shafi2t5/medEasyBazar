@@ -65,9 +65,11 @@ const OrderDrawer: React.FC = () => {
                   status={
                     data?.status === 'Pending'
                       ? 1
-                      : data?.status === 'Delivering'
+                      : data?.status === 'Confirmed'
                       ? 2
-                      : 3
+                      : data?.status === 'Delivering'
+                      ? 3
+                      : 4
                   }
                 />
               )}
