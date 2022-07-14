@@ -57,7 +57,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
       const token = await result?.confirm(otp);
       login({
         token: token?.user?.accessToken,
-        phoneNumber: token?.user?.phoneNumber,
+        user: token?.user,
+        isSocial: false,
       });
     } catch (err: any) {
       setError(err.message);
@@ -77,8 +78,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
   const handleGoogleSignIn = async () => {
     try {
       const user: any = await googleSignIn();
-      login({ token: user?.user?.accessToken });
-      console.log(user?.user?.accessToken, 'fhh');
+      console.log(user, 'ggg');
+      login({
+        token: user?.user?.accessToken,
+        user: user?.user,
+        isSocial: true,
+      });
     } catch (error: any) {
       console.log(error.message);
     }
@@ -92,8 +97,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
   const handleFacebookSignIn = async () => {
     try {
       const user: any = await facebookSignIn();
-      login({ token: user?.user?.accessToken });
-      console.log(user, 'fhh');
+      login({
+        token: user?.user?.accessToken,
+        user: user?.user,
+        isSocial: true,
+      });
     } catch (error: any) {
       console.log(error.message);
     }

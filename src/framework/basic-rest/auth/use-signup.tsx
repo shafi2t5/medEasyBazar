@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 export interface SignUpInputType {
   name: string;
-  age: string;
+  age: string | number;
   gender: string;
   address: string;
   phone: string;

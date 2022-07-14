@@ -34,16 +34,18 @@ export const useLoginMutation = () => {
       });
     },
     onError: (data: any, input) => {
-      console.log(data?.data?.response.data.message, 'login error response');
-      openModal('SIGN_UP_VIEW', input);
-      toast(data.response.data.message, {
-        progressClassName: 'danger-progress-bar',
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+      if (data?.response?.data?.message === 'Patient not registered') {
+        openModal('SIGN_UP_VIEW', input);
+      } else {
+        toast(data.response.data.message, {
+          progressClassName: 'danger-progress-bar',
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      }
     },
   });
 };

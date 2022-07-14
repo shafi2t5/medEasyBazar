@@ -45,7 +45,7 @@ const AddAddressForm: React.FC = () => {
     defaultValues: {
       address: data || data?.address ? data?.address : '',
       address_name: data || data?.address_name ? data?.address_name : '',
-      phone: data || data?.phone ? data?.phone : '',
+      phone: data.id ? data?.phone : '+88',
     },
   });
 

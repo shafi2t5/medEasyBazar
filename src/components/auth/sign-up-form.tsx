@@ -25,28 +25,46 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
 }) => {
   const { t } = useTranslation();
   const { mutate: signUp, isLoading } = useSignUpMutation();
-  const { closeModal, openModal } = useModalAction();
+  const { closeModal } = useModalAction();
   const { data } = useModalState();
   const [gender, setGender] = useState('');
-  const [genderError, setGenderError] = useState('');
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignUpInputType>();
+  } = useForm<SignUpInputType>({
+    defaultValues: {
+      name: data?.isSocial ? data?.user?.displayName : '',
+      age: '',
+      gender: '',
+      address: '',
+      phone: '+88',
+      token: '',
+    },
+  });
 
   async function onSubmit(values: SignUpInputType) {
-    if (gender === '') {
-      setGenderError('Gender is required');
-      return;
-    }
     signUp({
       ...values,
+      age: values.age || 0,
       gender,
       token: data?.token,
-      phone: data?.phoneNumber,
+      phone: data?.isSocial ? values?.phone : data?.user?.phoneNumber,
     });
   }
+
+  const closeModelSignup = () => {
+    closeModal();
+    signUp({
+      name: data?.user?.displayName || '',
+      age: 0,
+      address: '',
+      gender: '',
+      token: data?.token,
+      phone: data?.user?.phoneNumber || '',
+    });
+  };
+
   return (
     <div
       className={cn(
@@ -54,7 +72,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
         className
       )}
     >
-      {isPopup === true && <CloseButton onClick={closeModal} />}
+      {isPopup === true && <CloseButton onClick={closeModelSignup} />}
       <div className="flex w-full mx-auto overflow-hidden rounded-lg bg-brand-light">
         <div className="md:w-1/2 lg:w-[55%] xl:w-[60%] registration hidden md:block relative">
           <Image
@@ -65,7 +83,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
         </div>
         <div className="w-full md:w-1/2 lg:w-[45%] xl:w-[40%] py-6 sm:py-10 px-4 sm:px-8 md:px-6 lg:px-8 xl:px-12 rounded-md shadow-dropDown flex flex-col justify-center">
           <div className="text-center mb-6 pt-2.5">
-            <div onClick={closeModal}>
+            <div onClick={closeModelSignup}>
               <Logo />
             </div>
             <h4 className="text-xl font-semibold text-brand-dark sm:text-2xl sm:pt-3 ">
@@ -96,11 +114,6 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
                   dList={[{ unit: 'Male' }, { unit: 'Female' }]}
                   className="font-normal py-2"
                 />
-                {genderError && (
-                  <div className="text-brand-danger mt-1">
-                    <span className="">{genderError}</span>
-                  </div>
-                )}
               </div>
               <Input
                 label={
@@ -109,10 +122,8 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
                 }
                 type="number"
                 variant="solid"
-                {...register('age', {
-                  required: 'Age is required',
-                })}
-                error={errors.name?.message}
+                {...register('age')}
+                error={errors.age?.message}
               />
               <Input
                 label={
@@ -121,11 +132,21 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
                 }
                 type="text"
                 variant="solid"
-                {...register('address', {
-                  required: 'Address is required',
-                })}
-                error={errors.name?.message}
+                {...register('address')}
+                error={errors.address?.message}
               />
+              {data?.isSocial && (
+                <Input
+                  label={
+                    // t('forms:label-name')
+                    'Phone'
+                  }
+                  type="text"
+                  variant="solid"
+                  {...register('phone')}
+                  error={errors.phone?.message}
+                />
+              )}
 
               <div className="relative">
                 <Button

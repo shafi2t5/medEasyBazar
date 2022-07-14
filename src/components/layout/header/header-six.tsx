@@ -57,8 +57,6 @@ const Header: React.FC = () => {
     }
   }, [isAuthorized, isProfileSubmit]);
 
-  console.log(isProfileSubmit, 'gk');
-
   return (
     <header
       id="siteHeader"
