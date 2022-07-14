@@ -10,15 +10,17 @@ import {
   TotalPrice,
   SubTotalPrice,
 } from '@components/order/price';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import { useUI } from '@contexts/ui.context';
 import { useDeleteOrderMutation } from '@framework/order/order-delete';
 import OrderStatus from './order-status';
+import axios from 'axios';
+import { calculateTotal } from '@contexts/cart/cart.utils';
+// import { useEffect } from 'react';
 
 const OrderDrawer: React.FC = () => {
   const { t } = useTranslation('common');
   const { data, closeDrawer } = useUI();
-  const router = useRouter();
 
   const { mutate: deleteOrder, data: order } = useDeleteOrderMutation();
 
@@ -28,6 +30,18 @@ const OrderDrawer: React.FC = () => {
       await deleteOrder(id);
     }
   };
+
+  console.log(data, 'fkdfak');
+  const price = calculateTotal(data?.medicines) + data?.delivery_fee;
+
+  async function onlinePaymentOption() {
+    const res = await axios.post('http://localhost:3000/api/payment', {
+      ...data,
+      price,
+    });
+    console.log(res, 'res');
+    window.location.replace(res?.data.GatewayPageURL);
+  }
 
   return (
     <>
@@ -117,7 +131,10 @@ const OrderDrawer: React.FC = () => {
               {data?.status !== 'Cancelled' && (
                 <div className="mt-12 ltr:text-right rtl:text-left">
                   {data?.status === 'Delivering' && (
-                    <span className="py-3 px-5 cursor-pointer inline-block text-[12px] md:text-[14px] text-black font-medium bg-white rounded border border-solid border-[#DEE5EA] ltr:mr-4 rtl:ml-4 hover:bg-[#F35C5C] hover:text-white hover:border-[#F35C5C] transition-all capitalize">
+                    <span
+                      onClick={onlinePaymentOption}
+                      className="py-3 px-5 cursor-pointer inline-block text-[12px] md:text-[14px] text-black font-medium bg-white rounded border border-solid border-[#DEE5EA] ltr:mr-4 rtl:ml-4 hover:bg-[#F35C5C] hover:text-white hover:border-[#F35C5C] transition-all capitalize"
+                    >
                       Online Payment
                     </span>
                   )}
