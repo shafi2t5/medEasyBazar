@@ -16,6 +16,7 @@ interface Props {
     title: string;
     description?: string;
     bgColor?: string;
+    cb: any;
   };
 }
 
@@ -30,7 +31,10 @@ const BundleCard: React.FC<Props> = ({
   const { image, title, description, bgColor } = bundle;
   const { t } = useTranslation('common');
   return (
-    <Link href={href} className={cn('group flex', className)}>
+    <div
+      onClick={() => bundle?.cb()}
+      className={cn('group flex cursor-pointer', className)}
+    >
       <div
         className="rounded-[20px] relative flex items-center justify-center w-full overflow-hidden p-2 md:p-4 4xl:p-6"
         style={{ backgroundColor: bgColor }}
@@ -56,7 +60,7 @@ const BundleCard: React.FC<Props> = ({
           </button>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

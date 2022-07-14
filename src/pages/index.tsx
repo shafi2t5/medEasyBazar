@@ -27,7 +27,7 @@ export default function Home() {
       <div className="col-span-full mb-7 lg:mb-8 xl:mb-9 2xl:mb-10">
         <HomeBanner />
       </div>
-      <BundleGrid className="mb-7 lg:mb-8 xl:mb-9 2xl:mb-10" data={bundle} />
+      <BundleGrid className="mb-7 lg:mb-8 xl:mb-9 2xl:mb-10" />
       <CategoryGridListBlock />
       <BestSellerProductFeed />
       {/* <DownloadApps /> */}
