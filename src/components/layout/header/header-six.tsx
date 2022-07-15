@@ -23,20 +23,16 @@ const CartButton = dynamic(() => import('@components/cart/cart-button'), {
 type DivElementRef = React.MutableRefObject<HTMLDivElement>;
 
 const Header: React.FC = () => {
-  const { openSidebar, isAuthorized, displayMobileSearch, isProfileSubmit } =
-    useUI();
+  const {
+    openSidebar,
+    isAuthorized,
+    displayMobileSearch,
+    profileInfo,
+    setProfileInfo,
+  } = useUI();
   const { openModal } = useModalAction();
   const { t } = useTranslation('common');
   const siteHeaderRef = useRef() as DivElementRef;
-  const [user, setUser] = useState({
-    name: '',
-    email: '',
-    age: '',
-    gender: '',
-    address: '',
-    avatar: '',
-    phone: '',
-  });
 
   addActiveScroll(siteHeaderRef);
   function handleLogin() {
@@ -48,14 +44,14 @@ const Header: React.FC = () => {
 
   async function getUserProfile() {
     const user = await fetchProfile();
-    setUser(user);
+    setProfileInfo(user);
   }
 
   useEffect(() => {
     if (isAuthorized) {
       getUserProfile();
     }
-  }, [isAuthorized, isProfileSubmit]);
+  }, [isAuthorized]);
 
   return (
     <header
@@ -100,13 +96,13 @@ const Header: React.FC = () => {
               <div className="items-center hidden lg:flex shrink-0 xl:mx-3.5 mx-2.5">
                 <div
                   className={`bg-brand-light rounded-xl flex items-center ${
-                    isAuthorized && user?.avatar ? 'p-1' : 'p-2'
+                    isAuthorized && profileInfo?.avatar ? 'p-1' : 'p-2'
                   }`}
                 >
-                  {isAuthorized && user?.avatar ? (
+                  {isAuthorized && profileInfo?.avatar ? (
                     <Image
                       src={
-                        `https://medeasy.health:5001${user?.avatar}` ??
+                        `https://medeasy.health:5001${profileInfo?.avatar}` ??
                         productPlaceholder
                       }
                       alt={'Product Image'}
@@ -127,7 +123,9 @@ const Header: React.FC = () => {
                     onClick: handleLogin,
                   }}
                 >
-                  {user?.name && isAuthorized ? user?.name : t('text-account')}
+                  {profileInfo?.name && isAuthorized
+                    ? profileInfo?.name
+                    : t('text-account')}
                 </AuthMenu>
               </div>
             </div>

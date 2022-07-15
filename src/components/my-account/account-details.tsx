@@ -15,25 +15,15 @@ import { useUI } from '@contexts/ui.context';
 const AccountDetails: React.FC = () => {
   const { mutate: createUser, isLoading, data } = useUpdateUserMutation();
   const [gender, setGender] = useState('');
-  const [user, setUser] = useState({
-    name: '',
-    email: '',
-    age: '',
-    gender: '',
-    address: '',
-    avatar: '',
-    phone: '+88',
-  });
-  const { isProfileSubmit, setProfileInput } = useUI();
+  const { profileInfo, setProfileInfo } = useUI();
 
   useEffect(() => {
-    setProfileInput(!isProfileSubmit);
     getUserProfile();
   }, [data]);
 
   async function getUserProfile() {
     const user = await fetchProfile();
-    setUser(user);
+    setProfileInfo(user);
   }
 
   const { t } = useTranslation();
@@ -45,14 +35,14 @@ const AccountDetails: React.FC = () => {
     control,
   } = useForm<UpdateUserType>({
     defaultValues: useMemo(() => {
-      return user;
-    }, [user]),
+      return profileInfo;
+    }, [profileInfo]),
   });
 
   useEffect(() => {
-    reset(user);
-    setGender(user?.gender);
-  }, [user]);
+    reset(profileInfo);
+    setGender(profileInfo?.gender);
+  }, [profileInfo]);
 
   function onSubmit(input: UpdateUserType) {
     createUser({ ...input, gender: gender, phone: input.phone });
