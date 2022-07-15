@@ -18,13 +18,6 @@ export default function OrderInformation() {
   dayjs.extend(relativeTime);
   dayjs.extend(utc);
   dayjs.extend(timezone);
-  // const { data, isLoading } = useOrderQuery(orderId?.toString()!);
-  // const { price: total } = usePrice(
-  //   data && {
-  //     amount: data.shipping_fee ? data.total + data.shipping_fee : data.total,
-  //     currencyCode: 'USD',
-  //   }
-  // );
 
   const { data, isLoading } = useOrdersQuery();
 
@@ -36,7 +29,7 @@ export default function OrderInformation() {
       (total: number, item: any) => total + item.price,
       0
     ) + completedOrder?.delivery_fee;
-  console.log(completedOrder, 'dd');
+
   if (isLoading) return <p>Loading...</p>;
   return (
     <div className="py-16 xl:px-32 2xl:px-44 3xl:px-56 lg:py-20">
@@ -66,7 +59,7 @@ export default function OrderInformation() {
           <span className="uppercase text-[11px] block text-brand-muted font-normal leading-5">
             {t('text-total')}:
           </span>
-          {totalPrice}
+          {totalPrice.toFixed(2)}
         </li>
         <li className="px-4 py-4 text-base font-semibold border-b border-gray-300 border-dashed text-brand-dark lg:text-lg md:border-b-0 md:border-r lg:px-6 xl:px-8 md:py-5 lg:py-6 last:border-0">
           <span className="uppercase text-[11px] block text-brand-muted font-normal leading-5">

@@ -1,8 +1,8 @@
 const SSLCommerzPayment = require('sslcommerz-lts');
 
-const store_id = 'testbox';
-const store_passwd = 'qwerty';
-const is_live = false;
+const store_id = process.env.NEXT_PUBLIC_STORE_ID;
+const store_passwd = process.env.NEXT_PUBLIC_STORE_PASSWORD;
+const is_live = process.env.NODE_ENV === 'development' ? false : true;
 
 export default async function handler(req: any, res: any) {
   if (req.method === 'POST') {
@@ -14,12 +14,12 @@ export default async function handler(req: any, res: any) {
       fail_url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/paymentFail`,
       cancel_url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/paymentCancel`,
       ipn_url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/ipn`,
-      shipping_method: 'Courier',
-      product_name: 'Computer.',
-      product_category: 'Electronic',
-      product_profile: 'general',
-      cus_name: 'Customer Name',
-      cus_email: 'customer@example.com',
+      shipping_method: '' + req.body.id,
+      product_name: '' + req.body.id,
+      product_category: '' + req.body.id,
+      product_profile: '' + req.body.id,
+      cus_name: req?.body?.profile?.name || '',
+      cus_email: req?.body?.profile?.email || '',
       cus_add1: req?.body?.address.address,
       cus_add2: req?.body?.address.address,
       cus_city: req?.body?.address.address_name,

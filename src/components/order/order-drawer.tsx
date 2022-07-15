@@ -16,16 +16,18 @@ import { useDeleteOrderMutation } from '@framework/order/order-delete';
 import OrderStatus from './order-status';
 import axios from 'axios';
 import { calculateTotal } from '@contexts/cart/cart.utils';
-import { useModalAction } from '@components/common/modal/modal.context';
+// import { useModalAction } from '@components/common/modal/modal.context';
 import { getToken } from '@framework/utils/get-token';
 // import { useEffect } from 'react';
 
 const OrderDrawer: React.FC = () => {
   const { t } = useTranslation('common');
-  const { data, closeDrawer } = useUI();
-  const { closeModal, openModal } = useModalAction();
+  const { data, closeDrawer, profileInfo } = useUI();
 
-  const { mutate: deleteOrder, data: order } = useDeleteOrderMutation();
+  // const { closeModal, openModal } = useModalAction();
+  console.log(data, 'profileInfo');
+
+  const { mutate: deleteOrder } = useDeleteOrderMutation();
 
   const removeItem = async (id: any, title: string) => {
     var result = confirm(`Want to delete? ${title} Order`);
@@ -34,7 +36,7 @@ const OrderDrawer: React.FC = () => {
     }
   };
 
-  console.log(data, 'data');
+  // console.log(data, 'data');
   const price = calculateTotal(data?.medicines) + data?.delivery_fee;
   const transId = `medEasy-${data?.id}`;
   const token = getToken();
@@ -47,6 +49,7 @@ const OrderDrawer: React.FC = () => {
         price,
         transId: transId,
         token: token,
+        profile: profileInfo,
       }
     );
     // closeDrawer();
