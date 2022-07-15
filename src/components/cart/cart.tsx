@@ -22,10 +22,6 @@ export default function Cart() {
   const { items, total, isEmpty, resetCart } = useCart();
   const { openModal } = useModalAction();
   const { mutate: addtoCartData } = useCartMutation();
-  // const { price: cartTotal } = usePrice({
-  //   amount: total,
-  //   currencyCode: 'USD',
-  // });
 
   const history = useRouter();
 

@@ -1,8 +1,5 @@
 import { IoCheckmarkCircle } from 'react-icons/io5';
-// import OrderDetails from '@components/order/order-details';
-// import { useOrderQuery } from '@framework/order/get-order';
 import { useRouter } from 'next/router';
-// import usePrice from '@framework/product/use-price';
 import { useTranslation } from 'next-i18next';
 import { useOrdersQuery } from '@framework/order/get-all-orders';
 import dayjs from 'dayjs';
@@ -26,7 +23,7 @@ export default function OrderInformation() {
   );
   let totalPrice =
     completedOrder?.medicines?.reduce(
-      (total: number, item: any) => total + item.price,
+      (total: number, item: any) => total + item.price * item.quantity,
       0
     ) + completedOrder?.delivery_fee;
 
@@ -72,8 +69,6 @@ export default function OrderInformation() {
       <p className="mb-8 text-sm text-brand-dark md:text-base">
         {t('text-pay-cash')}
       </p>
-
-      {/* <OrderDetails /> */}
     </div>
   );
 }

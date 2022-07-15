@@ -25,7 +25,6 @@ const OrderDrawer: React.FC = () => {
   const { data, closeDrawer, profileInfo } = useUI();
 
   // const { closeModal, openModal } = useModalAction();
-  console.log(data, 'profileInfo');
 
   const { mutate: deleteOrder } = useDeleteOrderMutation();
 
@@ -36,7 +35,6 @@ const OrderDrawer: React.FC = () => {
     }
   };
 
-  // console.log(data, 'data');
   const price = calculateTotal(data?.medicines) + data?.delivery_fee;
   const transId = `medEasy-${data?.id}`;
   const token = getToken();

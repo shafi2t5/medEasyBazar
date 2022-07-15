@@ -15,10 +15,6 @@ import { toast } from 'react-toastify';
 const CheckoutCard: React.FC = () => {
   const { t } = useTranslation('common');
   const { items, total, isEmpty } = useCart();
-  // const { price: subtotal } = usePrice({
-  //   amount: total,
-  //   currencyCode: 'USD',
-  // });
 
   const { mutate: orderPostApi, isLoading, data } = useOrderMutation();
   const { selectedAddress, isAuthorized, cartList } = useUI();
@@ -50,7 +46,7 @@ const CheckoutCard: React.FC = () => {
       }),
       coupon_id: 1,
       address_id: selectedAddress?.id,
-      delivery_fee: 30,
+      delivery_fee: deliveryAmount,
       payment_method: 'cash',
     };
     !isEmpty && orderPostApi(orderData);
@@ -59,7 +55,7 @@ const CheckoutCard: React.FC = () => {
     {
       id: 1,
       name: t('text-sub-total'),
-      price: total,
+      price: Math.round(total),
     },
     {
       id: 2,
@@ -74,7 +70,7 @@ const CheckoutCard: React.FC = () => {
     {
       id: 4,
       name: t('text-total'),
-      price: total + deliveryAmount,
+      price: Math.round(total + deliveryAmount),
     },
   ];
   return (
