@@ -1,16 +1,38 @@
 import http from '@framework/utils/http';
 import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
-import { useQuery } from 'react-query';
+import { getToken } from '@framework/utils/get-token';
+import { toast } from 'react-toastify';
+import { useMutation } from 'react-query';
 
-const fetchPayment = async () => {
-  const { data } = await http.get(API_ENDPOINTS.PAYMENT);
-  return {
-    data: data,
-  };
+export const createPayment = async (input: any) => {
+  const headers = { Authorization: `Bearer ${getToken()}` };
+  return await http.post(API_ENDPOINTS.PAYMENTINFO, input, {
+    headers,
+  });
 };
 
-const usePaymentQuery = () => {
-  return useQuery([API_ENDPOINTS.PAYMENT], fetchPayment);
+export const usePaymentMutation = () => {
+  return useMutation((input: any) => createPayment(input), {
+    onSuccess: (data: any) => {
+      toast(data?.data?.message, {
+        progressClassName: 'fancy-progress-bar',
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    },
+    onError: (data: any) => {
+      console.log(data?.data?.response.data.message, 'login error response');
+      toast(data.response.data.message, {
+        progressClassName: 'fancy-progress-bar',
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    },
+  });
 };
-
-export { usePaymentQuery, fetchPayment };
