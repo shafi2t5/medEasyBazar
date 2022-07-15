@@ -68,12 +68,15 @@ const ProductSingleDetails: React.FC = () => {
   // const medicineDetails = data?.medicine_details;
   const cartitems = getItemFromCart(selectedProduct.id);
 
+  console.log(cartitems, 'cartitems');
+
   useEffect(() => {
     if (cartitems) {
+      setPiece(cartitems?.unit);
       setSelectedQuantity(cartitems?.quantity || 1);
+    } else {
+      setPiece(medPrice?.unit);
     }
-
-    setPiece(medPrice?.unit);
   }, [cartitems?.quantity]);
 
   useEffect(() => {
@@ -231,7 +234,7 @@ const ProductSingleDetails: React.FC = () => {
             <Button
               onClick={addToCart}
               className="w-full px-1.5"
-              disabled={!selectedProduct?.is_available || cartitems}
+              disabled={!selectedProduct?.is_available}
               loading={addToCartLoader}
             >
               {t('text-add-to-cart')}

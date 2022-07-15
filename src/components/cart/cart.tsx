@@ -91,8 +91,6 @@ export default function Cart() {
         </div>
         <div className="flex flex-col" onClick={procedeToCheckout}>
           <div
-            // href={isEmpty === false ? ROUTES.CHECKOUT : '/'}
-            // onCanPlay={() => procedeToCheckout()}
             className={cn(
               'w-full px-5 cursor-pointer py-3 md:py-4 flex items-center justify-center bg-heading rounded font-semibold text-sm sm:text-15px text-brand-light bg-brand focus:outline-none transition duration-300 hover:bg-opacity-90',
               {

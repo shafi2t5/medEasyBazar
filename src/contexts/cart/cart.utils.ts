@@ -13,7 +13,7 @@ export function addItemWithQuantity(
   item: Item,
   quantity: number
 ) {
-  console.log(item, 'ff');
+  console.log(item, 'newItems[existingItemIndex].price! = item?.price; ');
   if (quantity <= 0)
     throw new Error("cartQuantity can't be zero or less than zero");
   const existingItemIndex = items.findIndex(
@@ -22,7 +22,9 @@ export function addItemWithQuantity(
 
   if (existingItemIndex > -1) {
     const newItems = [...items];
-    newItems[existingItemIndex].quantity! += quantity;
+    newItems[existingItemIndex].quantity! = quantity;
+    newItems[existingItemIndex].price! = item?.price;
+    newItems[existingItemIndex].unit! = item?.unit;
     return newItems;
   }
   return [...items, { ...item, quantity }];
