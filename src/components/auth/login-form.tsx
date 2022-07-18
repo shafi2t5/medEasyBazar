@@ -149,7 +149,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
                 variant="solid"
                 name="phone"
                 value={number}
-                onChange={(e) => setNumber(e.target.value)}
+                onChange={(e) => {
+                  if (number.length >= 14) {
+                    return;
+                  }
+                  setNumber(e.target.value);
+                }}
                 placeholder={t('forms:label-contact-phone')}
                 error={error}
               />

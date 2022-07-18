@@ -12,6 +12,7 @@ import {
 } from '@framework/order/order-with-imagee';
 import Address from '@components/checkout/address';
 import { useUI } from '@contexts/ui.context';
+import { useEffect, useState } from 'react';
 
 interface OrderWithImageProps {
   isPopup?: boolean;
@@ -26,6 +27,7 @@ const OrderWithImage: React.FC<OrderWithImageProps> = ({
   const { mutate: orderWithImage, isLoading } = useOderWithImageMutation();
   const { closeModal } = useModalAction();
   const { selectedAddress } = useUI();
+  const [error, setError] = useState('');
 
   const {
     register,
@@ -37,13 +39,23 @@ const OrderWithImage: React.FC<OrderWithImageProps> = ({
     },
   });
 
+  useEffect(() => {
+    if (selectedAddress?.id) {
+      setError('');
+    }
+  }, [selectedAddress?.id]);
+
   async function onSubmit(values: orderType) {
+    if (!selectedAddress?.id) {
+      return setError('Select an Address');
+    }
     orderWithImage({
       ...values,
       selectedAddress,
       deliveryFee: 30,
       coupon_id: 1,
     });
+    setError('');
   }
 
   return (
@@ -81,6 +93,7 @@ const OrderWithImage: React.FC<OrderWithImageProps> = ({
               />
 
               <Address />
+              {error && <div className="text-brand-danger my-2">{error}</div>}
 
               <div className="relative">
                 <Button

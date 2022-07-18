@@ -44,7 +44,7 @@ const CheckoutCard: React.FC = () => {
           price: data?.price,
         };
       }),
-      coupon_id: 1,
+      coupon_id: cartList?.coupons[0]?.id || 1,
       address_id: selectedAddress?.id,
       delivery_fee: deliveryAmount,
       payment_method: 'cash',
