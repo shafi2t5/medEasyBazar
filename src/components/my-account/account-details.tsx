@@ -68,6 +68,7 @@ const AccountDetails: React.FC = () => {
                 {...register('name', {
                   required: 'forms:first-name-required',
                 })}
+                placeholder="Enter Name"
                 variant="solid"
                 className="w-full sm:w-1/2 px-1.5 md:px-2.5"
                 error={errors.name?.message}
@@ -77,6 +78,7 @@ const AccountDetails: React.FC = () => {
                 {...register('email', {
                   required: 'forms:label-email-star',
                 })}
+                placeholder="Enter Email"
                 variant="solid"
                 className="w-full sm:w-1/2 px-1.5 md:px-2.5"
                 error={errors.email?.message}
@@ -115,6 +117,7 @@ const AccountDetails: React.FC = () => {
                 {...register('address', {
                   required: 'forms:address-required',
                 })}
+                placeholder="Enter Address"
                 variant="solid"
                 className="w-full sm:w-1/2 px-1.5 md:px-2.5"
                 error={errors.address?.message}
@@ -140,6 +143,7 @@ const AccountDetails: React.FC = () => {
                 {...register('phone', {
                   required: 'forms:phone-required',
                 })}
+                placeholder="Enter phone number(+88)"
                 variant="solid"
                 className="w-full sm:w-1/2 px-1.5 md:px-2.5"
                 error={errors.phone?.message}

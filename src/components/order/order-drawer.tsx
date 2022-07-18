@@ -1,8 +1,6 @@
 import { OrderDetailsContent } from './order-details-content';
-// import { formatAddress } from '@utils/format-address';
 import Heading from '@components/ui/heading';
 import { IoClose } from 'react-icons/io5';
-// import OrderStatus from './order-status';
 import { useTranslation } from 'next-i18next';
 import {
   DiscountPrice,
@@ -10,22 +8,17 @@ import {
   TotalPrice,
   SubTotalPrice,
 } from '@components/order/price';
-// import { useRouter } from 'next/router';
 import { useUI } from '@contexts/ui.context';
 import { useDeleteOrderMutation } from '@framework/order/order-delete';
 import OrderStatus from './order-status';
 import axios from 'axios';
 import { calculateTotal } from '@contexts/cart/cart.utils';
-// import { useModalAction } from '@components/common/modal/modal.context';
 import { getToken } from '@framework/utils/get-token';
-// import { useEffect } from 'react';
 import Image from '@components/ui/image';
 
 const OrderDrawer: React.FC = () => {
   const { t } = useTranslation('common');
   const { data, closeDrawer, profileInfo } = useUI();
-
-  // const { closeModal, openModal } = useModalAction();
 
   const { mutate: deleteOrder } = useDeleteOrderMutation();
 
@@ -42,7 +35,7 @@ const OrderDrawer: React.FC = () => {
 
   async function onlinePaymentOption() {
     const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/payment`,
+      `${process?.env?.NEXT_PUBLIC_WEBSITE_URL}/api/payment`,
       {
         ...data,
         price,
@@ -159,14 +152,15 @@ const OrderDrawer: React.FC = () => {
               </div>
               {data?.status !== 'Cancelled' && (
                 <div className="mt-12 ltr:text-right rtl:text-left">
-                  {data?.status === 'Delivering' && (
-                    <span
-                      onClick={onlinePaymentOption}
-                      className="py-3 px-5 cursor-pointer inline-block text-[12px] md:text-[14px] text-black font-medium bg-white rounded border border-solid border-[#DEE5EA] ltr:mr-4 rtl:ml-4 hover:bg-[#F35C5C] hover:text-white hover:border-[#F35C5C] transition-all capitalize"
-                    >
-                      Online Payment
-                    </span>
-                  )}
+                  {/* {(data?.status === 'Delivering' ||
+                    data?.payment_method === 'digital') && ( */}
+                  <span
+                    onClick={onlinePaymentOption}
+                    className="py-3 px-5 cursor-pointer inline-block text-[12px] md:text-[14px] text-black font-medium bg-white rounded border border-solid border-[#DEE5EA] ltr:mr-4 rtl:ml-4 hover:bg-[#F35C5C] hover:text-white hover:border-[#F35C5C] transition-all capitalize"
+                  >
+                    Online Payment
+                  </span>
+                  {/* )} */}
                   <span
                     onClick={() => removeItem(data?.id, data?.id)}
                     className="py-3 px-5 cursor-pointer inline-block text-[12px] md:text-[14px] text-white font-medium bg-[#F35C5C] rounded border border-solid border-[#F35C5C]  hover:bg-white hover:text-black hover:border-[#DEE5EA] transition-all capitalize"
