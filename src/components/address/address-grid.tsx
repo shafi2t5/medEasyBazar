@@ -21,7 +21,7 @@ const AddressGrid: React.FC = () => {
 
   const { setSlectedAddress } = useUI();
 
-  const [selected, setSelected] = useState(data?.data?.address[0]);
+  const [selected, setSelected] = useState();
 
   const { mutate: deleteAddress } = useAddressDeleteMutation();
 
@@ -33,11 +33,15 @@ const AddressGrid: React.FC = () => {
   };
 
   useEffect(() => {
+    setSelected(data?.data?.address[0]);
+  }, [data?.data?.address[0]]);
+
+  useEffect(() => {
     setSlectedAddress(selected);
   }, [selected]);
 
   return (
-    <div className="flex flex-col justify-between h-full -mt-4 text-15px md:mt-0">
+    <div className="flex flex-col justify-between -mt-4 text-15px md:mt-0">
       <RadioGroup
         value={selected}
         onChange={setSelected}
@@ -51,7 +55,7 @@ const AddressGrid: React.FC = () => {
               value={item}
               className={({ checked }) =>
                 `${checked ? 'border-brand' : 'border-border-base'}
-                  border-2 relative focus:outline-none rounded-md p-5 block cursor-pointer min-h-[112px] h-full group address__box`
+                  border-2 relative focus:outline-none rounded-md p-5 block cursor-pointer min-h-[112px] group address__box`
               }
             >
               <RadioGroup.Label
@@ -91,7 +95,7 @@ const AddressGrid: React.FC = () => {
           </div>
         )}
         <button
-          className="w-full border-2 transition-all border-border-base rounded font-semibold p-5 px-10 cursor-pointer text-brand flex justify-start hover:border-brand items-center min-h-[112px] h-full"
+          className="w-full border-2 transition-all border-border-base rounded font-semibold p-5 px-10 cursor-pointer text-brand flex justify-start hover:border-brand items-center min-h-[112px] "
           onClick={handlePopupView}
         >
           <AiOutlinePlus size={18} className="ltr:mr-2 rtl:ml-2" />
