@@ -51,8 +51,7 @@ const OrderDrawer: React.FC = () => {
         profile: profileInfo,
       }
     );
-    // closeDrawer();
-    // openModal('PAYMENT', { url: res?.data.GatewayPageURL, transId: transId });
+
     window.location.replace(res?.data.GatewayPageURL);
   }
 
