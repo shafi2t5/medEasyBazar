@@ -124,8 +124,9 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
         <div className="flex align-center justify-center transition duration-200 ease-in-out transform group-hover:scale-105 relative">
           <Image
             src={
-              `https://medeasy.health:5000${medicine_image}` ??
-              productPlaceholder
+              medicine_image
+                ? `${process?.env?.NEXT_PUBLIC_ASSETS_API_ENDPOINT}${medicine_image}`
+                : productPlaceholder
             }
             alt={'Product Image'}
             width={220}

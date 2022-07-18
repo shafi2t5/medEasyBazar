@@ -22,7 +22,7 @@ const DoctorCard: React.FC<any> = ({ doctor, className }) => {
           <Image
             src={
               doctor?.avatar
-                ? `https://medeasy.health:5000${doctor?.avatar}`
+                ? `${process?.env?.NEXT_PUBLIC_ASSETS_API_ENDPOINT}${doctor?.avatar}`
                 : productPlaceholder
             }
             alt={'Product Image'}

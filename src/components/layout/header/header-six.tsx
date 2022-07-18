@@ -102,7 +102,7 @@ const Header: React.FC = () => {
                   {isAuthorized && profileInfo?.avatar ? (
                     <Image
                       src={
-                        `https://medeasy.health:5001${profileInfo?.avatar}` ??
+                        `${process?.env?.NEXT_PUBLIC_ASSETS_IMAGE_API_ENDPOINT}${profileInfo?.avatar}` ??
                         productPlaceholder
                       }
                       alt={'Product Image'}

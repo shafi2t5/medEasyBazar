@@ -144,7 +144,7 @@ const ProductSingleDetails: React.FC = () => {
             <Image
               src={
                 selectedProduct?.medicine_image
-                  ? `https://medeasy.health:5000${selectedProduct?.medicine_image}`
+                  ? `${process?.env?.NEXT_PUBLIC_ASSETS_API_ENDPOINT}${selectedProduct?.medicine_image}`
                   : productGalleryPlaceholder
               }
               alt={data?.medicine_name!}

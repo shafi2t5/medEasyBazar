@@ -103,7 +103,7 @@ const OrderDrawer: React.FC = () => {
               {data?.prescription_image ? (
                 <div className="w-full">
                   <Image
-                    src={`https://medeasy.health:5001${data?.prescription_image}`}
+                    src={`${process?.env?.NEXT_PUBLIC_ASSETS_IMAGE_API_ENDPOINT}${data?.prescription_image}`}
                     alt={'Prescription Image'}
                     width={400}
                     height={250}
