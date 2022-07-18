@@ -43,7 +43,7 @@ const BundleGrid: React.FC<Props> = ({ className = 'mb-12 pb-0.5' }) => {
       title: 'Doctor Cnsultation',
       description: 'Call Now',
       bgColor: '#3c6382',
-      cb: () => {},
+      cb: () => window.open('tel:+8801844671112'),
     },
   ];
 

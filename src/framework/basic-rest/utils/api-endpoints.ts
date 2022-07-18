@@ -36,4 +36,5 @@ export const API_ENDPOINTS = {
   CART: '/web/patient/medicine-cart-details/',
   PAYMENTINFO: '/patient/medicine-order-payment/',
   ORDERIMAGE: '/patient/medicine-orders/',
+  SUBSCRIBE: '/website/subscriber/',
 };

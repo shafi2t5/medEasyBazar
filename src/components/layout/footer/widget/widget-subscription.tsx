@@ -8,6 +8,7 @@ import Heading from '@components/ui/heading';
 import { useRouter } from 'next/router';
 import { getDirection } from '@utils/get-direction';
 import cn from 'classnames';
+import { useSubscribeMutation } from '@framework/address/subscribe';
 interface Props {
   className?: string;
 }
@@ -19,15 +20,19 @@ const defaultValues = {
 };
 const WidgetSubscription: React.FC<Props> = ({ className }) => {
   const { t } = useTranslation();
+  const { mutate: createSubscribe } = useSubscribeMutation();
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<NewsLetterFormValues>({
     defaultValues,
   });
   function onSubmit(values: NewsLetterFormValues) {
-    console.log(values, 'News letter');
+    createSubscribe(values);
+    reset();
   }
   const { locale } = useRouter();
   const dir = getDirection(locale);
