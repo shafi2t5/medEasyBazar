@@ -1,5 +1,4 @@
 import { Table } from '@components/ui/table';
-import Input from '@components/ui/form/input';
 import { useEffect, useState } from 'react';
 import Pagination from '@components/ui/pagination';
 import ActionsButton from '@components/ui/action-button';

@@ -68,8 +68,6 @@ const ProductSingleDetails: React.FC = () => {
   // const medicineDetails = data?.medicine_details;
   const cartitems = getItemFromCart(selectedProduct.id);
 
-  console.log(cartitems, 'cartitems');
-
   useEffect(() => {
     if (cartitems) {
       setPiece(cartitems?.unit);
@@ -85,6 +83,7 @@ const ProductSingleDetails: React.FC = () => {
         medPrice?.price,
         selectedProduct?.discount_value
       );
+      console.log(afterDiscount, 'afterDiscount');
       setProductPrice({
         ...medPrice,
         discountValue: medPrice?.price - afterDiscount,
@@ -100,8 +99,6 @@ const ProductSingleDetails: React.FC = () => {
       });
     }
   }, [medPrice, selectedQuantity]);
-
-  console.log(productPrice, 'productPrice');
 
   let cartData = { ...selectedProduct, ...productPrice, unit: piece };
 
@@ -182,7 +179,7 @@ const ProductSingleDetails: React.FC = () => {
               <>
                 <div className="flex flex-warp">
                   <del className="mr-2 text-md text-brand-manufacure ">
-                    MRP ৳ {productPrice?.totalPrice.toFixed(2) || ''}
+                    MRP ৳ {medPrice?.price.toFixed(2) || ''}
                   </del>
                   <div className="text-brand-navColor text-sm">
                     {selectedProduct?.discount_value || ''}% Off

@@ -23,6 +23,8 @@ const DeliveryAddresses = dynamic(
 const CategoryPopup = dynamic(
   () => import('@components/category/category-popup')
 );
+const OrderPopup = dynamic(() => import('@components/order/orderWithImage'));
+
 const ManagedModal: React.FC = () => {
   const { isOpen, view } = useModalState();
   const { closeModal } = useModalAction();
@@ -44,6 +46,7 @@ const ManagedModal: React.FC = () => {
       {view === 'PAYMENT' && <PaymentPopup />}
       {view === 'PHONE_NUMBER' && <PhoneNumberPopup />}
       {view === 'DELIVERY_VIEW' && <DeliveryAddresses />}
+      {view === 'ORDER_PRESCRIPTIONS' && <OrderPopup />}
     </Modal>
   );
 };

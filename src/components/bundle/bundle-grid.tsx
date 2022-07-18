@@ -1,11 +1,16 @@
 import BundleCard from '@components/cards/bundle-card';
 import cn from 'classnames';
 import { ROUTES } from '@utils/routes';
+import { useModalAction } from '@components/common/modal/modal.context';
+import { useUI } from '@contexts/ui.context';
+import { toast } from 'react-toastify';
 interface Props {
   className?: string;
 }
 
 const BundleGrid: React.FC<Props> = ({ className = 'mb-12 pb-0.5' }) => {
+  const { openModal } = useModalAction();
+  const { isAuthorized } = useUI();
   const data = [
     {
       id: 1,
@@ -23,7 +28,13 @@ const BundleGrid: React.FC<Props> = ({ className = 'mb-12 pb-0.5' }) => {
       title: 'Upload prescriptions',
       description: 'Upload now',
       bgColor: '#39adaa',
-      cb: () => console.log('hello pres'),
+      cb: () => {
+        if (isAuthorized) {
+          openModal('ORDER_PRESCRIPTIONS');
+        } else {
+          toast('Login to order with prescriptions');
+        }
+      },
     },
     {
       id: 3,

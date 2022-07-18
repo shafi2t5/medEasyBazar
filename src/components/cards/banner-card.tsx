@@ -33,7 +33,7 @@ const BannerCard: React.FC<BannerProps> = ({
   return (
     <div className={cn('mx-auto', className)}>
       <Link
-        href={type}
+        href={'/'}
         className={cn(
           'h-full group flex justify-center relative overflow-hidden',
           classNameInner
@@ -41,7 +41,7 @@ const BannerCard: React.FC<BannerProps> = ({
       >
         <Image
           src={
-            `https://medeasy.health:5000/${image}` ??
+            `${process?.env?.NEXT_PUBLIC_ASSETS_API_ENDPOINT}/${image}` ??
             '/assets/images/banner/banner-6.png'
           }
           width={1840}

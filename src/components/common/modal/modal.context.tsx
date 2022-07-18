@@ -9,7 +9,8 @@ type MODAL_VIEWS =
   | 'PHONE_NUMBER'
   | 'DELIVERY_VIEW'
   | 'PRODUCT_VIEW'
-  | 'CATEGORY_VIEW';
+  | 'CATEGORY_VIEW'
+  | 'ORDER_PRESCRIPTIONS';
 
 interface State {
   view?: MODAL_VIEWS;

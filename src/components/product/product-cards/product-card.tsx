@@ -120,23 +120,23 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
       onClick={handlePopupView}
       title={medicine_name}
     >
-      <div className="relative shrink-0 overflow-hidden">
-        <div className="flex max-w-[260px] mx-auto transition duration-200 ease-in-out transform group-hover:scale-105 relative">
+      <div className="relative shrink-0">
+        <div className="flex align-center justify-center transition duration-200 ease-in-out transform group-hover:scale-105 relative">
           <Image
             src={
               `https://medeasy.health:5000${medicine_image}` ??
               productPlaceholder
             }
             alt={'Product Image'}
-            width={260}
-            height={200}
+            width={220}
+            height={190}
             quality={100}
             className="object-cover bg-fill-thumbnail"
           />
         </div>
-        <div className="absolute top-3 -left-2">
+        <div className="absolute top-3 left-0">
           {is_discountable && (
-            <span className="ribbon text-[11px] md:text-xs font-bold text-brand-light bg-brand-percent">
+            <span className="text-[11px] md:text-xs p-2 font-bold text-brand-light bg-brand-percent">
               {discount_value} % Off
             </span>
           )}
