@@ -55,7 +55,10 @@ const DoctorListCard: React.FC<Props> = ({
             })}
           >
             <Image
-              src={dept?.icon ?? '/assets/images/category/cookies-biscuits.png'}
+              src={
+                `${process?.env?.NEXT_PUBLIC_ASSETS_API_ENDPOINT}/${dept?.department_image}` ??
+                '/assets/images/category/cookies-biscuits.png'
+              }
               alt={dept?.department_en || t('text-category-thumbnail')}
               width={40}
               height={40}

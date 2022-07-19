@@ -30,7 +30,7 @@ export default function ReturnPolicyPage() {
                 className="mb-8 lg:mb-12 last:mb-0 order-list-enable"
               >
                 <Heading className="mb-4 lg:mb-6 font-body" variant="title">
-                  {item.title}
+                  {t(item.title)}
                 </Heading>
                 <div
                   className="text-brand-muted text-sm lg:text-15px leading-7 space-y-5"

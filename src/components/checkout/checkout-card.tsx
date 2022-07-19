@@ -98,7 +98,13 @@ const CheckoutCard: React.FC = () => {
           variant="formButton"
           className={`w-full mt-8 mb-5 bg-brand text-brand-light rounded font-semibold px-4 py-3 transition-all 
           }`}
-          disabled={items?.length < 1 || !isAuthorized || !selectedAddress?.id}
+          loading={isLoading}
+          disabled={
+            items?.length < 1 ||
+            !isAuthorized ||
+            !selectedAddress?.id ||
+            isLoading
+          }
           onClick={orderHeader}
         >
           {t('button-order-now')}
