@@ -152,21 +152,29 @@ const OrderDrawer: React.FC = () => {
               </div>
               {data?.status !== 'Cancelled' && (
                 <div className="mt-12 ltr:text-right rtl:text-left">
-                  {(data?.status === 'Delivering' ||
-                    data?.payment_method === 'digital') && (
-                    <span
-                      onClick={onlinePaymentOption}
-                      className="py-3 px-5 cursor-pointer inline-block text-[12px] md:text-[14px] text-black font-medium bg-white rounded border border-solid border-[#DEE5EA] ltr:mr-4 rtl:ml-4 hover:bg-[#F35C5C] hover:text-white hover:border-[#F35C5C] transition-all capitalize"
-                    >
-                      Online Payment
-                    </span>
-                  )}
+                  {data?.status === 'Delivering' &&
+                    data?.payment_method !== 'digital' && (
+                      <span
+                        onClick={onlinePaymentOption}
+                        className="py-3 px-5 cursor-pointer inline-block text-[12px] md:text-[14px] text-black font-medium bg-white rounded border border-solid border-[#DEE5EA] ltr:mr-4 rtl:ml-4 hover:bg-[#F35C5C] hover:text-white hover:border-[#F35C5C] transition-all capitalize"
+                      >
+                        Online Payment
+                      </span>
+                    )}
                   <span
                     onClick={() => removeItem(data?.id, data?.id)}
                     className="py-3 px-5 cursor-pointer inline-block text-[12px] md:text-[14px] text-white font-medium bg-[#F35C5C] rounded border border-solid border-[#F35C5C]  hover:bg-white hover:text-black hover:border-[#DEE5EA] transition-all capitalize"
                   >
                     Cancel order
                   </span>
+                </div>
+              )}
+              {(data?.status !== 'Delivering' ||
+                data?.status !== 'Delivered' ||
+                data?.payment_method !== 'digital') && (
+                <div className="mt-3 ltr:text-right rtl:text-left text-brand-navColor">
+                  You will given an option to pay online after the order is
+                  Delivering.
                 </div>
               )}
             </div>
