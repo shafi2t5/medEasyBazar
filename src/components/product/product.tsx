@@ -83,7 +83,7 @@ const ProductSingleDetails: React.FC = () => {
         medPrice?.price,
         selectedProduct?.discount_value
       );
-      console.log(afterDiscount, 'afterDiscount');
+
       setProductPrice({
         ...medPrice,
         discountValue: medPrice?.price - afterDiscount,

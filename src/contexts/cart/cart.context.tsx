@@ -10,6 +10,7 @@ interface CartProviderState extends State {
   isInCart: (id: Item['id']) => boolean;
   isInStock: (id: Item['id']) => boolean;
   resetCart: () => void;
+  getItemsForCart: (data: any) => void;
 }
 export const cartContext = React.createContext<CartProviderState | undefined>(
   undefined
@@ -45,6 +46,9 @@ export const CartProvider: React.FC = (props) => {
     dispatch({ type: 'REMOVE_ITEM_OR_QUANTITY', id });
   const clearItemFromCart = (id: Item['id']) =>
     dispatch({ type: 'REMOVE_ITEM', id });
+
+  const getItemsForCart = (data: any) =>
+    dispatch({ type: 'GET_ITEM', item: data });
   const isInCart = useCallback(
     (id: Item['id']) => !!getItem(state.items, id),
     [state.items]
@@ -68,6 +72,7 @@ export const CartProvider: React.FC = (props) => {
       isInCart,
       isInStock,
       resetCart,
+      getItemsForCart,
     }),
     [getItemFromCart, isInCart, isInStock, state]
   );

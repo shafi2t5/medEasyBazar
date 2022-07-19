@@ -3,6 +3,7 @@ import { useCart } from '@contexts/cart/cart.context';
 import { useUI } from '@contexts/ui.context';
 import { useTranslation } from 'next-i18next';
 import cn from 'classnames';
+import { fetchCartData } from '@framework/cart/cart';
 
 type CartButtonProps = {
   className?: string;
@@ -19,8 +20,10 @@ const CartButton: React.FC<CartButtonProps> = ({
 }) => {
   const { t } = useTranslation('common');
   const { openDrawer, setDrawerView } = useUI();
-  const { totalItems } = useCart();
-  function handleCartOpen() {
+  const { totalItems, getItemsForCart } = useCart();
+  async function handleCartOpen() {
+    const data = await fetchCartData();
+    getItemsForCart(data?.data);
     setDrawerView('CART_SIDEBAR');
     isShowing;
     return openDrawer();

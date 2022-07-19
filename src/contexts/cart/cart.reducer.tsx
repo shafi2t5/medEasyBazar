@@ -19,7 +19,7 @@ interface Metadata {
 type Action =
   | { type: 'ADD_ITEM_WITH_QUANTITY'; item: Item; quantity: number }
   | { type: 'REMOVE_ITEM_OR_QUANTITY'; id: Item['id']; quantity?: number }
-  | { type: 'ADD_ITEM'; id: Item['id']; item: Item }
+  | { type: 'GET_ITEM'; item: Item }
   | { type: 'UPDATE_ITEM'; id: Item['id']; item: UpdateItemInput }
   | { type: 'REMOVE_ITEM'; id: Item['id'] }
   | { type: 'RESET_CART' };
@@ -31,6 +31,9 @@ export interface State {
   totalUniqueItems: number;
   total: number;
   meta?: Metadata | null;
+  delivery_fee: number;
+  chargeAmount: number;
+  minimumOrder: number;
 }
 export const initialState: State = {
   items: [],
@@ -39,6 +42,9 @@ export const initialState: State = {
   totalUniqueItems: 0,
   total: 0,
   meta: null,
+  delivery_fee: 0,
+  chargeAmount: 0,
+  minimumOrder: 0,
 };
 export function cartReducer(state: State, action: Action): State {
   switch (action.type) {
@@ -48,7 +54,7 @@ export function cartReducer(state: State, action: Action): State {
         action.item,
         action.quantity
       );
-      return generateFinalState(state, items);
+      // return generateFinalState(state, items);
     }
     case 'REMOVE_ITEM_OR_QUANTITY': {
       const items = removeItemOrQuantity(
@@ -56,19 +62,18 @@ export function cartReducer(state: State, action: Action): State {
         action.id,
         (action.quantity = 1)
       );
-      return generateFinalState(state, items);
+      // return generateFinalState(state, items);
     }
-    case 'ADD_ITEM': {
-      const items = addItem(state.items, action.item);
-      return generateFinalState(state, items);
+    case 'GET_ITEM': {
+      return generateFinalState(state, action.item);
     }
     case 'REMOVE_ITEM': {
-      const items = removeItem(state.items, action.id);
-      return generateFinalState(state, items);
+      const items = removeItem(state.items, action?.id);
+      // return generateFinalState(state, items);
     }
     case 'UPDATE_ITEM': {
       const items = updateItem(state.items, action.id, action.item);
-      return generateFinalState(state, items);
+      // return generateFinalState(state, items);
     }
     case 'RESET_CART':
       return initialState;
@@ -77,14 +82,17 @@ export function cartReducer(state: State, action: Action): State {
   }
 }
 
-const generateFinalState = (state: State, items: Item[]) => {
-  const totalUniqueItems = calculateUniqueItems(items);
+const generateFinalState = (state: State, items: Item) => {
+  const totalUniqueItems = calculateUniqueItems(items?.medicines);
   return {
     ...state,
-    items: calculateItemTotals(items),
-    totalItems: calculateTotalItems(items),
+    items: calculateItemTotals(items?.medicines),
+    totalItems: calculateTotalItems(items?.medicines),
     totalUniqueItems,
-    total: calculateTotal(items),
+    total: calculateTotal(items?.medicines),
     isEmpty: totalUniqueItems === 0,
+    delivery_fee: items?.delivery_fee,
+    chargeAmount: items?.charge_free_order_amount,
+    minimumOrder: items?.minimum_order,
   };
 };
