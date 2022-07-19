@@ -5,7 +5,6 @@ import Logo from '@components/ui/logo';
 import { useTranslation } from 'next-i18next';
 import Image from '@components/ui/image';
 import { useModalAction } from '@components/common/modal/modal.context';
-import Switch from '@components/ui/switch';
 import CloseButton from '@components/ui/close-button';
 import { FaFacebook, FaGoogle } from 'react-icons/fa';
 import cn from 'classnames';
@@ -29,6 +28,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
   const { closeModal } = useModalAction();
   const { mutate: login, isLoading, data } = useLoginMutation();
   const [error, setError] = useState('');
+  const [isValid, setIsValid] = useState(true);
   const [number, setNumber] = useState('+88');
   const [flag, setFlag] = useState(false);
   const [otp, setOtp] = useState('');
@@ -37,7 +37,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
   const getOtp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
-    if (number === '' || number === undefined)
+    if (number === '' || number === undefined || !isValid)
       return setError('Please enter a valid phone number!');
     try {
       const response: any = await setUpRecaptha(number);
@@ -150,9 +150,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
                 name="phone"
                 value={number}
                 onChange={(e) => {
-                  if (number.length >= 14) {
-                    return;
-                  }
+                  const valid = /^(?:\+?88|0088)?01[15-9]\d{8}$/.test(
+                    e.target.value
+                  );
+                  setIsValid(valid);
+                  setError('');
                   setNumber(e.target.value);
                 }}
                 placeholder={t('forms:label-contact-phone')}
@@ -196,8 +198,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
               <div className="relative">
                 <Button
                   type="submit"
-                  // loading={isLoading}
-                  // disabled={isLoading}
+                  loading={isLoading}
+                  disabled={isLoading}
                   className="w-full mt-2 tracking-normal h-11 md:h-12 font-15px md:font-15px"
                   variant="formButton"
                 >

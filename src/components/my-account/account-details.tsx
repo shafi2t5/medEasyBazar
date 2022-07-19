@@ -142,6 +142,10 @@ const AccountDetails: React.FC = () => {
                 label={t('forms:label-phone')}
                 {...register('phone', {
                   required: 'forms:phone-required',
+                  pattern: {
+                    value: /^(?:\+?88|0088)?01[15-9]\d{8}$/,
+                    message: 'Please enter a valid number',
+                  },
                 })}
                 placeholder="Enter phone number(+88)"
                 variant="solid"

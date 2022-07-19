@@ -143,7 +143,12 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
                   }
                   type="text"
                   variant="solid"
-                  {...register('phone')}
+                  {...register('phone', {
+                    pattern: {
+                      value: /^(?:\+?88|0088)?01[15-9]\d{8}$/,
+                      message: 'Please enter a valid number',
+                    },
+                  })}
                   error={errors.phone?.message}
                 />
               )}
