@@ -1,15 +1,12 @@
 import {
   Item,
   UpdateItemInput,
-  addItemWithQuantity,
-  removeItemOrQuantity,
-  addItem,
-  updateItem,
   removeItem,
   calculateUniqueItems,
   calculateItemTotals,
   calculateTotalItems,
   calculateTotal,
+  addItemWithQuantity,
 } from './cart.utils';
 
 interface Metadata {
@@ -17,11 +14,11 @@ interface Metadata {
 }
 
 type Action =
-  | { type: 'ADD_ITEM_WITH_QUANTITY'; item: Item; quantity: number }
-  | { type: 'REMOVE_ITEM_OR_QUANTITY'; id: Item['id']; quantity?: number }
-  | { type: 'GET_ITEM'; item: Item }
+  | { type: 'GET_ITEM'; items: any }
   | { type: 'UPDATE_ITEM'; id: Item['id']; item: UpdateItemInput }
   | { type: 'REMOVE_ITEM'; id: Item['id'] }
+  | { type: 'INCREMENT_ITEM'; items: any }
+  | { type: 'TOTAL_ITEM'; total: number }
   | { type: 'RESET_CART' };
 
 export interface State {
@@ -48,32 +45,34 @@ export const initialState: State = {
 };
 export function cartReducer(state: State, action: Action): State {
   switch (action.type) {
-    case 'ADD_ITEM_WITH_QUANTITY': {
-      const items = addItemWithQuantity(
-        state.items,
-        action.item,
-        action.quantity
-      );
-      // return generateFinalState(state, items);
-    }
-    case 'REMOVE_ITEM_OR_QUANTITY': {
-      const items = removeItemOrQuantity(
-        state.items,
-        action.id,
-        (action.quantity = 1)
-      );
-      // return generateFinalState(state, items);
-    }
     case 'GET_ITEM': {
-      return generateFinalState(state, action.item);
+      return generateFinalState(state, action?.items);
     }
     case 'REMOVE_ITEM': {
       const items = removeItem(state.items, action?.id);
-      // return generateFinalState(state, items);
+      let data: any = {
+        medicines: items,
+      };
+      return generateFinalState(state, data);
     }
-    case 'UPDATE_ITEM': {
-      const items = updateItem(state.items, action.id, action.item);
-      // return generateFinalState(state, items);
+    case 'INCREMENT_ITEM': {
+      const updatedItems = addItemWithQuantity(
+        state.items,
+        action.items,
+        action.items?.quantity
+      );
+      let data: any = {
+        medicines: updatedItems,
+      };
+
+      return generateFinalState(state, data);
+    }
+    case 'TOTAL_ITEM': {
+      console.log(action?.total, 'ff');
+      return {
+        ...state,
+        totalItems: action?.total,
+      };
     }
     case 'RESET_CART':
       return initialState;
@@ -91,8 +90,8 @@ const generateFinalState = (state: State, items: Item) => {
     totalUniqueItems,
     total: calculateTotal(items?.medicines),
     isEmpty: totalUniqueItems === 0,
-    delivery_fee: items?.delivery_fee,
-    chargeAmount: items?.charge_free_order_amount,
-    minimumOrder: items?.minimum_order,
+    delivery_fee: items?.delivery_fee || state?.delivery_fee,
+    chargeAmount: items?.charge_free_order_amount || state?.chargeAmount,
+    minimumOrder: items?.minimum_order || state?.minimumOrder,
   };
 };

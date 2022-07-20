@@ -1,11 +1,9 @@
 import Scrollbar from '@components/ui/scrollbar';
 import { useCart } from '@contexts/cart/cart.context';
 import { useUI } from '@contexts/ui.context';
-import usePrice from '@framework/product/use-price';
 import { IoClose } from 'react-icons/io5';
 import CartItem from './cart-item';
 import EmptyCart from './empty-cart';
-import Link from '@components/ui/link';
 import { ROUTES } from '@utils/routes';
 import cn from 'classnames';
 import { useTranslation } from 'next-i18next';
@@ -14,14 +12,14 @@ import Text from '@components/ui/text';
 import DeleteIcon from '@components/icons/delete-icon';
 import { useRouter } from 'next/router';
 import { useModalAction } from '@components/common/modal/modal.context';
-import { useCartMutation } from '@framework/cart/cart-add';
+import { deleteCartMutation } from '@framework/cart/cart-delete';
 
 export default function Cart() {
   const { t } = useTranslation('common');
   const { closeDrawer, isAuthorized } = useUI();
   const { items, total, isEmpty, resetCart } = useCart();
   const { openModal } = useModalAction();
-  const { mutate: addtoCartData } = useCartMutation();
+  const { mutate: deleteCartItem } = deleteCartMutation();
 
   const history = useRouter();
 
@@ -29,11 +27,6 @@ export default function Cart() {
     closeDrawer();
     if (isAuthorized) {
       history.push(ROUTES.CHECKOUT);
-      let cartIds = items.map((item) => item.id);
-      let input = {
-        medicine_ids: cartIds,
-      };
-      addtoCartData(input);
     } else {
       openModal('LOGIN_VIEW');
     }
@@ -48,7 +41,7 @@ export default function Cart() {
             <button
               className="flex flex-shrink items-center text-15px transition duration-150 ease-in focus:outline-none text-brand-dark opacity-50 hover:opacity-100 ltr:-mr-1.5 rtl:-ml-1.5"
               aria-label={t('text-clear-all')}
-              onClick={resetCart}
+              onClick={() => deleteCartItem({ id: '', type: 'all' })}
             >
               <DeleteIcon />
               <span className="ltr:pl-1 lg:rtl:pr-1">

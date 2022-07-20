@@ -5,9 +5,17 @@ import { getToken } from '@framework/utils/get-token';
 export const fetchCartData = async () => {
   try {
     const headers = { Authorization: `Bearer ${getToken()}` };
-    return await http.get(API_ENDPOINTS.CART_API, {
+    const data = await http.get(API_ENDPOINTS.CART_API, {
       headers,
     });
+    let cartData = data?.data?.medicines.map((med: any) => {
+      return {
+        id: med?.id,
+        quantity: med?.quantity,
+      };
+    });
+    localStorage.setItem('medQuantity', JSON.stringify(cartData));
+    return data;
   } catch (error) {
     console.log(error);
   }

@@ -4,6 +4,9 @@ import { useUI } from '@contexts/ui.context';
 import { useTranslation } from 'next-i18next';
 import cn from 'classnames';
 import { fetchCartData } from '@framework/cart/cart';
+import { useEffect } from 'react';
+import { useModalAction } from '@components/common/modal/modal.context';
+import { useLocalStorage } from '@utils/use-local-storage';
 
 type CartButtonProps = {
   className?: string;
@@ -19,14 +22,34 @@ const CartButton: React.FC<CartButtonProps> = ({
   isShowing,
 }) => {
   const { t } = useTranslation('common');
-  const { openDrawer, setDrawerView } = useUI();
-  const { totalItems, getItemsForCart } = useCart();
+  const { openDrawer, setDrawerView, isAuthorized } = useUI();
+  const { totalItems, setItemsForCart } = useCart();
+  const { openModal } = useModalAction();
+  const [quantityForLocal, setQuantityForLocal] = useLocalStorage<any>(
+    'medQuantity',
+    JSON.stringify([])
+  );
+
+  useEffect(() => {
+    if (isAuthorized) {
+      fetchCart();
+    }
+  }, [isAuthorized]);
+
+  async function fetchCart() {
+    const data: any = await fetchCartData();
+    setItemsForCart(data?.data);
+  }
+
   async function handleCartOpen() {
-    const data = await fetchCartData();
-    getItemsForCart(data?.data);
-    setDrawerView('CART_SIDEBAR');
-    isShowing;
-    return openDrawer();
+    if (!isAuthorized) {
+      openModal('LOGIN_VIEW');
+    } else {
+      fetchCart();
+      setDrawerView('CART_SIDEBAR');
+      isShowing;
+      return openDrawer();
+    }
   }
 
   return (

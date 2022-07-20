@@ -1,17 +1,18 @@
 import React, { useCallback } from 'react';
 import { cartReducer, State, initialState } from './cart.reducer';
 import { Item, getItem, inStock } from './cart.utils';
-import { useLocalStorage } from '@utils/use-local-storage';
+// import { useLocalStorage } from '@utils/use-local-storage';
 interface CartProviderState extends State {
-  addItemToCart: (item: Item, quantity: number) => void;
-  removeItemFromCart: (id: Item['id']) => void;
   clearItemFromCart: (id: Item['id']) => void;
   getItemFromCart: (id: Item['id']) => any | undefined;
   isInCart: (id: Item['id']) => boolean;
   isInStock: (id: Item['id']) => boolean;
   resetCart: () => void;
-  getItemsForCart: (data: any) => void;
+  setItemsForCart: (data: any) => void;
+  setIncrementDecrementForCart: (data: any) => void;
+  setTotalItemForCart: (total: number) => void;
 }
+
 export const cartContext = React.createContext<CartProviderState | undefined>(
   undefined
 );
@@ -27,28 +28,17 @@ export const useCart = () => {
 };
 
 export const CartProvider: React.FC = (props) => {
-  const [savedCart, saveCart] = useLocalStorage(
-    `borobazar-cart`,
-    JSON.stringify(initialState)
-  );
-  const [state, dispatch] = React.useReducer(
-    cartReducer,
-    JSON.parse(savedCart!)
-  );
+  const [state, dispatch] = React.useReducer(cartReducer, initialState);
 
-  React.useEffect(() => {
-    saveCart(JSON.stringify(state));
-  }, [state, saveCart]);
-
-  const addItemToCart = (item: Item, quantity: number) =>
-    dispatch({ type: 'ADD_ITEM_WITH_QUANTITY', item, quantity });
-  const removeItemFromCart = (id: Item['id']) =>
-    dispatch({ type: 'REMOVE_ITEM_OR_QUANTITY', id });
   const clearItemFromCart = (id: Item['id']) =>
     dispatch({ type: 'REMOVE_ITEM', id });
 
-  const getItemsForCart = (data: any) =>
-    dispatch({ type: 'GET_ITEM', item: data });
+  const setItemsForCart = (data: any) =>
+    dispatch({ type: 'GET_ITEM', items: data });
+  const setIncrementDecrementForCart = (data: any) =>
+    dispatch({ type: 'INCREMENT_ITEM', items: data });
+  const setTotalItemForCart = (total: number) =>
+    dispatch({ type: 'TOTAL_ITEM', total: total });
   const isInCart = useCallback(
     (id: Item['id']) => !!getItem(state.items, id),
     [state.items]
@@ -65,14 +55,14 @@ export const CartProvider: React.FC = (props) => {
   const value = React.useMemo(
     () => ({
       ...state,
-      addItemToCart,
-      removeItemFromCart,
       clearItemFromCart,
       getItemFromCart,
       isInCart,
       isInStock,
       resetCart,
-      getItemsForCart,
+      setItemsForCart,
+      setIncrementDecrementForCart,
+      setTotalItemForCart,
     }),
     [getItemFromCart, isInCart, isInStock, state]
   );

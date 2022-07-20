@@ -23,6 +23,7 @@ import {
   // useModalState,
 } from '@components/common/modal/modal.context';
 import RelatedProductFeed from './feeds/related-product-feed';
+import { useCartMutation } from '@framework/cart/cart-add';
 
 const breakpoints = {
   '1536': {
@@ -52,7 +53,7 @@ const ProductSingleDetails: React.FC = () => {
   const { width } = useWindowSize();
   const { selectedProduct } = useUI();
   const { data, isLoading, error } = useProductQuery(selectedProduct as any);
-  const { addItemToCart, getItemFromCart } = useCart();
+  const { getItemFromCart } = useCart();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [piece, setPiece] = useState<number | null | string>(null);
   const [productPrice, setProductPrice] = useState<any>(null);
@@ -60,6 +61,7 @@ const ProductSingleDetails: React.FC = () => {
   // const [addToWishlistLoader, setAddToWishlistLoader] =
   //   useState<boolean>(false);
   const { closeModal } = useModalAction();
+  const { mutate: addtoCartData } = useCartMutation();
 
   const medPrice =
     selectedProduct?.unit_prices?.filter(
@@ -110,16 +112,16 @@ const ProductSingleDetails: React.FC = () => {
       setAddToCartLoader(false);
     }, 1500);
 
-    addItemToCart(cartData, selectedQuantity);
-    toast('Added to the bag', {
-      progressClassName: 'fancy-progress-bar',
-      position: width! > 768 ? 'bottom-right' : 'top-right',
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-    });
+    let data = {
+      id: cartData?.id,
+      name: cartData?.generic_name,
+      quantity: selectedQuantity,
+      unit: medPrice?.unit,
+      unit_size: medPrice?.unit_size,
+      isIncDrc: false,
+    };
+
+    addtoCartData(data);
   }
 
   function navigateToProductPage() {

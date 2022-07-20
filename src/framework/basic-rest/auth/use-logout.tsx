@@ -1,3 +1,4 @@
+import { useCart } from '@contexts/cart/cart.context';
 import { useUI } from '@contexts/ui.context';
 import Cookies from 'js-cookie';
 import Router from 'next/router';
@@ -16,10 +17,13 @@ async function logout() {
 }
 export const useLogoutMutation = () => {
   const { unauthorize } = useUI();
+  const { resetCart } = useCart();
   return useMutation(() => logout(), {
     onSuccess: (_data) => {
       Cookies.remove('auth_token');
       unauthorize();
+      localStorage.removeItem('medQuantity');
+      resetCart();
       Router.push('/');
     },
     onError: (data) => {

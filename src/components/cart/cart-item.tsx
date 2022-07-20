@@ -4,14 +4,30 @@ import { IoIosCloseCircle } from 'react-icons/io';
 import { useCart } from '@contexts/cart/cart.context';
 import { ROUTES } from '@utils/routes';
 import Counter from '@components/ui/counter';
+import { useCartMutation } from '@framework/cart/cart-add';
+import { deleteCartMutation } from '@framework/cart/cart-delete';
 
 type CartItemProps = {
   item: any;
 };
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
-  const { isInStock, addItemToCart, removeItemFromCart, clearItemFromCart } =
-    useCart();
+  const { isInStock } = useCart();
+  const { mutate: addtoCartData } = useCartMutation();
+  const { mutate: deleteCartItem } = deleteCartMutation();
+
+  function incrementAndDecrement(quantity: number) {
+    let data = {
+      id: item?.id,
+      name: item?.generic_name,
+      quantity: quantity,
+      unit: item?.unit,
+      unit_size: item?.unit_size,
+      isIncDrc: true,
+    };
+
+    addtoCartData(data);
+  }
 
   const outOfStock = isInStock(item.id);
 
@@ -34,7 +50,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
         />
         <div
           className="absolute top-0 flex items-center justify-center w-full h-full transition duration-200 ease-in-out bg-black ltr:left-0 rtl:right-0 bg-opacity-30 md:bg-opacity-0 md:group-hover:bg-opacity-30"
-          onClick={() => clearItemFromCart(item.id)}
+          onClick={() => deleteCartItem({ id: item?.cart_id, type: 'single' })}
           role="button"
         >
           <IoIosCloseCircle className="relative text-2xl text-white transition duration-300 ease-in-out transform md:scale-0 md:opacity-0 md:group-hover:scale-100 md:group-hover:opacity-100" />
@@ -54,8 +70,8 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
           </div>
           <Counter
             value={item.quantity}
-            onIncrement={() => addItemToCart(item, item.quantity + 1)}
-            onDecrement={() => removeItemFromCart(item.id)}
+            onIncrement={() => incrementAndDecrement(item.quantity + 1)}
+            onDecrement={() => incrementAndDecrement(item.quantity - 1)}
             variant="cart"
             disabled={!outOfStock}
           />
