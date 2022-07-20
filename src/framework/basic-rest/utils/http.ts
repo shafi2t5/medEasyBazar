@@ -2,7 +2,9 @@ import axios from 'axios';
 // import { getToken } from './get-token';
 
 const http = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_REST_API_ENDPOINT,
+  baseURL:
+    process.env.NEXT_PUBLIC_REST_API_ENDPOINT ||
+    'https://daktarbondhu.com:5001/api',
   timeout: 30000,
   headers: {
     Accept: 'application/json',
