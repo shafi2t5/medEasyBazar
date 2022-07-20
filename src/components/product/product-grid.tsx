@@ -6,7 +6,6 @@ import Alert from '@components/ui/alert';
 import ProductCard from '@components/product/product-cards/product-card';
 import ProductCardLoader from '@components/ui/loaders/product-card-loader';
 import cn from 'classnames';
-// import { useProductsQuery } from '@framework/product/get-all-products';
 // import { LIMITS } from '@framework/utils/limits';
 import { Product } from '@framework/types';
 

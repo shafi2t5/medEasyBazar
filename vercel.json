@@ -1,16 +1,34 @@
 {
   "env": {
-    "NEXT_PUBLIC_REST_API_ENDPOINT": "https://borobazar.vercel.app/api",
-    "NEXT_PUBLIC_WEBSITE_URL": "https://borobazar.vercel.app/",
-    "NEXT_PUBLIC_STRIPE_PUBLIC_KEY": "pk_test_51JUDYDHE5OSjrvPugQ9mmxXvbKTVeN3ylicpta7qLBbKhLJ46qN2SxIzYLUN1rKsK2ZBeNl3jImSgnBdVXIuaWFX00xFdlgcUP",
-    "NEXT_PUBLIC_GOOGLE_API_KEY": "AIzaSyCsnCC4AOF2XK42fm7SFcjYkUiGtUqs5T8"
+    "NEXT_PUBLIC_REST_API_ENDPOINT": "https://daktarbondhu.com:5001/api",
+    "NEXT_PUBLIC_WEBSITE_URL": "https://medeasy.vercel.app/",
+    "NEXT_PUBLIC_ASSETS_IMAGE_API_ENDPOINT": "https://medeasy.health:5001",
+    "NEXT_PUBLIC_STORE_ID": "testbox",
+    "NEXT_PUBLIC_STORE_PASSWORD": "qwerty",
+    "NEXT_PUBLIC_apiKey": "AIzaSyAfVtPb0xRVcwUvk6vkyUZ4YZRqoS65bi8",
+    "NEXT_PUBLIC_authDomain": "api-project-70997319889.firebaseapp.com",
+    "NEXT_PUBLIC_databaseURL": "https://api-project-70997319889.firebaseio.com",
+    "NEXT_PUBLIC_projectId": "api-project-70997319889",
+    "NEXT_PUBLIC_storageBucket": "api-project-70997319889.appspot.com",
+    "NEXT_PUBLIC_messagingSenderId": "70997319889",
+    "NEXT_PUBLIC_appId": "1:70997319889:web:4694c9be2f2c4f087225f0",
+    "NEXT_PUBLIC_measurementId": "G-8RSQ31HHLQ"
   },
   "build": {
     "env": {
-      "NEXT_PUBLIC_REST_API_ENDPOINT": "https://borobazar.vercel.app/api",
-      "NEXT_PUBLIC_WEBSITE_URL": "https://borobazar.vercel.app/",
-      "NEXT_PUBLIC_STRIPE_PUBLIC_KEY": "pk_test_51JUDYDHE5OSjrvPugQ9mmxXvbKTVeN3ylicpta7qLBbKhLJ46qN2SxIzYLUN1rKsK2ZBeNl3jImSgnBdVXIuaWFX00xFdlgcUP",
-      "NEXT_PUBLIC_GOOGLE_API_KEY": "AIzaSyCsnCC4AOF2XK42fm7SFcjYkUiGtUqs5T8"
+      "NEXT_PUBLIC_REST_API_ENDPOINT": "https://daktarbondhu.com:5001/api",
+      "NEXT_PUBLIC_WEBSITE_URL": "https://medeasy.vercel.app/",
+      "NEXT_PUBLIC_ASSETS_IMAGE_API_ENDPOINT": "https://medeasy.health:5001",
+      "NEXT_PUBLIC_STORE_ID": "testbox",
+      "NEXT_PUBLIC_STORE_PASSWORD": "qwerty",
+      "NEXT_PUBLIC_apiKey": "AIzaSyAfVtPb0xRVcwUvk6vkyUZ4YZRqoS65bi8",
+      "NEXT_PUBLIC_authDomain": "api-project-70997319889.firebaseapp.com",
+      "NEXT_PUBLIC_databaseURL": "https://api-project-70997319889.firebaseio.com",
+      "NEXT_PUBLIC_projectId": "api-project-70997319889",
+      "NEXT_PUBLIC_storageBucket": "api-project-70997319889.appspot.com",
+      "NEXT_PUBLIC_messagingSenderId": "70997319889",
+      "NEXT_PUBLIC_appId": "1:70997319889:web:4694c9be2f2c4f087225f0",
+      "NEXT_PUBLIC_measurementId": "G-8RSQ31HHLQ"
     }
   }
 }
