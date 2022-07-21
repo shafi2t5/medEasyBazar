@@ -8,6 +8,7 @@ import utc from 'dayjs/plugin/utc';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import timezone from 'dayjs/plugin/timezone';
 import { GrNext, GrPrevious } from 'react-icons/gr';
+import { useUI } from '@contexts/ui.context';
 
 export const CreatedAt: React.FC<{ createdAt?: any }> = ({ createdAt }) => {
   dayjs.extend(relativeTime);
@@ -83,6 +84,7 @@ const columns = [
 ];
 
 const OrderTable: React.FC<{ orders?: any }> = ({ orders }) => {
+  const { isCancelOrder } = useUI();
   const [currentPage, setCurrentPage] = useState(1);
   const countPerPage = 5;
   let [filterData, setDataValue] = useState([]);
@@ -95,8 +97,9 @@ const OrderTable: React.FC<{ orders?: any }> = ({ orders }) => {
   };
 
   useEffect(() => {
+    setCurrentPage(1);
     setDataValue(orders.slice(0, countPerPage));
-  }, [orders]);
+  }, [orders, isCancelOrder]);
 
   return (
     <>

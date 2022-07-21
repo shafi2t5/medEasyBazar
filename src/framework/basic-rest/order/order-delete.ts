@@ -13,7 +13,8 @@ const deleteOrder = async (id: number) => {
 };
 
 export const useDeleteOrderMutation = () => {
-  const { closeDrawer } = useUI();
+  const { closeDrawer, setCancelOrder, isCancelOrder } = useUI();
+
   const queryClient = useQueryClient();
   return useMutation((input: any) => deleteOrder(input), {
     onSuccess: (data: any) => {
@@ -26,6 +27,7 @@ export const useDeleteOrderMutation = () => {
         pauseOnHover: true,
         draggable: true,
       });
+      setCancelOrder(!isCancelOrder);
       // setTimeout(() => location.reload(), 2000);
       closeDrawer();
     },

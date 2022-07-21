@@ -11,6 +11,7 @@ export default function Order() {
   const { resetCart } = useCart();
   useEffect(() => {
     resetCart();
+    localStorage.removeItem('medQuantity');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

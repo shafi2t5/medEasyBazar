@@ -49,6 +49,7 @@ const initialState = {
     avatar: '',
     phone: '+88',
   },
+  isCancelOrder: false,
 };
 
 type Action =
@@ -166,6 +167,10 @@ type Action =
   | {
       type: 'FROFLE_INFO';
       payload: any;
+    }
+  | {
+      type: 'CANCEL_ORDER';
+      payload: boolean;
     };
 
 type DRAWER_VIEWS = 'CART_SIDEBAR' | 'MOBILE_MENU' | 'ORDER_DETAILS';
@@ -379,6 +384,12 @@ function uiReducer(state: State, action: Action) {
         profileInfo: action.payload,
       };
     }
+    case 'CANCEL_ORDER': {
+      return {
+        ...state,
+        isCancelOrder: action.payload,
+      };
+    }
   }
 }
 
@@ -463,6 +474,9 @@ export const UIProvider: React.FC = (props) => {
   const setProfileInfo = (payload: any) =>
     dispatch({ type: 'FROFLE_INFO', payload });
 
+  const setCancelOrder = (payload: any) =>
+    dispatch({ type: 'CANCEL_ORDER', payload });
+
   const value = React.useMemo(
     () => ({
       ...state,
@@ -503,6 +517,7 @@ export const UIProvider: React.FC = (props) => {
       setDoctorInput,
       setCartList,
       setProfileInfo,
+      setCancelOrder,
     }),
     [state]
   );

@@ -13,7 +13,7 @@ export const AddApiCart = async (cart: any) => {
   });
   return {
     ...data,
-    cart: cart,
+    cart: cart.cart_medicines[0],
   };
 };
 
@@ -62,7 +62,7 @@ export const useCartMutation = () => {
       }
     },
     onError: (data: any) => {
-      toast(data?.data?.response?.data?.message, {
+      toast(data?.response?.statusText, {
         progressClassName: 'fancy-progress-bar',
         autoClose: 1500,
         hideProgressBar: false,

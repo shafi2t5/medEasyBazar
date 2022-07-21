@@ -101,12 +101,16 @@ const ProductSingleDetails: React.FC = () => {
       }, 1500);
 
       let data = {
-        id: cartData?.id,
-        name: cartData?.generic_name,
-        quantity: selectedQuantity,
-        unit: medPrice?.unit,
-        unit_size: medPrice?.unit_size,
-        isIncDrc: false,
+        cart_medicines: [
+          {
+            id: cartData?.id,
+            name: cartData?.generic_name,
+            quantity: selectedQuantity,
+            unit: medPrice?.unit,
+            unit_size: medPrice?.unit_size,
+            isIncDrc: false,
+          },
+        ],
       };
 
       addtoCartData(data);

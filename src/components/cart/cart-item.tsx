@@ -19,12 +19,16 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
   function incrementAndDecrement(quantity: number) {
     if (quantity === 0) return;
     let data = {
-      id: item?.id,
-      name: item?.generic_name,
-      quantity: quantity,
-      unit: item?.unit,
-      unit_size: item?.unit_size,
-      isIncDrc: true,
+      cart_medicines: [
+        {
+          id: item?.id,
+          name: item?.generic_name,
+          quantity: quantity,
+          unit: item?.unit,
+          unit_size: item?.unit_size,
+          isIncDrc: true,
+        },
+      ],
     };
 
     addtoCartData(data);
