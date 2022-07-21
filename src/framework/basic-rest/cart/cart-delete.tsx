@@ -23,6 +23,7 @@ export const deleteCartMutation = () => {
     onSuccess: async (data: any) => {
       if (data?.cart?.type === 'all') {
         resetCart();
+        localStorage.removeItem('medQuantity');
       } else {
         clearItemFromCart(data?.cart?.id);
       }

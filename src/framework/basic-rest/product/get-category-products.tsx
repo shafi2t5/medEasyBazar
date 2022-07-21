@@ -1,10 +1,7 @@
 import { Product } from '@framework/types';
 import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
 import http from '@framework/utils/http';
-type PaginatedProduct = {
-  data: Product[];
-  paginatorInfo: any;
-};
+
 export const fetchCategoryProducts = async ({
   category,
   setIsLoading,
@@ -30,9 +27,3 @@ export const fetchCategoryProducts = async ({
     setIsLoading(false);
   }
 };
-
-// const useProductsQuery = (options: QueryOptionsType) => {
-//   return useQuery<any, Error>([API_ENDPOINTS.PRODUCTS, options], fetchProducts);
-// };
-
-// export { useProductsQuery, fetchProducts };

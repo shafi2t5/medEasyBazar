@@ -1,8 +1,6 @@
 import Layout from '@components/layout/layout-six';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import BundleGrid from '@components/bundle/bundle-grid';
-// import { homeTwoBanner as banner } from '@framework/static/banner';
-import { bundleDataTwo as bundle } from '@framework/static/bundle';
 import { GetStaticProps } from 'next';
 import Seo from '@components/seo/seo';
 import { QueryClient } from 'react-query';
@@ -11,7 +9,7 @@ import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
 // import { fetchCategories } from '@framework/category/get-all-categories';
 import { LIMITS } from '@framework/utils/limits';
 import CategoryGridListBlock from '@components/common/category-grid-list-block';
-import BestSellerProductFeed from '@components/product/feeds/best-seller-product-feed';
+import HomeProductFeed from '@components/product/feeds/home-product-feed';
 import { fetchBestSellerProducts } from '@framework/product/get-all-best-seller-products';
 import HomeBanner from '@components/cards/home-banner';
 
@@ -28,7 +26,7 @@ export default function Home() {
       </div>
       <BundleGrid className="mb-7 lg:mb-8 xl:mb-9 2xl:mb-10" />
       <CategoryGridListBlock />
-      <BestSellerProductFeed />
+      <HomeProductFeed />
       {/* <DownloadApps /> */}
     </>
   );

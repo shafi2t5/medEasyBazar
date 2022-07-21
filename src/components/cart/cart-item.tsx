@@ -17,6 +17,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const { mutate: deleteCartItem } = deleteCartMutation();
 
   function incrementAndDecrement(quantity: number) {
+    if (quantity === 0) return;
     let data = {
       id: item?.id,
       name: item?.generic_name,

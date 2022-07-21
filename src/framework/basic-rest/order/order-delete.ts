@@ -26,7 +26,7 @@ export const useDeleteOrderMutation = () => {
         pauseOnHover: true,
         draggable: true,
       });
-      setTimeout(() => location.reload(), 2000);
+      // setTimeout(() => location.reload(), 2000);
       closeDrawer();
     },
     onError: (data: any) => {

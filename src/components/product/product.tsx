@@ -3,25 +3,15 @@ import Button from '@components/ui/button';
 import Counter from '@components/ui/counter';
 import { useRouter } from 'next/router';
 import { ROUTES } from '@utils/routes';
-import useWindowSize from '@utils/use-window-size';
 import { useProductQuery } from '@framework/product/get-product';
-// import { getVariations } from '@framework/utils/get-variations';
-// import usePrice from '@framework/product/use-price';
 import { useCart } from '@contexts/cart/cart.context';
-
-import { toast } from 'react-toastify';
-// import ThumbnailCarousel from '@components/ui/carousel/thumbnail-carousel';
 import { useTranslation } from 'next-i18next';
 import Image from '@components/ui/image';
 import Dropdowns from '@components/common/dropdowns';
-// import CloseIcon from '@components/icons/close-icon';
 import productGalleryPlaceholder from '@assets/placeholders/product-placeholder.png';
 import { useUI } from '@contexts/ui.context';
 import { discountCalculate } from '@utils/discount';
-import {
-  useModalAction,
-  // useModalState,
-} from '@components/common/modal/modal.context';
+import { useModalAction } from '@components/common/modal/modal.context';
 import RelatedProductFeed from './feeds/related-product-feed';
 import { useCartMutation } from '@framework/cart/cart-add';
 
@@ -49,8 +39,6 @@ const breakpoints = {
 const ProductSingleDetails: React.FC = () => {
   const { t } = useTranslation('common');
   const router = useRouter();
-  const { query } = router;
-  const { width } = useWindowSize();
   const { selectedProduct } = useUI();
   const { data, isLoading, error } = useProductQuery(selectedProduct as any);
   const { getItemFromCart } = useCart();
@@ -58,16 +46,15 @@ const ProductSingleDetails: React.FC = () => {
   const [piece, setPiece] = useState<number | null | string>(null);
   const [productPrice, setProductPrice] = useState<any>(null);
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
-  // const [addToWishlistLoader, setAddToWishlistLoader] =
-  //   useState<boolean>(false);
-  const { closeModal } = useModalAction();
+  const { closeModal, openModal } = useModalAction();
   const { mutate: addtoCartData } = useCartMutation();
+  const { isAuthorized } = useUI();
 
   const medPrice =
     selectedProduct?.unit_prices?.filter(
       (data: any) => data.unit === piece
     )[0] || selectedProduct?.unit_prices?.[0];
-  // const medicineDetails = data?.medicine_details;
+
   const cartitems = getItemFromCart(selectedProduct.id);
 
   useEffect(() => {
@@ -77,7 +64,7 @@ const ProductSingleDetails: React.FC = () => {
     } else {
       setPiece(medPrice?.unit);
     }
-  }, [cartitems?.quantity]);
+  }, [cartitems?.quantity, selectedProduct?.id]);
 
   useEffect(() => {
     if (selectedProduct?.is_discountable) {
@@ -100,28 +87,32 @@ const ProductSingleDetails: React.FC = () => {
         price: medPrice?.price,
       });
     }
-  }, [medPrice, selectedQuantity]);
+  }, [medPrice, selectedQuantity, selectedProduct?.id]);
 
   let cartData = { ...selectedProduct, ...productPrice, unit: piece };
 
   // if (isLoading) return <p>Loading...</p>;
 
   function addToCart() {
-    setAddToCartLoader(true);
-    setTimeout(() => {
-      setAddToCartLoader(false);
-    }, 1500);
+    if (isAuthorized) {
+      setAddToCartLoader(true);
+      setTimeout(() => {
+        setAddToCartLoader(false);
+      }, 1500);
 
-    let data = {
-      id: cartData?.id,
-      name: cartData?.generic_name,
-      quantity: selectedQuantity,
-      unit: medPrice?.unit,
-      unit_size: medPrice?.unit_size,
-      isIncDrc: false,
-    };
+      let data = {
+        id: cartData?.id,
+        name: cartData?.generic_name,
+        quantity: selectedQuantity,
+        unit: medPrice?.unit,
+        unit_size: medPrice?.unit_size,
+        isIncDrc: false,
+      };
 
-    addtoCartData(data);
+      addtoCartData(data);
+    } else {
+      openModal('LOGIN_VIEW');
+    }
   }
 
   function navigateToProductPage() {

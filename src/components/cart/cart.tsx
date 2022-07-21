@@ -17,7 +17,7 @@ import { deleteCartMutation } from '@framework/cart/cart-delete';
 export default function Cart() {
   const { t } = useTranslation('common');
   const { closeDrawer, isAuthorized } = useUI();
-  const { items, total, isEmpty, resetCart } = useCart();
+  const { items, total, isEmpty } = useCart();
   const { openModal } = useModalAction();
   const { mutate: deleteCartItem } = deleteCartMutation();
 
@@ -41,7 +41,7 @@ export default function Cart() {
             <button
               className="flex flex-shrink items-center text-15px transition duration-150 ease-in focus:outline-none text-brand-dark opacity-50 hover:opacity-100 ltr:-mr-1.5 rtl:-ml-1.5"
               aria-label={t('text-clear-all')}
-              onClick={() => deleteCartItem({ id: '', type: 'all' })}
+              onClick={() => deleteCartItem({ id: 0, type: 'all' })}
             >
               <DeleteIcon />
               <span className="ltr:pl-1 lg:rtl:pr-1">

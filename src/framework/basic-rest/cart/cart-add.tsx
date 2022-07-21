@@ -23,7 +23,7 @@ export const useCartMutation = () => {
   return useMutation((input: any) => AddApiCart(input), {
     onSuccess: async (data: any) => {
       const cartItem: any = localStorage.getItem('medQuantity');
-      const response = JSON.parse(cartItem);
+      const response = JSON.parse(cartItem) || [];
 
       const existingItemIndex = response.findIndex(
         (existingItem: any) => existingItem.id === data?.cart?.id

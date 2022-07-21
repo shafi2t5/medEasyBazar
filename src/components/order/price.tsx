@@ -1,8 +1,8 @@
 import usePrice from '@framework/product/use-price';
-import { calculateTotal } from '@contexts/cart/cart.utils';
+import { calculateTotalPrice } from '@contexts/cart/cart.utils';
 
 export const TotalPrice: React.FC<{ items?: any }> = ({ items }) => {
-  const price = calculateTotal(items?.medicines) + items?.delivery_fee;
+  const price = calculateTotalPrice(items?.medicines) + items?.delivery_fee;
 
   return (
     <span className="total_price">
@@ -30,6 +30,6 @@ export const DeliveryFee = (delivery: any) => {
 };
 
 export const SubTotalPrice: React.FC<{ items?: any }> = ({ items }) => {
-  const price = calculateTotal(items);
+  const price = calculateTotalPrice(items);
   return <>{price}</>;
 };

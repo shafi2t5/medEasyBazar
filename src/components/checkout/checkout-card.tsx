@@ -14,16 +14,17 @@ import { toast } from 'react-toastify';
 
 const CheckoutCard: React.FC = () => {
   const { t } = useTranslation('common');
-  const { items, total, isEmpty } = useCart();
+  const { items, total, isEmpty, delivery_fee, chargeAmount, minimumOrder } =
+    useCart();
 
   const { mutate: orderPostApi, isLoading, data } = useOrderMutation();
   const { selectedAddress, isAuthorized, cartList } = useUI();
 
   //const discount = items.reduce((total, data) => total + data.discountValue, 0);
 
-  const deliveryAmount = cartList?.charge_free_order_amount
-    ? cartList?.charge_free_order_amount > total
-      ? cartList?.delivery_fee
+  const deliveryAmount = chargeAmount
+    ? chargeAmount > total
+      ? delivery_fee
       : 0
     : total < 1000
     ? 30
@@ -31,8 +32,8 @@ const CheckoutCard: React.FC = () => {
 
   function orderHeader() {
     // !isEmpty && Router.push(ROUTES.ORDER);
-    if (total < cartList?.minimum_order) {
-      return toast(`Minimum order amount ${cartList?.minimum_order}`);
+    if (total < minimumOrder) {
+      return toast(`Minimum order amount ${minimumOrder}`);
     }
     let orderData = {
       medicines: items.map((data) => {
@@ -55,7 +56,7 @@ const CheckoutCard: React.FC = () => {
     {
       id: 1,
       name: t('text-sub-total'),
-      price: Math.round(total),
+      price: total,
     },
     {
       id: 2,
@@ -70,7 +71,7 @@ const CheckoutCard: React.FC = () => {
     {
       id: 4,
       name: t('text-total'),
-      price: Math.round(total + deliveryAmount),
+      price: total + deliveryAmount,
     },
   ];
   return (

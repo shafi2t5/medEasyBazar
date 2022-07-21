@@ -1,10 +1,8 @@
 import ProductsCarousel from '@components/product/products-carousel';
-import { UIContext } from '@contexts/ui.context';
 import { useHomeProductsQuery } from '@framework/product/get-all-best-seller-products';
 import { LIMITS } from '@framework/utils/limits';
-import { ROUTES } from '@utils/routes';
 
-export default function BestSellerProductFeed() {
+export default function HomeProductFeed() {
   const { data, isLoading, error } = useHomeProductsQuery();
 
   return (

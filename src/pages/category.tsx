@@ -6,8 +6,7 @@ import { GetServerSideProps } from 'next';
 import Seo from '@components/seo/seo';
 import { QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
-import { fetchCategoryProducts } from '@framework/product/get-all-products';
-// import { fetchPopularProducts } from '@framework/product/get-all-popular-products';
+import { fetchCategoryProducts } from '@framework/product/get-category-products';
 import SectionHeader from '@components/common/section-header';
 import { useEffect, useState } from 'react';
 import { useUI } from '@contexts/ui.context';
@@ -69,9 +68,9 @@ export default function Category({ category }: { category: string }) {
   return (
     <>
       <Seo
-        title="Search"
+        title="Category"
         description="Fastest E-commerce template built with React, NextJS, TypeScript, React-Query and Tailwind CSS."
-        path="search"
+        path="category"
       />
       <Container>
         <div className="pb-3 mt-3">
@@ -106,17 +105,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   //   [API_ENDPOINTS.CATEGORIES, { limit: LIMITS.CATEGORIES_LIMITS }],
   //   fetchCategories
   // );
-  // await queryClient.prefetchInfiniteQuery(
-  //   [API_ENDPOINTS.PRODUCTS, { limit: LIMITS.PRODUCTS_LIMITS }],
-  //   fetchProducts
-  // );
-
-  // await queryClient.prefetchQuery(
-  //   [API_ENDPOINTS.POPULAR_PRODUCTS, query.category],
-  //   fetchPopularProducts
-  // )
-
-  console.log(query);
 
   return {
     props: {

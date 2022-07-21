@@ -28,7 +28,7 @@ export const OrderDetailsContent: React.FC<{ item?: any }> = ({ item }) => {
         {typeof item.price === 'number' && (
           <p>
             <span className="mr-1 font-bold">৳</span>
-            {item.price}
+            {item.price * item.quantity}
           </p>
         )}
       </div>
