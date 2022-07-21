@@ -55,7 +55,13 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
         />
         <div
           className="absolute top-0 flex items-center justify-center w-full h-full transition duration-200 ease-in-out bg-black ltr:left-0 rtl:right-0 bg-opacity-30 md:bg-opacity-0 md:group-hover:bg-opacity-30"
-          onClick={() => deleteCartItem({ id: item?.cart_id, type: 'single' })}
+          onClick={() =>
+            deleteCartItem({
+              id: item?.cart_id,
+              type: 'single',
+              itemId: item?.id,
+            })
+          }
           role="button"
         >
           <IoIosCloseCircle className="relative text-2xl text-white transition duration-300 ease-in-out transform md:scale-0 md:opacity-0 md:group-hover:scale-100 md:group-hover:opacity-100" />

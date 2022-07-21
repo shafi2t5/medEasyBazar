@@ -26,6 +26,12 @@ export const deleteCartMutation = () => {
         localStorage.removeItem('medQuantity');
       } else {
         clearItemFromCart(data?.cart?.id);
+        const cartItem: any = localStorage.getItem('medQuantity');
+        const response = JSON.parse(cartItem) || [];
+        let filteredItem = response.filter(
+          (item: any) => item.id != data?.cart?.itemId
+        );
+        localStorage.setItem('medQuantity', JSON.stringify(filteredItem));
       }
     },
     onError: (data: any) => {
