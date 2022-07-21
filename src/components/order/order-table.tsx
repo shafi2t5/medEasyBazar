@@ -8,7 +8,6 @@ import utc from 'dayjs/plugin/utc';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import timezone from 'dayjs/plugin/timezone';
 import { GrNext, GrPrevious } from 'react-icons/gr';
-// import { BsSearch } from 'react-icons/bs';
 
 export const CreatedAt: React.FC<{ createdAt?: any }> = ({ createdAt }) => {
   dayjs.extend(relativeTime);
@@ -66,12 +65,6 @@ const columns = [
       return <Status item={item} />;
     },
   },
-  // {
-  //   title: 'Delivery Time',
-  //   dataIndex: 'delivery_time',
-  //   key: 'delivery_time',
-  //   width: 140,
-  // },
   {
     title: 'Total Price',
     key: 'total',
@@ -91,7 +84,6 @@ const columns = [
 
 const OrderTable: React.FC<{ orders?: any }> = ({ orders }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [value, setValue] = useState('');
   const countPerPage = 5;
   let [filterData, setDataValue] = useState([]);
 
@@ -106,44 +98,12 @@ const OrderTable: React.FC<{ orders?: any }> = ({ orders }) => {
     setDataValue(orders.slice(0, countPerPage));
   }, [orders]);
 
-  // const onChangeSearch = (e: any) => {
-  //   setCurrentPage(1);
-  //   let filter: any = orders
-  //     .filter((item: any) =>
-  //       item.tracking_number
-  //         .toLowerCase()
-  //         .includes(e.target.value.toLowerCase())
-  //     )
-  //     .slice(0, countPerPage);
-  //   setValue(e.target.value);
-  //   if (!e.target.value) {
-  //     updatePage(1);
-  //   }
-  //   setDataValue(filter);
-  // };
-  // const onSubmitHandle = (e: any) => {
-  //   e.preventDefault();
-  // };
-
   return (
     <>
       <div className="items-center mb-5 md:flex md:justify-between sm:mb-10">
         <h2 className="mb-4 text-sm font-semibold md:text-xl text-brand-dark md:mb-0">
           My order list
         </h2>
-        {/* <form onSubmit={onSubmitHandle} className="relative">
-          <span className="absolute ltr:right-3 rtl:left-3 top-[80%] transform -translate-y-1/2 order-icon-color">
-            <BsSearch size={19} />
-          </span>
-          <Input
-            name="search"
-            type="search"
-            value={value}
-            onChange={onChangeSearch}
-            placeholder="Search Order list"
-            inputClassName=" h-[46px] w-full bg-white border border-[#E3E8EC] rounded-md order-search focus:border-2 focus:outline-none focus:border-brand focus:text-brand-muted"
-          />
-        </form> */}
       </div>
       <div className="order-list-table-wraper">
         <Table
@@ -154,19 +114,17 @@ const OrderTable: React.FC<{ orders?: any }> = ({ orders }) => {
           tableLayout={'auto'}
         />
       </div>
-      {!value.trim() && (
-        <div className="mt-5 ltr:text-right rtl:text-left">
-          <Pagination
-            current={currentPage}
-            onChange={updatePage}
-            pageSize={countPerPage}
-            total={orders?.length}
-            prevIcon={<GrPrevious size={12} style={{ color: '#090B17' }} />}
-            nextIcon={<GrNext size={12} style={{ color: '#090B17' }} />}
-            className="order-table-pagination"
-          />
-        </div>
-      )}
+      <div className="mt-5 ltr:text-right rtl:text-left">
+        <Pagination
+          current={currentPage}
+          onChange={updatePage}
+          pageSize={countPerPage}
+          total={orders?.length}
+          prevIcon={<GrPrevious size={12} style={{ color: '#090B17' }} />}
+          nextIcon={<GrNext size={12} style={{ color: '#090B17' }} />}
+          className="order-table-pagination"
+        />
+      </div>
     </>
   );
 };

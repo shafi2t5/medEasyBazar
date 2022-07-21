@@ -3,7 +3,6 @@ import { Popover, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { useUI } from '@contexts/ui.context';
 import { useDeleteOrderMutation } from '@framework/order/order-delete';
-import { useRouter } from 'next/router';
 
 const ActionsButton: React.FC<{ item?: any }> = ({ item }) => {
   const { openDrawer, setDrawerView } = useUI();
