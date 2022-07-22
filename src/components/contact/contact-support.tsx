@@ -44,22 +44,6 @@ const ContactSupport: FC<Props> = () => {
         {t('contact-form-info-title')}
       </Heading>
       <Text className="xl:leading-8">{t('contact-form-info-content')}</Text>
-      {/* <div className="flex mt-5 -mx-1">
-        {supportData.map((item, idx) => (
-          <Link
-            href={item.slug}
-            key={idx}
-            className="mx-1 transition-all shrink-0 hover:opacity-90"
-          >
-            <Image
-              src={item.thumbnail}
-              alt={item.name}
-              width={45}
-              height={45}
-            />
-          </Link>
-        ))}
-      </div> */}
     </div>
   );
 };

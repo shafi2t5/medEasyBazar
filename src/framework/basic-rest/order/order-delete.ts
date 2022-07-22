@@ -32,7 +32,6 @@ export const useDeleteOrderMutation = () => {
       closeDrawer();
     },
     onError: (data: any) => {
-      console.log(data?.data?.response.data.message, 'login error response');
       toast(data.response.data.message, {
         progressClassName: 'fancy-progress-bar',
         autoClose: 1500,
