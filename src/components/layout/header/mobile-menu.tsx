@@ -90,7 +90,7 @@ export default function MobileMenu() {
   const res = [
     {
       id: 1,
-      path: '/doctor',
+      path: '/doctor?dept=Medicine',
       label: 'Doctor List',
     },
     {

@@ -1,14 +1,13 @@
-import Link from 'next/link';
 import Image from '@components/ui/image';
 import { IoIosArrowForward } from 'react-icons/io';
 import cn from 'classnames';
 import { useTranslation } from 'next-i18next';
 import { LinkProps } from 'next/link';
 import { useUI } from '@contexts/ui.context';
-import { useEffect } from 'react';
-// import { UIContext } from '@contexts/ui.context';
-// import { useContext } from 'react';
-
+import { useRouter } from 'next/router';
+import { ROUTES } from '@utils/routes';
+import { fetchDoctorList } from '@framework/doctor/use-doctor';
+import { useState } from 'react';
 interface Props {
   dept: any;
   href?: LinkProps['href'];
@@ -24,18 +23,21 @@ const DoctorListCard: React.FC<Props> = ({
   index,
 }) => {
   const { t } = useTranslation('common');
-  const { setDoctorInput } = useUI();
-
-  useEffect(() => {
-    if (index === 0) {
-      setDoctorInput(dept?.department_en);
-    }
-  }, []);
+  const { setDoctorInput, setDoctorList } = useUI();
+  const history = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   return (
     <div
-      onClick={() => {
+      onClick={async () => {
+        const data = await fetchDoctorList({
+          text: dept?.department_en,
+          setIsLoading,
+        });
+
+        setDoctorList(data?.doctors);
         setDoctorInput(dept?.department_en);
+        history.push(`${ROUTES.DOCTOR}?dept=${dept?.department_en}`);
       }}
     >
       <a

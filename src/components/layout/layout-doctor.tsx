@@ -34,7 +34,7 @@ const Layout: React.FC = ({ children }) => {
             <div className={`xl:flex md:pb-2.5 pt-4`}>
               <div className="hidden xl:block shrink-0 ltr:pr-8 rtl:pl-8 xl:w-[320px] 2xl:w-[370px] pt-px">
                 <div className="bg-brand-sidebarColor flex flex-col justify-between rounded-md">
-                  {data?.data?.departments?.map((dept: any, index: any) => (
+                  {data?.data?.departments?.map((dept: any, index: number) => (
                     <DoctorListCard
                       key={`category--key-${dept.id}`}
                       dept={dept}
