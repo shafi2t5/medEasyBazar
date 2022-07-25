@@ -31,5 +31,10 @@ export const DeliveryFee = (delivery: any) => {
 
 export const SubTotalPrice: React.FC<{ items?: any }> = ({ items }) => {
   const price = calculateTotalPrice(items);
-  return <>{price}</>;
+  return (
+    <>
+      <span className="mr-1 font-bold">৳</span>
+      {price}
+    </>
+  );
 };
