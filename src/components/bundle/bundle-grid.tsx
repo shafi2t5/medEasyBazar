@@ -4,6 +4,7 @@ import { ROUTES } from '@utils/routes';
 import { useModalAction } from '@components/common/modal/modal.context';
 import { useUI } from '@contexts/ui.context';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 interface Props {
   className?: string;
 }
@@ -11,6 +12,7 @@ interface Props {
 const BundleGrid: React.FC<Props> = ({ className = 'mb-12 pb-0.5' }) => {
   const { openModal } = useModalAction();
   const { isAuthorized } = useUI();
+  const history = useRouter();
   const data = [
     {
       id: 1,
@@ -19,7 +21,9 @@ const BundleGrid: React.FC<Props> = ({ className = 'mb-12 pb-0.5' }) => {
       title: 'Chat with us',
       description: 'Chat now',
       bgColor: '#83ccdd',
-      cb: () => {},
+      cb: () => {
+        history.push('http://m.me/MedEasy.LifeEasy');
+      },
     },
     {
       id: 2,
