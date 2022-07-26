@@ -2,6 +2,7 @@ import { useModalAction } from '@components/common/modal/modal.context';
 import { useUI } from '@contexts/ui.context';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
 
@@ -21,12 +22,17 @@ async function signUp(input: SignUpInputType) {
 }
 export const useSignUpMutation = () => {
   const { authorize } = useUI();
-  const { closeModal } = useModalAction();
+  const { closeModal, openModal } = useModalAction();
+  const router: any = useRouter();
   return useMutation((input: SignUpInputType) => signUp(input), {
     onSuccess: (data: any) => {
       Cookies.set('auth_token', data?.data?.token);
       authorize();
-      closeModal();
+      if (router?.query?.page) {
+        openModal(router?.query?.page);
+      } else {
+        closeModal();
+      }
       toast(data?.data?.message, {
         progressClassName: 'fancy-progress-bar',
         autoClose: 1500,

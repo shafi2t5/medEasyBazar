@@ -4,6 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import { useMutation } from 'react-query';
+import { useRouter } from 'next/router';
 
 export interface LoginInputType {
   phone: string;
@@ -19,11 +20,16 @@ export async function login(input: any) {
 export const useLoginMutation = () => {
   const { authorize } = useUI();
   const { closeModal, openModal } = useModalAction();
+  const router: any = useRouter();
   return useMutation((input: any) => login(input), {
     onSuccess: (data: any) => {
       Cookies.set('auth_token', data?.data?.token);
       authorize();
-      closeModal();
+      if (router?.query?.page) {
+        openModal(router?.query?.page);
+      } else {
+        closeModal();
+      }
       toast(data?.data?.message, {
         progressClassName: 'fancy-progress-bar',
         autoClose: 1500,

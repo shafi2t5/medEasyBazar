@@ -39,7 +39,7 @@ const breakpoints = {
 const ProductSingleDetails: React.FC = () => {
   const { t } = useTranslation('common');
   const router = useRouter();
-  const { selectedProduct } = useUI();
+  const { selectedProduct, setSearchInput } = useUI();
   const { data, isLoading, error } = useProductQuery(selectedProduct as any);
   const { getItemFromCart } = useCart();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
@@ -89,8 +89,6 @@ const ProductSingleDetails: React.FC = () => {
     }
   }, [medPrice, selectedQuantity, selectedProduct?.id]);
 
-  let cartData = { ...selectedProduct, ...productPrice, unit: piece };
-
   // if (isLoading) return <p>Loading...</p>;
 
   function addToCart() {
@@ -99,12 +97,11 @@ const ProductSingleDetails: React.FC = () => {
       setTimeout(() => {
         setAddToCartLoader(false);
       }, 1500);
-
       let data = {
         cart_medicines: [
           {
-            id: cartData?.id,
-            name: cartData?.generic_name,
+            id: selectedProduct?.id,
+            name: selectedProduct?.medicine_name,
             quantity: selectedQuantity,
             unit: medPrice?.unit,
             unit_size: medPrice?.unit_size,
@@ -116,11 +113,15 @@ const ProductSingleDetails: React.FC = () => {
       addtoCartData(data);
     } else {
       openModal('LOGIN_VIEW');
+      if (router.pathname !== '/products/[slug]') {
+        router.push('/?page=PRODUCT_VIEW', undefined, { shallow: true });
+      }
     }
   }
 
   function navigateToProductPage() {
     closeModal();
+    setSearchInput('');
     router.push(
       `${ROUTES.PRODUCT}/${selectedProduct?.medicine_name}?generic_name=${selectedProduct?.generic_name}&category_name=${selectedProduct?.category_name}&id=${selectedProduct?.id}&strength=${selectedProduct?.strength}`
     );

@@ -1,23 +1,13 @@
 import cn from 'classnames';
 import Image from '@components/ui/image';
-import { useRouter } from 'next/router';
-import { ROUTES } from '@utils/routes';
-// import usePrice from '@framework/product/use-price';
 import { Product } from '@framework/types';
-// import { useModalAction } from '@components/common/modal/modal.context';
 import useWindowSize from '@utils/use-window-size';
-// import PlusIcon from '@components/icons/plus-icon';
-// import { useCart } from '@contexts/cart/cart.context';
-// import { AddToCart } from '@components/product/add-to-cart';
 import { useTranslation } from 'next-i18next';
 import productPlaceholder from '@assets/placeholders/product-placeholder.png';
-import dynamic from 'next/dynamic';
 import { discountCalculate } from '@utils/discount';
 import { useUI } from '@contexts/ui.context';
 import { useModalAction } from '@components/common/modal/modal.context';
-const AddToCart = dynamic(() => import('@components/product/add-to-cart'), {
-  ssr: false,
-});
+
 import PlusIcon from '@components/icons/plus-icon';
 
 interface ProductProps {
@@ -27,13 +17,6 @@ interface ProductProps {
 function RenderPopupOrAddToCart({ data }: { data: Product }) {
   const { t } = useTranslation('common');
   const { width } = useWindowSize();
-  // const { openModal } = useModalAction();
-  // const { isInCart, isInStock } = useCart();
-  // const iconSize = width! > 1024 ? '19' : '17';
-  // const outOfStock = isInCart(id) && !isInStock(id);
-  // function handlePopupView() {
-  //   openModal('PRODUCT_VIEW', data);
-  // }
   const iconSize = width! > 480 ? '19' : '17';
 
   if (!data?.is_available) {
@@ -48,33 +31,12 @@ function RenderPopupOrAddToCart({ data }: { data: Product }) {
     <button
       className="flex items-center justify-center w-8 h-8 text-4xl rounded-lg bg-brand-navColor lg:w-10 lg:h-10 text-brand-light focus:outline-none"
       aria-label="Count Button"
-      // onClick={handleAddClick}
-      // disabled={disabled}
     >
       <PlusIcon width={iconSize} height={iconSize} opacity="1" />
     </button>
   );
-
-  return <AddToCart data={data} />;
 }
 const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
-  const router = useRouter();
-  // const { openModal } = useModalAction();
-  // const { t } = useTranslation('common');
-  // const { price, basePrice, discount } = usePrice({
-  //   amount: product?.sale_price ? product?.sale_price : product?.price,
-  //   baseAmount: product?.price,
-  //   currencyCode: 'USD',
-  // });
-  // const { price: minPrice } = usePrice({
-  //   amount: product?.min_price ?? 0,
-  //   currencyCode: 'USD',
-  // });
-  // const { price: maxPrice } = usePrice({
-  //   amount: product?.max_price ?? 0,
-  //   currencyCode: 'USD',
-  // });
-
   const { openModal } = useModalAction();
 
   const { afterDiscount } = discountCalculate(

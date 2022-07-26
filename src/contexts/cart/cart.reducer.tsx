@@ -68,7 +68,6 @@ export function cartReducer(state: State, action: Action): State {
       return generateFinalState(state, data);
     }
     case 'TOTAL_ITEM': {
-      console.log(action?.total, 'ff');
       return {
         ...state,
         totalItems: action?.total,
