@@ -8,7 +8,7 @@ export default function ProductPopup() {
   const router = useRouter();
   const onCloseModal = () => {
     closeModal();
-    router.push(`${router.pathname}`, undefined, { shallow: true });
+    router.push(`${router.asPath}`, undefined, { shallow: true });
   };
   return (
     <>

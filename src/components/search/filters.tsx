@@ -1,5 +1,4 @@
 import { CategoryFilter } from './category-filter';
-import { BrandFilter } from './brand-filter';
 import { FilteredItem } from './filtered-item';
 import { useRouter } from 'next/router';
 import isEmpty from 'lodash/isEmpty';
@@ -49,7 +48,6 @@ export const ShopFilters: React.FC = () => {
 
       <CategoryFilter />
       <DietaryFilter />
-      <BrandFilter />
     </div>
   );
 };
