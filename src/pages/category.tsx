@@ -14,6 +14,7 @@ import { useUI } from '@contexts/ui.context';
 export default function Category({ category }: { category: string }) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isFetching, setIsFetching] = useState(false);
+  const [isData, setIsData] = useState(true);
   const {
     setCategoryList,
     setCategoryLimit,
@@ -30,12 +31,17 @@ export default function Category({ category }: { category: string }) {
 
   useEffect(() => {
     fetchCategory();
+    if (categoryLimit !== 0) {
+      setCategoryLimit(10);
+    }
+    setIsData(true);
   }, [categoryName]);
 
   useEffect(() => {
+    if (!isData) return;
     if (!isFetching) return;
     fetchMoreListItems();
-  }, [isFetching]);
+  }, [isFetching, isData]);
 
   function fetchMoreListItems() {
     setTimeout(async () => {
@@ -51,6 +57,10 @@ export default function Category({ category }: { category: string }) {
       categoryLimit,
       setCategoryLimit,
     });
+
+    if (data?.data?.category_products.length < 1) {
+      setIsData(false);
+    }
 
     setCategoryList([...categoryList, ...data?.data?.category_products]);
   }
@@ -86,7 +96,7 @@ export default function Category({ category }: { category: string }) {
             data={categoryList || []}
           />
         </div>
-        {(isLoading || isFetching) && (
+        {(isLoading || (isFetching && isData)) && (
           <div className="mt-4 font-bold text-xl">Fetching more items...</div>
         )}
       </Container>

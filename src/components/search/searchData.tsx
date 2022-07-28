@@ -7,7 +7,8 @@ import React, { useState, useEffect } from 'react';
 const SearchData = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isFetching, setIsFetching] = useState(false);
-  const [limit, setLimit] = useState(0);
+  const [isData, setIsData] = useState(true);
+  const [limit, setLimit] = useState(10);
   const { searchList, search_input, setSearchList } = useUI();
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -15,9 +16,17 @@ const SearchData = () => {
   }, []);
 
   useEffect(() => {
+    if (!isData) return;
     if (!isFetching) return;
     fetchMoreListItems();
-  }, [isFetching]);
+  }, [isFetching, isData]);
+
+  useEffect(() => {
+    if (search_input) {
+      setLimit(10);
+      setIsData(true);
+    }
+  }, [search_input]);
 
   function fetchMoreListItems() {
     setTimeout(async () => {
@@ -28,7 +37,9 @@ const SearchData = () => {
         setLimit,
         isSearch: false,
       });
-
+      if (data?.medicines.length < 1) {
+        setIsData(false);
+      }
       setSearchList([...searchList, ...data?.medicines]);
       setIsFetching(false);
     }, 2000);
@@ -52,7 +63,7 @@ const SearchData = () => {
       >
         <ProductGrid isLoading={false} error={false} data={searchList || []} />
       </div>
-      {(isLoading || isFetching) && (
+      {(isLoading || (isFetching && isData)) && (
         <div className="mt-4 font-bold text-xl">Fetching more items...</div>
       )}
     </Container>
