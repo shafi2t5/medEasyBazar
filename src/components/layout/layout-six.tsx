@@ -5,7 +5,7 @@ import { ROUTES } from '@utils/routes';
 // import { useCategoriesQuery } from '@framework/category/get-all-categories';
 import CategoryListCard from '@components/cards/category-list-card';
 import Container from '@components/ui/container';
-import { useHomeProductsQuery } from '@framework/product/get-all-best-seller-products';
+import { useHomeProductsQuery } from '@framework/product/get-all-home-products';
 import { useUI } from '@contexts/ui.context';
 import SearchData from '@components/search/searchData';
 

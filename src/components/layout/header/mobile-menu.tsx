@@ -14,7 +14,7 @@ import {
   IoLogoYoutube,
   IoClose,
 } from 'react-icons/io5';
-import { useHomeProductsQuery } from '@framework/product/get-all-best-seller-products';
+import { useHomeProductsQuery } from '@framework/product/get-all-home-products';
 import { ROUTES } from '@utils/routes';
 import { useRouter } from 'next/router';
 

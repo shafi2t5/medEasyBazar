@@ -4,10 +4,6 @@ import { GetStaticProps } from 'next';
 import Seo from '@components/seo/seo';
 import { QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
-import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
-import { LIMITS } from '@framework/utils/limits';
-import { fetchBestSellerProducts } from '@framework/product/get-all-best-seller-products';
-import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { IoCheckmarkCircle } from 'react-icons/io5';
 import dayjs from 'dayjs';
@@ -44,14 +40,6 @@ PaymentSuccess.Layout = Layout;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery(
-    [
-      API_ENDPOINTS.BEST_SELLER_GROCERY_PRODUCTS,
-      { limit: LIMITS.BEST_SELLER_GROCERY_PRODUCTS_LIMITS },
-    ],
-    fetchBestSellerProducts
-  );
 
   return {
     props: {

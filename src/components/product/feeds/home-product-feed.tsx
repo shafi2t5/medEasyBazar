@@ -1,5 +1,5 @@
 import ProductsCarousel from '@components/product/products-carousel';
-import { useHomeProductsQuery } from '@framework/product/get-all-best-seller-products';
+import { useHomeProductsQuery } from '@framework/product/get-all-home-products';
 import { LIMITS } from '@framework/utils/limits';
 
 export default function HomeProductFeed() {

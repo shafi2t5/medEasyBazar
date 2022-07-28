@@ -10,7 +10,7 @@ import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
 import { LIMITS } from '@framework/utils/limits';
 import CategoryGridListBlock from '@components/common/category-grid-list-block';
 import HomeProductFeed from '@components/product/feeds/home-product-feed';
-import { fetchBestSellerProducts } from '@framework/product/get-all-best-seller-products';
+import { fetchHomeProducts } from '@framework/product/get-all-home-products';
 import HomeBanner from '@components/cards/home-banner';
 
 export default function Home() {
@@ -42,11 +42,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   //   fetchCategories
   // );
   await queryClient.prefetchQuery(
-    [
-      API_ENDPOINTS.BEST_SELLER_GROCERY_PRODUCTS,
-      { limit: LIMITS.BEST_SELLER_GROCERY_PRODUCTS_LIMITS },
-    ],
-    fetchBestSellerProducts
+    [API_ENDPOINTS.HOME_PRODUCTS],
+    fetchHomeProducts
   );
 
   return {

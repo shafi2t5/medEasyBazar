@@ -8,7 +8,7 @@ import { SwiperSlide } from 'swiper/react';
 import useWindowSize from '@utils/use-window-size';
 import cn from 'classnames';
 import { ROUTES } from '@utils/routes';
-import { useHomeProductsQuery } from '@framework/product/get-all-best-seller-products';
+import { useHomeProductsQuery } from '@framework/product/get-all-home-products';
 
 interface CategoriesProps {
   className?: string;
