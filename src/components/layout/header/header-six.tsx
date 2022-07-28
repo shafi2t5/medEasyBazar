@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { useTranslation } from 'next-i18next';
 import { ROUTES } from '@utils/routes';
@@ -19,6 +19,8 @@ const AuthMenu = dynamic(() => import('./auth-menu'), { ssr: false });
 const CartButton = dynamic(() => import('@components/cart/cart-button'), {
   ssr: false,
 });
+import { fetchCartData } from '@framework/cart/cart';
+import { useCart } from '@contexts/cart/cart.context';
 
 type DivElementRef = React.MutableRefObject<HTMLDivElement>;
 
@@ -33,6 +35,7 @@ const Header: React.FC = () => {
   const { openModal } = useModalAction();
   const { t } = useTranslation('common');
   const siteHeaderRef = useRef() as DivElementRef;
+  const { setItemsForCart } = useCart();
 
   addActiveScroll(siteHeaderRef);
   function handleLogin() {
@@ -50,8 +53,14 @@ const Header: React.FC = () => {
   useEffect(() => {
     if (isAuthorized) {
       getUserProfile();
+      fetchCart();
     }
   }, [isAuthorized]);
+
+  async function fetchCart() {
+    const data: any = await fetchCartData();
+    setItemsForCart(data?.data);
+  }
 
   return (
     <header

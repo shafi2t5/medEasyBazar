@@ -4,7 +4,6 @@ import { useUI } from '@contexts/ui.context';
 import { useTranslation } from 'next-i18next';
 import cn from 'classnames';
 import { fetchCartData } from '@framework/cart/cart';
-import { useEffect } from 'react';
 import { useModalAction } from '@components/common/modal/modal.context';
 
 type CartButtonProps = {
@@ -24,12 +23,6 @@ const CartButton: React.FC<CartButtonProps> = ({
   const { openDrawer, setDrawerView, isAuthorized } = useUI();
   const { totalItems, setItemsForCart } = useCart();
   const { openModal } = useModalAction();
-
-  useEffect(() => {
-    if (isAuthorized) {
-      fetchCart();
-    }
-  }, [isAuthorized]);
 
   async function fetchCart() {
     const data: any = await fetchCartData();

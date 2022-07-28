@@ -8,5 +8,7 @@ export const fetchBannerResponse = async () => {
   return data?.medicine_top_slider;
 };
 export const useBannerQuery = () => {
-  return useQuery<any, Error>([API_ENDPOINTS.BANNER_API], fetchBannerResponse);
+  return useQuery<any, Error>([API_ENDPOINTS.BANNER_API], fetchBannerResponse, {
+    refetchOnWindowFocus: false,
+  });
 };

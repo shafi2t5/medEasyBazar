@@ -10,6 +10,9 @@ export const fetchHomeProducts = async () => {
 export const useHomeProductsQuery = () => {
   return useQuery<HomeProduct, Error>(
     [API_ENDPOINTS.HOME_PRODUCTS],
-    fetchHomeProducts
+    fetchHomeProducts,
+    {
+      refetchOnWindowFocus: false,
+    }
   );
 };

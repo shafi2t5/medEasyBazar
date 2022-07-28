@@ -14,7 +14,11 @@ export const fetchProduct = async (query: any) => {
   return data;
 };
 export const useProductQuery = (query: any) => {
-  return useQuery<Product, Error>([API_ENDPOINTS.PRODUCT, query], () =>
-    fetchProduct(query)
+  return useQuery<Product, Error>(
+    [API_ENDPOINTS.PRODUCT, query],
+    () => fetchProduct(query),
+    {
+      refetchOnWindowFocus: false,
+    }
   );
 };
