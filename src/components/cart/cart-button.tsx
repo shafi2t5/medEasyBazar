@@ -6,7 +6,6 @@ import cn from 'classnames';
 import { fetchCartData } from '@framework/cart/cart';
 import { useEffect } from 'react';
 import { useModalAction } from '@components/common/modal/modal.context';
-import { useLocalStorage } from '@utils/use-local-storage';
 
 type CartButtonProps = {
   className?: string;
@@ -25,10 +24,6 @@ const CartButton: React.FC<CartButtonProps> = ({
   const { openDrawer, setDrawerView, isAuthorized } = useUI();
   const { totalItems, setItemsForCart } = useCart();
   const { openModal } = useModalAction();
-  const [quantityForLocal, setQuantityForLocal] = useLocalStorage<any>(
-    'medQuantity',
-    JSON.stringify([])
-  );
 
   useEffect(() => {
     if (isAuthorized) {

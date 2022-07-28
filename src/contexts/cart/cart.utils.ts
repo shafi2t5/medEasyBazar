@@ -13,7 +13,7 @@ export interface UpdateItemInput extends Partial<Omit<Item, 'id'>> {}
 // Simple CRUD for Item
 
 export function getItem(items: Item[], id: Item['id']) {
-  return items.find((item) => item.id === id);
+  return items?.find((item) => item.id === id);
 }
 
 export function removeItem(items: Item[], id: Item['id']) {
@@ -46,7 +46,7 @@ export const calculateTotal = (items: Item[]) =>
   }, 0);
 
 export const calculateTotalItems = (items: Item[]) =>
-  items.reduce((sum, item) => sum + item?.quantity!, 0);
+  items?.reduce((sum, item) => sum + item?.quantity!, 0);
 
 export const calculateUniqueItems = (items: Item[]) => items?.length;
 

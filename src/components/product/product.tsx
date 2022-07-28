@@ -41,11 +41,12 @@ const ProductSingleDetails: React.FC = () => {
   const router = useRouter();
   const { selectedProduct, setSearchInput } = useUI();
   const { data, isLoading, error } = useProductQuery(selectedProduct as any);
-  const { getItemFromCart } = useCart();
+  const { getItemFromCart, setItemsForCart } = useCart();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [piece, setPiece] = useState<number | null | string>(null);
   const [productPrice, setProductPrice] = useState<any>(null);
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
+  const [addToBuyoader, setAddToBuyLoader] = useState<boolean>(false);
   const { closeModal, openModal } = useModalAction();
   const { mutate: addtoCartData } = useCartMutation();
   const { isAuthorized } = useUI();
@@ -111,6 +112,34 @@ const ProductSingleDetails: React.FC = () => {
       };
 
       addtoCartData(data);
+    } else {
+      openModal('LOGIN_VIEW');
+      if (router.pathname !== '/products/[slug]') {
+        router.push('/?page=PRODUCT_VIEW', undefined, { shallow: true });
+      }
+    }
+  }
+
+  function addToBuyNow() {
+    if (isAuthorized) {
+      setAddToBuyLoader(true);
+      setTimeout(() => {
+        setAddToBuyLoader(false);
+      }, 1500);
+
+      let data = {
+        ...selectedProduct,
+        quantity: selectedQuantity,
+        unit: medPrice?.unit,
+        unit_size: medPrice?.unit_size,
+      };
+      let buyNow = {
+        medicines: [data],
+      };
+
+      setItemsForCart(buyNow);
+      closeModal();
+      router.push('/checkout');
     } else {
       openModal('LOGIN_VIEW');
       if (router.pathname !== '/products/[slug]') {
@@ -218,8 +247,9 @@ const ProductSingleDetails: React.FC = () => {
               <div className="w-1/2">
                 <Button
                   variant="border"
-                  // onClick={addToWishlist}
-                  // loading={addToWishlistLoader}
+                  onClick={addToBuyNow}
+                  disabled={!selectedProduct?.is_available}
+                  loading={addToBuyoader}
                   className={`group w-full text-brand-ligh`}
                 >
                   {t('Buy Now')}
