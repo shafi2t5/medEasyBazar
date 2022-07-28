@@ -89,6 +89,7 @@ export type Product = {
   medicine_name: string;
   strength: string;
   unit_prices: unitPrice[];
+  related_medicines?: any[];
 };
 export type unitPrice = {
   price: number;
