@@ -1,5 +1,4 @@
 import ProductsCarousel from '@components/product/products-carousel';
-import { useRelatedProductsQuery } from '@framework/product/get-related-product';
 import { LIMITS } from '@framework/utils/limits';
 
 interface RelatedProductsProps {
@@ -15,17 +14,12 @@ const RelatedProductFeed: React.FC<RelatedProductsProps> = ({
   uniqueKey = 'related-product-popup',
   data,
 }) => {
-  // const { data, isLoading, error } = useRelatedProductsQuery({
-  //   limit: LIMITS.RELATED_PRODUCTS_LIMITS,
-  // });
   return (
     <ProductsCarousel
       sectionHeading="text-related-products"
       categorySlug="/search"
       className={className}
       products={data}
-      // loading={isLoading}
-      // error={error?.message}
       limit={LIMITS.RELATED_PRODUCTS_LIMITS}
       uniqueKey={uniqueKey}
       carouselBreakpoint={carouselBreakpoint}

@@ -17,7 +17,6 @@ import { useModalAction } from '@components/common/modal/modal.context';
 import useOnClickOutside from '@utils/use-click-outside';
 import { FiMenu } from 'react-icons/fi';
 import Delivery from '@components/layout/header/delivery';
-import CategoryDropdownMenu from '@components/category/category-dropdown-menu';
 const AuthMenu = dynamic(() => import('./auth-menu'), { ssr: false });
 const CartButton = dynamic(() => import('@components/cart/cart-button'), {
   ssr: false,
@@ -75,9 +74,6 @@ const Header: React.FC = () => {
                 {t('text-all-categories')}
               </span>
             </button>
-            {categoryMenu && (
-              <CategoryDropdownMenu className="mt-3 md:mt-2.5" />
-            )}
           </div>
           {/* End of Category */}
 
@@ -128,7 +124,6 @@ const Header: React.FC = () => {
                 <FiMenu className="text-2xl ltr:mr-3 rtl:ml-3" />
                 {t('text-all-categories')}
               </button>
-              {categoryMenu && <CategoryDropdownMenu />}
             </div>
 
             <HeaderMenu

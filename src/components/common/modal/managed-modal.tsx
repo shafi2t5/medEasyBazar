@@ -20,22 +20,13 @@ const PhoneNumberPopup = dynamic(
 const DeliveryAddresses = dynamic(
   () => import('@components/address/delivery-addresses')
 );
-const CategoryPopup = dynamic(
-  () => import('@components/category/category-popup')
-);
+
 const OrderPopup = dynamic(() => import('@components/order/orderWithImage'));
 
 const ManagedModal: React.FC = () => {
   const { isOpen, view } = useModalState();
   const { closeModal } = useModalAction();
 
-  if (view === 'CATEGORY_VIEW') {
-    return (
-      <Modal open={isOpen} onClose={closeModal} variant="bottom">
-        {view === 'CATEGORY_VIEW' && <CategoryPopup />}
-      </Modal>
-    );
-  }
   return (
     <Modal open={isOpen} onClose={closeModal}>
       {view === 'LOGIN_VIEW' && <LoginForm />}

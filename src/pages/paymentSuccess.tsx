@@ -13,7 +13,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import timezone from 'dayjs/plugin/timezone';
 
 export default function PaymentSuccess() {
-  const router = useRouter();
+  const router: any = useRouter();
 
   const { t } = useTranslation('common');
   dayjs.extend(relativeTime);

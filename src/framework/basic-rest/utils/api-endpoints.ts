@@ -20,4 +20,5 @@ export const API_ENDPOINTS = {
   ORDERIMAGE: '/patient/medicine-orders/',
   SUBSCRIBE: '/website/subscriber/',
   CART_API: '/patient/cart/',
+  CATEGORIES: 'patient/medicine-categories/',
 };

@@ -2,12 +2,10 @@ import Layout from '@components/layout/layout-six';
 import AccountLayout from '@components/my-account/account-layout';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import AddressGrid from '@components/address/address-grid';
-import { useAddressQuery } from '@framework/address/address';
 import { GetStaticProps } from 'next';
 import Seo from '@components/seo/seo';
 
 export default function AccountDetailsPage() {
-  let { data, isLoading } = useAddressQuery();
   return (
     <>
       <Seo
@@ -16,7 +14,7 @@ export default function AccountDetailsPage() {
         path="my-account/address"
       />
       <AccountLayout>
-        {!isLoading ? <AddressGrid /> : <div>Loading...</div>}
+        <AddressGrid />
       </AccountLayout>
     </>
   );

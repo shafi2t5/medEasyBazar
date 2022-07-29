@@ -8,15 +8,14 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import timezone from 'dayjs/plugin/timezone';
 
 export default function OrderInformation() {
-  const {
-    query: { orderId },
-  } = useRouter();
+  const { query } = useRouter();
   const { t } = useTranslation('common');
   dayjs.extend(relativeTime);
   dayjs.extend(utc);
   dayjs.extend(timezone);
 
   const { data, isLoading } = useOrdersQuery();
+  let orderId: number | string | string[] = query?.orderId ? query?.orderId : 0;
 
   let completedOrder = data?.orders?.find(
     (order: any) => order.id === +orderId
