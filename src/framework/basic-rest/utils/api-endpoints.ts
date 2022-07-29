@@ -1,6 +1,6 @@
 export const API_ENDPOINTS = {
-  LOGIN: '/login',
-  REGISTER: '/register',
+  LOGIN: '/patient/login/',
+  REGISTER: '/patient/register/',
   LOGOUT: '/logout',
   FORGET_PASSWORD: '/forget-password',
   PRODUCT: '/web/patient/medicine-details/',

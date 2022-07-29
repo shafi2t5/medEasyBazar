@@ -61,7 +61,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
         isSocial: false,
       });
     } catch (err: any) {
-      setError(err.message);
+      setError('Otp is not valid');
     }
   };
 
@@ -164,15 +164,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
               <div className="relative">
                 <Button
                   type="submit"
-                  // loading={isLoading}
-                  // disabled={isLoading}
                   className="w-full mt-1 tracking-normal h-11 md:h-12 font-15px md:font-15px"
                   variant="formButton"
                 >
-                  {
-                    // t('common:text-sign-in')
-                    'Contunue'
-                  }
+                  {t('common:text-sign-button')}
                 </Button>
               </div>
             </div>
@@ -189,17 +184,14 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
                 name="otp"
                 variant="solid"
                 onChange={(e) => setOtp(e.target.value)}
-                placeholder={
-                  // t('forms:label-contact-phone')
-                  'Enter Otp'
-                }
+                placeholder={t('forms:label-contact-otp')}
                 error={error}
               />
               <div className="relative">
                 <Button
                   type="submit"
                   loading={isLoading}
-                  disabled={isLoading}
+                  disabled={isLoading || !otp}
                   className="w-full mt-2 tracking-normal h-11 md:h-12 font-15px md:font-15px"
                   variant="formButton"
                 >

@@ -116,20 +116,14 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
                 />
               </div>
               <Input
-                label={
-                  //t('forms:label-name')
-                  'Age'
-                }
+                label={t('forms:contact-age')}
                 type="number"
                 variant="solid"
                 {...register('age')}
                 error={errors.age?.message}
               />
               <Input
-                label={
-                  // t('forms:label-name')
-                  'Address'
-                }
+                label={t('forms:label-address')}
                 type="text"
                 variant="solid"
                 {...register('address')}
@@ -137,10 +131,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
               />
               {data?.isSocial && (
                 <Input
-                  label={
-                    // t('forms:label-name')
-                    'Phone'
-                  }
+                  label={t('forms:label-phone')}
                   type="text"
                   variant="solid"
                   {...register('phone', {
@@ -156,8 +147,8 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
               <div className="relative">
                 <Button
                   type="submit"
-                  // loading={isLoading}
-                  // disabled={isLoading}
+                  loading={isLoading}
+                  disabled={isLoading}
                   className="w-full mt-2 tracking-normal h-11 md:h-12 font-15px md:font-15px"
                   variant="formButton"
                 >

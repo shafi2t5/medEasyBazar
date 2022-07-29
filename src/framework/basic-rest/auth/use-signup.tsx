@@ -5,6 +5,8 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
+import http from '@framework/utils/http';
+import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
 
 export interface SignUpInputType {
   name: string;
@@ -15,10 +17,7 @@ export interface SignUpInputType {
   token: string;
 }
 async function signUp(input: SignUpInputType) {
-  return await axios.post(
-    'https://daktarbondhu.com:5001/api/patient/register/',
-    input
-  );
+  return await http.post(`${API_ENDPOINTS.REGISTER}`, input);
 }
 export const useSignUpMutation = () => {
   const { authorize } = useUI();

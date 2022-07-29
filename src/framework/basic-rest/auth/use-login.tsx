@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import { useMutation } from 'react-query';
 import { useRouter } from 'next/router';
+import http from '@framework/utils/http';
+import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
 
 export interface LoginInputType {
   phone: string;
@@ -12,10 +14,7 @@ export interface LoginInputType {
 }
 
 export async function login(input: any) {
-  return await axios.post(
-    'https://daktarbondhu.com:5001/api/patient/login/',
-    input
-  );
+  return await http.post(`${API_ENDPOINTS.LOGIN}`, input);
 }
 export const useLoginMutation = () => {
   const { authorize } = useUI();
