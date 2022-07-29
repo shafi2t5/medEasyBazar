@@ -11,8 +11,8 @@
   "address-required": "Address is required",
   "phone-required": "Phone number is required",
   "last-name-required": "Last name is required",
-  "label-name-required": "Name (required)",
-  "label-email-required": "Email Address (required)",
+  "label-name-required": "Name required",
+  "label-email-required": "Email Address required",
   "label-contact-phone": "Phone Number",
   "label-contact-otp": "Enter Otp",
   "label-male": "Male",
@@ -56,7 +56,7 @@
   "contact-title-required": "Contact title is required",
   "default-type-required": "Default type Required",
   "contact-number-required": "Contact number is required",
-  "contact-age": "Age",
-  "contact-age-required": "Age is required"
-  
+  "contact-age": "Age *",
+  "contact-age-required": "Age is required",
+  "label-avatar":"Avatar"
 }

@@ -61,10 +61,7 @@ const AccountDetails: React.FC = () => {
           <div className="flex flex-col space-y-4 sm:space-y-5">
             <div className="flex flex-col sm:flex-row -mx-1.5 md:-mx-2.5 space-y-4 sm:space-y-0">
               <Input
-                label={
-                  // t('forms:label-first-name')
-                  'Name'
-                }
+                label={t('forms:label-first-name')}
                 {...register('name', {
                   required: 'forms:first-name-required',
                 })}
@@ -76,7 +73,7 @@ const AccountDetails: React.FC = () => {
               <Input
                 label={t('forms:label-email-star')}
                 {...register('email', {
-                  required: 'forms:label-email-star',
+                  required: 'forms:label-email-required',
                 })}
                 placeholder="Enter Email"
                 variant="solid"
@@ -87,10 +84,7 @@ const AccountDetails: React.FC = () => {
             <div className="flex flex-col sm:flex-row -mx-1.5 md:-mx-2.5 space-y-4 sm:space-y-0">
               <Input
                 type="number"
-                label={
-                  // t('forms:contact-age')
-                  'Age'
-                }
+                label={t('forms:contact-age')}
                 {...register('age', {
                   required: 'forms:contact-age-required',
                 })}
@@ -124,10 +118,7 @@ const AccountDetails: React.FC = () => {
               />
               <Input
                 type="file"
-                label={
-                  //  t('forms:label-phone')
-                  'Avatar'
-                }
+                label={t('forms:label-avatar')}
                 {...register('avatar', {
                   required: 'Avatar is required',
                 })}
