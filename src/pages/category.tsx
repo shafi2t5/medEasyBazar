@@ -24,6 +24,7 @@ export default function Category({ category }: { category: string }) {
   } = useUI();
 
   const categoryNames: any = categoryName || category;
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -34,7 +35,12 @@ export default function Category({ category }: { category: string }) {
     if (categoryLimit !== 0) {
       setCategoryLimit(10);
     }
-    setIsData(true);
+
+    if (categoryNames === 'Best Selling Products') {
+      setIsData(false);
+    } else {
+      setIsData(true);
+    }
   }, [categoryName]);
 
   useEffect(() => {
@@ -58,7 +64,10 @@ export default function Category({ category }: { category: string }) {
       setCategoryLimit,
     });
 
-    if (data?.data?.category_products.length < 1) {
+    if (
+      data?.data?.category_products.length < 10 ||
+      categoryNames === 'Best Selling Products'
+    ) {
       setIsData(false);
     }
 
@@ -96,7 +105,7 @@ export default function Category({ category }: { category: string }) {
             data={categoryList || []}
           />
         </div>
-        {(isLoading || (isFetching && isData)) && (
+        {isFetching && isData && (
           <div className="mt-4 font-bold text-xl">Fetching more items...</div>
         )}
       </Container>

@@ -6,7 +6,7 @@ export const API_ENDPOINTS = {
   PRODUCT: '/web/patient/medicine-details/',
   HOME_PRODUCTS: '/web/patient/medicine-homepage-products/',
   BANNER_API: '/web/patient/medicine-page-top-slider/',
-  BEST_SELLER_GROCERY_PRODUCTS: '/web/patient/medicine-homepage-products/',
+  BEST_SELLER_PRODUCTS: 'web/patient/best-selling-product/',
   CATEGORY_PRODUCTS: '/web/patient/category-products/',
   SEARCH: '/web/patient/search-medicines/',
   ORDERS: '/patient/medicine-orders/',

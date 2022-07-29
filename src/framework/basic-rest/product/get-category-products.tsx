@@ -10,18 +10,29 @@ export const fetchCategoryProducts = async ({
 }: any) => {
   setIsLoading(true);
   try {
-    const { data } = await http.get(
-      `${
-        API_ENDPOINTS.CATEGORY_PRODUCTS
-      }?category_name=${category}&from=${categoryLimit}&to=${
-        categoryLimit + 10
-      }`
-    );
+    let response = {};
+    if (category === 'Best Selling Products') {
+      const { data } = await http.get(`${API_ENDPOINTS.BEST_SELLER_PRODUCTS}`);
+      response = {
+        status: data.status,
+        category_products: data.best_selling_product,
+      };
+    } else {
+      const { data } = await http.get(
+        `${
+          API_ENDPOINTS.CATEGORY_PRODUCTS
+        }?category_name=${category}&from=${categoryLimit}&to=${
+          categoryLimit + 10
+        }`
+      );
+      response = data;
+    }
+
     setCategoryLimit(categoryLimit + 10);
 
     setIsLoading(false);
     return {
-      data: data as Product[],
+      data: response as Product[],
     };
   } catch (error) {
     setIsLoading(false);

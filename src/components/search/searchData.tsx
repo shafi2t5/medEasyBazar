@@ -37,7 +37,7 @@ const SearchData = () => {
         setLimit,
         isSearch: false,
       });
-      if (data?.medicines.length < 1) {
+      if (data?.medicines.length < 10) {
         setIsData(false);
       }
       setSearchList([...searchList, ...data?.medicines]);

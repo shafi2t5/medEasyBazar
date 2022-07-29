@@ -209,7 +209,7 @@ const ProductSingleDetails: React.FC = () => {
                     MRP ৳ {medPrice?.price.toFixed(2) || ''}
                   </del>
                   <div className="text-brand-navColor text-sm">
-                    {selectedProduct?.discount_value || ''}% Off
+                    {selectedProduct?.discount_value + '' || ''}% Off
                   </div>
                 </div>
               </>
